@@ -1,0 +1,731 @@
+/* Landing Page Layout */
+.landing-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Video Background */
+.video-background {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  z-index: -2;
+  object-fit: cover;
+}
+
+/* Dark Overlay for Better Text Readability */
+.video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: -1;
+}
+
+/* Header Styles */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px 30px;
+  z-index: 100;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.college-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 50%;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.college-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.welcome-text {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: fadeIn 1s ease-out;
+}
+
+/* Main Content Area */
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 20px;
+  z-index: 10;
+}
+
+/* Footer Styles */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  z-index: 100;
+}
+
+/* Click Here Button */
+.click-here-btn {
+  background: linear-gradient(135deg, #1a365d 0%, #2c5282 50%, #3182ce 100%);
+  color: #ffffff;
+  font-size: 1.125rem;
+  font-weight: 600;
+  padding: 16px 48px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
+}
+
+.click-here-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, #2c5282 0%, #3182ce 50%, #4299e1 100%);
+}
+
+.click-here-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ==================== MODAL STYLES ==================== */
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal Container */
+.modal {
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 24px;
+  padding: 40px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Close Button */
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  border-radius: 50%;
+  font-size: 24px;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  color: #dc2626;
+  transform: rotate(90deg);
+}
+
+/* Modal Header */
+.modal-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.modal-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #1a365d 0%, #3182ce 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 8px 0;
+}
+
+.modal-subtitle {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Form Styles */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.label-icon {
+  font-size: 1rem;
+}
+
+.form-input {
+  padding: 14px 18px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #1e293b;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.form-input::placeholder {
+  color: #94a3b8;
+}
+
+.form-input:hover {
+  border-color: #cbd5e1;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 4px rgba(49, 130, 206, 0.15);
+}
+
+/* Submit Button */
+.submit-btn {
+  margin-top: 12px;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #1a365d 0%, #2c5282 50%, #3182ce 100%);
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(26, 54, 93, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(26, 54, 93, 0.4);
+  background: linear-gradient(135deg, #2c5282 0%, #3182ce 50%, #4299e1 100%);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* ==================== NAVIGATION GRID STYLES ==================== */
+
+.nav-grid-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1100px;
+  /* Add margin to position it nicely between header and bottom */
+  margin-top: 40px; 
+  padding: 20px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 80px; /* Fixed height for rows */
+  gap: 24px; /* Increased gap for better spacing */
+  width: 100%;
+}
+
+.nav-item {
+  background: rgba(255, 255, 255, 0.85); /* Slightly transparent white */
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 16px; /* High border radius like buttons */
+  color: #0f172a; /* Dark blue/slate text */
+  font-size: 1.25rem;
+  font-weight: 800; /* Bolder text */
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy transition */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  color: #1e40af; /* Brighter blue on hover */
+  border-color: #fff;
+}
+
+.nav-item:active {
+  transform: translateY(-2px);
+}
+
+/* Central "ABOUT" item styling */
+.nav-item-large {
+  grid-column: 2 / span 2; /* Spans cols 2 and 3 */
+  grid-row: 2 / span 2;    /* Spans rows 2 and 3 */
+  font-size: 2.5rem; /* Larger text */
+  background: rgba(240, 249, 255, 0.9); /* Slightly bluish tint */
+  z-index: 10;
+  color: #1e3a8a;
+}
+
+/* Specific Grid Placements to match the visual reference */
+/* Row 1 */
+.nav-grid > :nth-child(1) { grid-area: 1 / 1 / 2 / 2; } /* BE */
+.nav-grid > :nth-child(2) { grid-area: 1 / 2 / 2 / 3; } /* BTech */
+.nav-grid > :nth-child(3) { grid-area: 1 / 3 / 2 / 4; } /* BArch */
+.nav-grid > :nth-child(4) { grid-area: 1 / 4 / 2 / 5; } /* MBA */
+
+/* Row 2 */
+.nav-grid > :nth-child(5) { grid-area: 2 / 1 / 3 / 2; } /* MCA */
+/* Child 6 (About) spans 2/2 to 4/4 */
+.nav-grid > :nth-child(7) { grid-area: 2 / 4 / 3 / 5; } /* ME */
+
+/* Row 3 */
+.nav-grid > :nth-child(8) { grid-area: 3 / 1 / 4 / 2; } /* PHD */
+.nav-grid > :nth-child(9) { grid-area: 3 / 4 / 4 / 5; } /* Placement */
+
+/* Row 4 */
+.nav-grid > :nth-child(10) { grid-area: 4 / 1 / 5 / 2; } /* Sports */
+.nav-grid > :nth-child(11) { grid-area: 4 / 2 / 5 / 3; } /* Hostel */
+.nav-grid > :nth-child(12) { grid-area: 4 / 3 / 5 / 4; } /* Transport */
+.nav-grid > :nth-child(13) { grid-area: 4 / 4 / 5 / 5; } /* Scholarship */
+
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .nav-grid {
+    grid-template-columns: repeat(2, 1fr); /* Switch to 2 cols */
+    grid-auto-rows: 70px;
+    gap: 16px;
+  }
+  
+  .nav-item-large {
+    grid-column: 1 / -1; /* Full width */
+    grid-row: auto;      /* Auto height */
+    aspect-ratio: 3/1;
+    font-size: 2rem;
+  }
+  
+  /* Reset explicit grid areas for mobile to let them auto-flow */
+  .nav-grid > * { grid-area: auto !important; }
+}
+
+@media (max-width: 480px) {
+  .nav-grid {
+    grid-template-columns: 1fr; /* Single column */
+    gap: 12px;
+  }
+  
+  .nav-item {
+    font-size: 1.1rem;
+    padding: 15px;
+    min-height: 60px;
+  }
+
+  .nav-item-large {
+    font-size: 1.5rem;
+    min-height: 100px;
+  }
+}
+
+/* ==================== B.E COURSES STYLES ==================== */
+
+.be-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  padding-top:0px;
+  animation: fadeIn 0.4s ease-out;
+  margin-top: 0; /* Removed top margin since header is gone */
+}
+
+.be-title {
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.be-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.be-item {
+  /* Background image is handled inline now */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 140px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Remove the pseudo-element overlay we added for glassmorphism as we now have image bg */
+.be-item::before {
+  display: none;
+}
+
+.be-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  /* Add a highlight border on hover */
+  border-color: rgba(255, 255, 255, 0.8);
+  /* Create a zoom effect on the background image */
+  background-size: 110% !important; /* Force zoom, need important as inline style sets size */
+}
+
+.be-icon {
+  font-size: 2.2rem;
+  margin-bottom: 2px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.be-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff; /* White text for contrast on dark bg */
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Menu Button (Back) */
+.menu-back-btn {
+  background: #ffffff;
+  color: #0f172a;
+  border: 2px solid #334155; /* Dark border as per common designs like this */
+  padding: 8px 24px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 6px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  letter-spacing: 0.5px;
+}
+
+.menu-back-btn:hover {
+  background: #f1f5f9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.menu-back-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsive Styles for B.E Grid */
+@media (max-width: 900px) {
+  .be-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .be-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .be-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .be-item {
+    padding: 24px;
+    min-height: 120px;
+  }
+
+  .be-icon {
+    font-size: 2rem;
+  }
+}
+
+/* ==================== INNER PAGE BACKGROUND ==================== */
+.inner-page-bg {
+  /* Image background with dark overlay for readability */
+  background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.9)), url('/images/ace.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ==================== BE PAGE BACKGROUND ==================== */
+.be-page-bg {
+  /* Tech/Abstract background for Engineering courses */
+  background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('/images/tech_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* changed from center to flex-start */
+  padding-top: 40px; /* Overrides the 100px from .main-content */
+}
+
+/* ==================== B.TECH PAGE BACKGROUND ==================== */
+.btech-page-bg {
+  /* Specific background for B.Tech page */
+  background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('/images/btech/btechbg.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+}
+
+
+/* ==================== B.TECH GRID STYLES ==================== */
+.btech-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 Columns by default */
+  gap: 24px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+/* Specific styling for the 5th item (Information Technology) on Desktop */
+.btech-grid > .be-item:nth-child(5) {
+  grid-column: 1 / span 2; /* Span full width of the 2 columns */
+  width: 60%; /* Restricted width as requested */
+  justify-self: center; /* Center horizontally */
+}
+
+/* Mobile Responsive for B.Tech */
+@media (max-width: 600px) {
+  .btech-grid {
+    grid-template-columns: 1fr; /* Stack one by one */
+  }
+
+  /* Reset 5th item properties for mobile */
+  .btech-grid > .be-item:nth-child(5) {
+    grid-column: auto; /* Default span */
+    width: 100%; /* Full width */
+    justify-self: stretch; /* Default alignment */
+  }
+}
+
+/* ==================== M.E PAGE BACKGROUND ==================== */
+.me-page-bg {
+  /* Specific background for M.E page */
+  background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('/images/college.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+}
+
+/* ==================== PH.D PAGE BACKGROUND ==================== */
+.phd-page-bg {
+  /* Generated abstract research background */
+  background: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.9)), url('/images/phd_page_background.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+}
+
+/* START BUTTON */
+.click-here-container {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  perspective: 1000px;
+}
+
+.start-btn {
+  position: relative;
+  background: linear-gradient(to bottom, #3b82f6, #2563eb);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 800;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 
+    0 6px 0 #1d4ed8,
+    0 10px 15px rgba(0,0,0,0.3),
+    inset 0 2px 0 rgba(255,255,255,0.3);
+  transition: all 0.1s;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-family: 'Oswald', sans-serif; /* Assuming existing font or generic sans */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.start-btn:active {
+  transform: translateY(10px);
+  box-shadow: 
+    0 0 0 #1d4ed8,
+    0 5px 10px rgba(0,0,0,0.4),
+    inset 0 2px 0 rgba(255,255,255,0.3);
+}
+
+.start-btn:hover {
+  background: linear-gradient(to bottom, #60a5fa, #3b82f6);
+}
+
+.cursor-icon {
+  width: 50px;
+  height: auto;
+  filter: drop-shadow(0 4px 4px rgba(0,0,0,0.3));
+  position: absolute;
+  right: -30px;
+  bottom: -30px;
+  pointer-events: none;
+  animation: cursorFloat 2s ease-in-out infinite;
+}
+
+@keyframes cursorFloat {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(5px, 5px); }
+}
+
