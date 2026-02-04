@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Lottie from 'lottie-react';
 import collegeLogo from '../assets/college-logo.png';
+// @ts-ignore - JSON import for Lottie
+import welcomeAnimation from '../../public/assets/Welcome Animation.json';
+// @ts-ignore - JSON import for Lottie
+import sadAnimation from '../../public/assets/Sad guy is walking.json';
 // We'll duplicate this CSS import or ensure App.css is global
 import '../App.css'; 
 
 const Home = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false);
+  const [showSad, setShowSad] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,7 +26,13 @@ const Home = () => {
 
   const handleClose = () => {
     setIsModalOpen(false);
-    navigate('/menu');
+    
+    // Show sad animation for 3 seconds when closing without submit
+    setShowSad(true);
+    setTimeout(() => {
+      setShowSad(false);
+      navigate('/menu');
+    }, 3000);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +48,13 @@ const Home = () => {
     console.log('Form submitted:', formData);
     setIsModalOpen(false);
     setFormData({ name: '', email: '', phone: '' });
-    navigate('/menu');
+    
+    // Show welcome animation for 3 seconds
+    setShowWelcome(true);
+    setTimeout(() => {
+      setShowWelcome(false);
+      navigate('/menu');
+    }, 3000);
   };
 
   return (
@@ -113,8 +132,33 @@ const Home = () => {
           </div>
         </div>
       )}
+
+      {/* Welcome Animation Overlay */}
+      {showWelcome && (
+        <div className="welcome-overlay">
+          <Lottie 
+            animationData={welcomeAnimation} 
+            loop={true}
+            className="welcome-animation"
+          />
+        </div>
+      )}
+
+      {/* Sad Animation Overlay */}
+      {showSad && (
+        <div className="sad-overlay">
+          <Lottie 
+            animationData={sadAnimation} 
+            loop={true}
+            className="sad-animation"
+          />
+          <p className="sad-text">You haven't added your details!!!</p>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Home;
+
+

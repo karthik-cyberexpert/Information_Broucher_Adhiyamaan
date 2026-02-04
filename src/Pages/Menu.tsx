@@ -1,8 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Lottie from 'lottie-react';
 import collegeLogo from '../assets/college-logo.png';
 import DepartmentPage from '../DepartmentPage';
+// @ts-ignore
+import droneAnimation from '../../public/assets/drone_fly.json';
 import '../App.css'; 
+
+interface DroneState {
+  active: boolean;
+  buttonRect: DOMRect | null;
+  phase: 'descend' | 'grab' | 'ascend' | null;
+  pendingAction: (() => void) | null;
+}
 
 const Menu = () => {
   const navigate = useNavigate();
@@ -16,14 +26,25 @@ const Menu = () => {
   // Selected Department State for Detailed View
   const [selectedDepartment, setSelectedDepartment] = useState<{name: string, icon: string, bg: string} | null>(null);
 
+  // Drone Animation State
+  const [droneState, setDroneState] = useState<DroneState>({
+    active: false,
+    buttonRect: null,
+    phase: null,
+    pendingAction: null
+  });
+  const [flyingButtonStyle, setFlyingButtonStyle] = useState<React.CSSProperties>({});
+  const [flyingButtonText, setFlyingButtonText] = useState('');
+  const [flyingButtonBg, setFlyingButtonBg] = useState('');
+
   // Navigation Items Data
   const navItems = [
     { title: 'B.E', id: 'be', bg: '/images/bebaack.jpg' },
     { title: 'B.Tech', id: 'btech', bg: '/images/tech_bg.png' },
-    { title: 'B.Arch', id: 'barch', bg: '/images/civilback.jpg' }, // No dedicated page yet
-    { title: 'MBA', id: 'mba', bg: '/images/mba.jpg' }, // No dedicated page yet
-    { title: 'MCA', id: 'mca', bg: '/images/mca.jpg' }, // No dedicated page yet
-    { title: 'ABOUT', id: 'about', className: 'nav-item-large', bg: '/images/aboutcollege.jpg' }, // Central item
+    { title: 'B.Arch', id: 'barch', bg: '/images/civilback.jpg' },
+    { title: 'MBA', id: 'mba', bg: '/images/mba.jpg' },
+    { title: 'MCA', id: 'mca', bg: '/images/mca.jpg' },
+    { title: 'ABOUT', id: 'about', className: 'nav-item-large', bg: '/images/aboutcollege.jpg' },
     { title: 'M.E', id: 'me', bg: '/images/me.jpg' },
     { title: 'P.H.D', id: 'phd', bg: '/images/college.jpeg' },
     { title: 'Placement', id: 'placement', bg: '/images/placement.jpg' },
@@ -65,7 +86,6 @@ const Menu = () => {
   ];
 
   // Ph.D Courses Data
-  // Ph.D Courses Data
   const phdCourses = [
     { name: 'Ph.D. Computer Science', icon: '💻', bg: '/images/computerback.jpg' },
     { name: 'Ph.D. ECE', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg' },
@@ -81,30 +101,85 @@ const Menu = () => {
   const aboutData = { name: 'About ACE', icon: '🏫', bg: '/images/aboutcollege.jpg' };
   const hostelData = { name: 'Hostel Facilities', icon: '🏨', bg: '/images/hostel.jpg' };
 
-  const handleNavClick = (id: string) => {
-    // Check if it's a page navigation
-    if (['placement', 'scholarship', 'sports', 'transport', 'about', 'hostel'].includes(id)) {
-      navigate(`/${id}`);
-      return;
-    }
-
-    // Scroll to top for all internal navigation
-    window.scrollTo(0, 0);
-
-    // Handle Sub-menus
-    if (id === 'be') setShowBEDetails(true);
-    else if (id === 'btech') setShowBTechDetails(true);
-    else if (id === 'me') setShowMEDetails(true);
-    else if (id === 'phd') setShowPhDDetails(true);
-
-    // Handle Single Departments
-    else if (id === 'barch') handleCourseClick(bArchData);
-    else if (id === 'mba') handleCourseClick(mbaData);
-    else if (id === 'mca') handleCourseClick(mcaData);
-    else if (id === 'about') handleCourseClick(aboutData);
-    else if (id === 'hostel') handleCourseClick(hostelData);
+  // Start drone animation sequence
+  const startDroneAnimation = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
+    title: string,
+    bg: string,
+    action: () => void
+  ) => {
+    const button = e.currentTarget;
+    const rect = button.getBoundingClientRect();
     
-    console.log(`Clicked ${id}`);
+    // Set flying button appearance
+    setFlyingButtonText(title);
+    setFlyingButtonBg(bg);
+    setFlyingButtonStyle({
+      position: 'fixed',
+      left: rect.left,
+      top: rect.top,
+      width: rect.width,
+      height: rect.height,
+      opacity: 1,
+      transition: 'none'
+    });
+
+    // Hide original button
+    button.style.opacity = '0';
+
+    // Start drone animation
+    setDroneState({
+      active: true,
+      buttonRect: rect,
+      phase: 'descend',
+      pendingAction: action
+    });
+
+    // Phase 2: After drone descends (0.8s), start grabbing
+    setTimeout(() => {
+      setDroneState(prev => ({ ...prev, phase: 'grab' }));
+      
+      // Phase 3: After grab (0.3s), ascend together
+      setTimeout(() => {
+        setDroneState(prev => ({ ...prev, phase: 'ascend' }));
+        setFlyingButtonStyle(prev => ({
+          ...prev,
+          top: -200,
+          transition: 'top 0.8s ease-in'
+        }));
+        
+        // Complete animation and navigate
+        setTimeout(() => {
+          setDroneState({ active: false, buttonRect: null, phase: null, pendingAction: null });
+          action();
+        }, 800);
+      }, 300);
+    }, 800);
+  };
+
+  const handleNavClick = (id: string, e: React.MouseEvent<HTMLButtonElement>, item: typeof navItems[0]) => {
+    const action = () => {
+      // Check if it's a page navigation
+      if (['placement', 'scholarship', 'sports', 'transport', 'about', 'hostel'].includes(id)) {
+        navigate(`/${id}`);
+        return;
+      }
+
+      window.scrollTo(0, 0);
+
+      // Handle Sub-menus
+      if (id === 'be') setShowBEDetails(true);
+      else if (id === 'btech') setShowBTechDetails(true);
+      else if (id === 'me') setShowMEDetails(true);
+      else if (id === 'phd') setShowPhDDetails(true);
+
+      // Handle Single Departments
+      else if (id === 'barch') setSelectedDepartment(bArchData);
+      else if (id === 'mba') setSelectedDepartment(mbaData);
+      else if (id === 'mca') setSelectedDepartment(mcaData);
+    };
+
+    startDroneAnimation(e, item.title, item.bg, action);
   };
 
   const handleBackToNav = () => {
@@ -112,17 +187,23 @@ const Menu = () => {
     setShowBTechDetails(false);
     setShowMEDetails(false);
     setShowPhDDetails(false);
-    window.scrollTo(0, 0); // Scroll to top
+    window.scrollTo(0, 0);
   };
 
-  const handleCourseClick = (course: {name: string, icon: string, bg: string}) => {
-    setSelectedDepartment(course);
-    window.scrollTo(0, 0); // Scroll to top
+  const handleCourseClick = (
+    e: React.MouseEvent<HTMLDivElement>,
+    course: {name: string, icon: string, bg: string}
+  ) => {
+    const action = () => {
+      setSelectedDepartment(course);
+      window.scrollTo(0, 0);
+    };
+    startDroneAnimation(e, course.name, course.bg, action);
   };
 
   const handleBackFromDept = () => {
     setSelectedDepartment(null);
-    window.scrollTo(0, 0); // Scroll to top
+    window.scrollTo(0, 0);
   };
 
   // View States
@@ -132,6 +213,39 @@ const Menu = () => {
   const isBTechDetails = showBTechDetails && !isDepartmentView;
   const isMEDetails = showMEDetails && !isDepartmentView;
   const isPhDDetails = showPhDDetails && !isDepartmentView;
+
+  // Calculate drone position based on phase
+  const getDroneStyle = (): React.CSSProperties => {
+    if (!droneState.buttonRect) return {};
+    const rect = droneState.buttonRect;
+    const droneSize = 120;
+    
+    switch (droneState.phase) {
+      case 'descend':
+        return {
+          position: 'fixed',
+          left: rect.left + rect.width / 2 - droneSize / 2,
+          top: rect.top - droneSize + 20,
+          width: droneSize,
+          height: droneSize,
+          animation: 'droneDescend 0.8s ease-out forwards',
+          zIndex: 10000
+        };
+      case 'grab':
+      case 'ascend':
+        return {
+          position: 'fixed',
+          left: rect.left + rect.width / 2 - droneSize / 2,
+          top: droneState.phase === 'ascend' ? -150 : rect.top - droneSize + 20,
+          width: droneSize,
+          height: droneSize,
+          transition: droneState.phase === 'ascend' ? 'top 0.8s ease-in' : 'none',
+          zIndex: 10000
+        };
+      default:
+        return {};
+    }
+  };
 
   if (isDepartmentView && selectedDepartment) {
     return (
@@ -144,7 +258,7 @@ const Menu = () => {
 
   return (
     <>
-      {/* Header - Always visible in Menu unless inside Department Page */}
+      {/* Header */}
       <header className="header">
         <div className="logo-container">
           <img src={collegeLogo} className="college-logo" alt="College Logo" />
@@ -167,7 +281,7 @@ const Menu = () => {
                 <button 
                   key={item.id} 
                   className={`nav-item ${item.className || ''}`}
-                  onClick={() => handleNavClick(item.id)}
+                  onClick={(e) => handleNavClick(item.id, e, item)}
                   style={{
                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${item.bg})`,
                     backgroundSize: 'cover',
@@ -192,7 +306,7 @@ const Menu = () => {
                 <div 
                   key={index} 
                   className="be-item"
-                  onClick={() => handleCourseClick(course)}
+                  onClick={(e) => handleCourseClick(e, course)}
                   style={{ 
                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
                     backgroundSize: 'cover',
@@ -219,7 +333,7 @@ const Menu = () => {
                 <div 
                   key={index} 
                   className="be-item"
-                  onClick={() => handleCourseClick(course)}
+                  onClick={(e) => handleCourseClick(e, course)}
                   style={{ 
                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
                     backgroundSize: 'cover',
@@ -246,7 +360,7 @@ const Menu = () => {
                 <div 
                   key={index} 
                   className="be-item"
-                  onClick={() => handleCourseClick(course)}
+                  onClick={(e) => handleCourseClick(e, course)}
                   style={{ 
                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
                     backgroundSize: 'cover',
@@ -273,7 +387,7 @@ const Menu = () => {
                  <div 
                    key={index} 
                    className="be-item"
-                   onClick={() => handleCourseClick(course)}
+                   onClick={(e) => handleCourseClick(e, course)}
                    style={{ 
                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
                      backgroundSize: 'cover',
@@ -294,8 +408,36 @@ const Menu = () => {
         )}
 
       </main>
+
+      {/* Drone Animation Overlay */}
+      {droneState.active && (
+        <>
+          {/* Flying Button Clone */}
+          <div 
+            className="flying-button"
+            style={{
+              ...flyingButtonStyle,
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${flyingButtonBg})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          >
+            {flyingButtonText}
+          </div>
+          
+          {/* Drone */}
+          <div style={getDroneStyle()}>
+            <Lottie 
+              animationData={droneAnimation} 
+              loop={true}
+              style={{ width: '100%', height: '100%' }}
+            />
+          </div>
+        </>
+      )}
     </>
   );
 };
 
 export default Menu;
+
