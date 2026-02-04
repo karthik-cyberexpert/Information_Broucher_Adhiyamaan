@@ -20,11 +20,12 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
     { id: 'Contact', label: 'Contact' },
   ];
 
-  const renderContent = () => {
-    switch (activeTab) {
+  // Helper to render specific content based on ID
+  const renderSectionContent = (id: string) => {
+    switch (id) {
       case 'About':
         return (
-          <div className="dept-content-section fadeIn">
+          <>
             <h3>About {department.name}</h3>
             <p>
               The Department of {department.name} is dedicated to providing world-class education 
@@ -37,11 +38,11 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
               experienced faculty, and a vibrant student community. We focus on holistic development, 
               encouraging both academic excellence and co-curricular participation.
             </p>
-          </div>
+          </>
         );
       case 'Infrastructure':
         return (
-          <div className="dept-content-section fadeIn">
+          <>
             <h3>Infrastructure</h3>
             <div className="infra-grid">
               <div className="infra-card">
@@ -65,11 +66,11 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
                 <p>Dedicated space for research and innovation projects.</p>
               </div>
             </div>
-          </div>
+          </>
         );
       case 'Career':
         return (
-          <div className="dept-content-section fadeIn">
+          <>
             <h3>Career Opportunities</h3>
             <p>
               Graduates from the {department.name} department have excellent placement records. 
@@ -82,18 +83,18 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
               <li>Project Management</li>
               <li>Consultancy & Advisory Roles</li>
             </ul>
-          </div>
+          </>
         );
       case 'Contact':
         return (
-          <div className="dept-content-section fadeIn">
+          <>
             <h3>Contact Us</h3>
             <div className="contact-info">
               <p><strong>📍 Location:</strong> Main Block, Adhiyamaan College of Engineering</p>
               <p><strong>📧 Email:</strong> hod.{department.name.toLowerCase().split(' ')[0]}@adhiyamaan.ac.in</p>
               <p><strong>📞 Phone:</strong> +91 4344 261001</p>
             </div>
-          </div>
+          </>
         );
       default:
         return null;
@@ -118,7 +119,7 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
       </div>
 
       <div className="dept-layout">
-        {/* Sidebar Navigation */}
+        {/* Sidebar Navigation - Visible on Desktop */}
         <div className="dept-sidebar">
           {menuItems.map((item) => (
             <button
@@ -135,7 +136,14 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
         {/* Main Content Area */}
         <div className="dept-main-content">
           <div className="content-glass-card">
-            {renderContent()}
+            {menuItems.map((item) => (
+              <div 
+                key={item.id} 
+                className={`dept-content-section ${activeTab === item.id ? 'desktop-active' : 'desktop-hidden'}`}
+              >
+                {renderSectionContent(item.id)}
+              </div>
+            ))}
           </div>
         </div>
       </div>

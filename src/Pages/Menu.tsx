@@ -18,19 +18,19 @@ const Menu = () => {
 
   // Navigation Items Data
   const navItems = [
-    { title: 'B.E', id: 'be' },
-    { title: 'B.Tech', id: 'btech' },
-    { title: 'B.Arch', id: 'barch' }, // No dedicated page yet
-    { title: 'MBA', id: 'mba' }, // No dedicated page yet
-    { title: 'MCA', id: 'mca' }, // No dedicated page yet
-    { title: 'ABOUT', id: 'about', className: 'nav-item-large' }, // Central item
-    { title: 'M.E', id: 'me' },
-    { title: 'P.H.D', id: 'phd' },
-    { title: 'Placement', id: 'placement' },
-    { title: 'Sports', id: 'sports' },
-    { title: 'Hostel', id: 'hostel' },
-    { title: 'Transport', id: 'transport' },
-    { title: 'Scholarship', id: 'scholarship' },
+    { title: 'B.E', id: 'be', bg: '/images/bebaack.jpg' },
+    { title: 'B.Tech', id: 'btech', bg: '/images/tech_bg.png' },
+    { title: 'B.Arch', id: 'barch', bg: '/images/civilback.jpg' }, // No dedicated page yet
+    { title: 'MBA', id: 'mba', bg: '/images/mba.jpg' }, // No dedicated page yet
+    { title: 'MCA', id: 'mca', bg: '/images/mca.jpg' }, // No dedicated page yet
+    { title: 'ABOUT', id: 'about', className: 'nav-item-large', bg: '/images/aboutcollege.jpg' }, // Central item
+    { title: 'M.E', id: 'me', bg: '/images/me.jpg' },
+    { title: 'P.H.D', id: 'phd', bg: '/images/college.jpeg' },
+    { title: 'Placement', id: 'placement', bg: '/images/placement.jpg' },
+    { title: 'Sports', id: 'sports', bg: '/images/sports.jpg' },
+    { title: 'Hostel', id: 'hostel', bg: '/images/hostel.jpg' },
+    { title: 'Transport', id: 'transport', bg: '/images/transport.jpg' },
+    { title: 'Scholarship', id: 'scholarship', bg: '/images/scholarship.jpg' },
   ];
 
   // B.E Courses Data
@@ -158,6 +158,13 @@ const Menu = () => {
                   key={item.id} 
                   className={`nav-item ${item.className || ''}`}
                   onClick={() => handleNavClick(item.id)}
+                  style={{
+                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${item.bg})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    color: 'white',
+                    textShadow: '0 2px 4px rgba(0,0,0,0.8)'
+                  }}
                 >
                   {item.title}
                 </button>
