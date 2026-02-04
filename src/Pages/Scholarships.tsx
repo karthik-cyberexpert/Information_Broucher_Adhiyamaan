@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../components/Menu.css";
 import "./Scholarships.css";
@@ -12,7 +12,7 @@ export default function Scholarships() {
     window.scrollTo(0, 0);
   }, []);
 
-  const changeTab = (tab) => {
+  const changeTab = (tab: string) => {
     setActive(tab);
     setKeyTrigger((prev) => prev + 1); // 🔑 re-trigger animation
   };
@@ -26,7 +26,7 @@ export default function Scholarships() {
       <header className="sch-header glass">
         <h1 className="typing">
           {"Scholarships".split("").map((c, i) => (
-            <span key={i} style={{ "--delay": `${i * 0.08}s` }}>
+            <span key={i} style={{ "--delay": `${i * 0.08}s` } as React.CSSProperties}>
               {c}
             </span>
           ))}

@@ -1,8 +1,10 @@
-import React from "react";
+// @ts-ignore
 import { useNavigate } from "react-router-dom";
 import "../components/Menu.css";
 import "./placement.css";
+// @ts-ignore
 import PlacementLineChart from "../components/PlacementLineChart";
+// @ts-ignore
 import PlacementSlider from "../components/PlacementSlider";
 
 /* LOGO LISTS (ADD / REMOVE FREELY) */

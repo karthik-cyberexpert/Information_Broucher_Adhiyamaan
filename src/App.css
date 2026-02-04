@@ -390,7 +390,6 @@
 .nav-grid > :nth-child(13) { grid-area: 4 / 4 / 5 / 5; } /* Scholarship */
 
 
-/* Responsive adjustments */
 @media (max-width: 900px) {
   .nav-grid {
     grid-template-columns: repeat(2, 1fr); /* Switch to 2 cols */
@@ -398,15 +397,25 @@
     gap: 16px;
   }
   
+  /* Make ABOUT button SAME SIZE as other nav buttons */
   .nav-item-large {
-    grid-column: 1 / -1; /* Full width */
-    grid-row: auto;      /* Auto height */
-    aspect-ratio: 3/1;
-    font-size: 2rem;
+    grid-column: span 1 !important; /* Single column like others */
+    grid-row: auto !important;
+    aspect-ratio: unset !important; /* Remove aspect ratio */
+    font-size: 1.25rem !important; /* Same as other nav items */
+    min-height: 70px !important;
+    height: auto !important;
   }
   
   /* Reset explicit grid areas for mobile to let them auto-flow */
   .nav-grid > * { grid-area: auto !important; }
+  
+  /* Enable scrolling on nav grid container */
+  .nav-grid-container {
+    margin-top: 20px !important;
+    padding: 10px !important;
+    width: 100% !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -421,9 +430,10 @@
     min-height: 60px;
   }
 
+  /* ABOUT same as others on small screens too */
   .nav-item-large {
-    font-size: 1.5rem;
-    min-height: 100px;
+    font-size: 1.1rem !important;
+    min-height: 60px !important;
   }
 }
 
@@ -573,7 +583,10 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Changed from center to avoid clipping on overflow */
+  padding-top: 140px; /* Increased to clear fixed header */
+  padding-bottom: 40px;
+  overflow-y: auto;
 }
 
 /* ==================== BE PAGE BACKGROUND ==================== */
@@ -587,8 +600,10 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* changed from center to flex-start */
-  padding-top: 40px; /* Overrides the 100px from .main-content */
+  align-items: flex-start;
+  padding-top: 140px; /* Desktop padding */
+  padding-bottom: 40px;
+  overflow-y: auto;
 }
 
 /* ==================== B.TECH PAGE BACKGROUND ==================== */
@@ -603,9 +618,44 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 40px;
+  padding-top: 140px; /* Desktop padding */
+  padding-bottom: 40px;
+  overflow-y: auto;
 }
 
+/* ==================== M.E PAGE BACKGROUND ==================== */
+.me-page-bg {
+  /* Specific background for M.E page */
+  background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('/images/college.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 140px; /* Desktop padding */
+  padding-bottom: 40px;
+  overflow-y: auto;
+}
+
+/* ==================== PH.D PAGE BACKGROUND ==================== */
+.phd-page-bg {
+  /* Generated abstract research background */
+  background: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.9)), url('/images/phd_page_background.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 140px; /* Desktop padding */
+  padding-bottom: 40px;
+  overflow-y: auto;
+}
 
 /* ==================== B.TECH GRID STYLES ==================== */
 .btech-grid {
@@ -621,50 +671,6 @@
   grid-column: 1 / span 2; /* Span full width of the 2 columns */
   width: 60%; /* Restricted width as requested */
   justify-self: center; /* Center horizontally */
-}
-
-/* Mobile Responsive for B.Tech */
-@media (max-width: 600px) {
-  .btech-grid {
-    grid-template-columns: 1fr; /* Stack one by one */
-  }
-
-  /* Reset 5th item properties for mobile */
-  .btech-grid > .be-item:nth-child(5) {
-    grid-column: auto; /* Default span */
-    width: 100%; /* Full width */
-    justify-self: stretch; /* Default alignment */
-  }
-}
-
-/* ==================== M.E PAGE BACKGROUND ==================== */
-.me-page-bg {
-  /* Specific background for M.E page */
-  background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('/images/college.jpeg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 40px;
-}
-
-/* ==================== PH.D PAGE BACKGROUND ==================== */
-.phd-page-bg {
-  /* Generated abstract research background */
-  background: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.9)), url('/images/phd_page_background.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 40px;
 }
 
 /* START BUTTON */
@@ -727,5 +733,99 @@
 @keyframes cursorFloat {
   0%, 100% { transform: translate(0, 0); }
   50% { transform: translate(5px, 5px); }
+}
+
+/* ==================== MOBILE RESPONSIVE ==================== */
+@media (max-width: 900px) {
+  /* Make header flow naturally on mobile to prevent overlap */
+  .header {
+    position: relative !important;
+    background: rgba(10, 25, 47, 0.98) !important; /* Solid bg for readability */
+    padding: 15px !important;
+    height: auto !important;
+    width: 100% !important;
+    z-index: 1000 !important;
+  }
+  
+  .logo-container {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .college-name {
+    font-size: 1.1rem !important; /* Smaller font */
+  }
+
+  .college-logo {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  /* CRITICAL: Override main-content base styles */
+  .main-content {
+    display: block !important;
+    padding: 20px !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+  }
+
+  /* Safe Mobile Layout Reset for page backgrounds */
+  .be-page-bg, 
+  .btech-page-bg, 
+  .me-page-bg, 
+  .phd-page-bg,
+  .inner-page-bg {
+    display: block !important;
+    position: relative !important;
+    height: auto !important;
+    min-height: auto !important;
+    width: 100% !important;
+    padding-top: 20px !important;
+    padding-bottom: 100px !important;
+    overflow: visible !important;
+    background-attachment: scroll !important;
+    top: auto !important;
+    left: auto !important;
+    z-index: 1 !important;
+  }
+  
+  .be-container {
+    padding-top: 10px;
+    width: 100%;
+  }
+
+  .btech-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Reset 5th item properties for mobile */
+  .btech-grid > .be-item:nth-child(5) {
+    grid-column: auto !important;
+    width: 100% !important;
+    justify-self: stretch !important;
+  }
+}
+
+/* Small Mobile Adjustments */
+@media (max-width: 600px) {
+  .be-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .be-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .be-item {
+    padding: 24px;
+    min-height: 120px;
+  }
+
+  .be-icon {
+    font-size: 2rem;
+  }
 }
 
