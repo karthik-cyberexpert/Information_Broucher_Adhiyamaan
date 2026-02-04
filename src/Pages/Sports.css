@@ -138,3 +138,30 @@ body {
         opacity: 1;
     }
 }
+
+/* ==================== MOBILE RESPONSIVE ==================== */
+@media (max-width: 900px) {
+    body {
+        overflow: auto !important;
+    }
+    
+    .sports-page {
+        height: auto !important;
+        min-height: 100vh;
+        overflow: visible !important;
+        padding: 20px;
+    }
+    
+    .sports-layout {
+        display: block;
+        height: auto;
+    }
+    
+    .glass-box {
+        margin-bottom: 20px;
+    }
+    
+    .gallery-box {
+        height: 300px;
+    }
+}

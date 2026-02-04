@@ -288,10 +288,11 @@
 /* Responsive Design */
 @media (max-width: 900px) {
   .dept-page-container {
-    height: 100vh; /* Fix height to viewport */
-    overflow-y: scroll; /* Force internal scroll */
-    -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
-    display: block; /* Switch to block to avoid flex height issues */
+    height: auto !important; /* Allow natural height */
+    min-height: 100vh;
+    overflow: visible !important; /* Use document scroll */
+    -webkit-overflow-scrolling: touch;
+    display: block;
   }
 
   .dept-header {
