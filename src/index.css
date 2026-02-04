@@ -20,6 +20,16 @@ body {
   background-color: #ffffff;
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-y: auto; /* Enable scroll */
+  
+  /* Hide scrollbar but keep functionality */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+/* Hide scrollbar for Chrome, Safari, Opera */
+body::-webkit-scrollbar {
+  display: none;
 }
 
 #root {

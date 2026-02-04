@@ -3,10 +3,17 @@
 ========================= */
 
 .sch-page {
-    max-height: 100vh;
+    min-height: 100vh;
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     font-family: "Segoe UI", sans-serif;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.sch-page::-webkit-scrollbar {
+    display: none;
 }
 
 /* =========================

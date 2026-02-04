@@ -78,13 +78,18 @@ const Menu = () => {
   const bArchData = { name: 'Bachelor of Architecture', icon: '🏛️', bg: '/images/civilback.jpg' };
   const mbaData = { name: 'Master of Business Administration', icon: '📊', bg: '/images/mba.jpg' };
   const mcaData = { name: 'Master of Computer Applications', icon: '💻', bg: '/images/mca.jpg' };
+  const aboutData = { name: 'About ACE', icon: '🏫', bg: '/images/aboutcollege.jpg' };
+  const hostelData = { name: 'Hostel Facilities', icon: '🏨', bg: '/images/hostel.jpg' };
 
   const handleNavClick = (id: string) => {
     // Check if it's a page navigation
-    if (['placement', 'scholarship', 'sports', 'transport'].includes(id)) {
+    if (['placement', 'scholarship', 'sports', 'transport', 'about', 'hostel'].includes(id)) {
       navigate(`/${id}`);
       return;
     }
+
+    // Scroll to top for all internal navigation
+    window.scrollTo(0, 0);
 
     // Handle Sub-menus
     if (id === 'be') setShowBEDetails(true);
@@ -96,6 +101,8 @@ const Menu = () => {
     else if (id === 'barch') handleCourseClick(bArchData);
     else if (id === 'mba') handleCourseClick(mbaData);
     else if (id === 'mca') handleCourseClick(mcaData);
+    else if (id === 'about') handleCourseClick(aboutData);
+    else if (id === 'hostel') handleCourseClick(hostelData);
     
     console.log(`Clicked ${id}`);
   };
@@ -105,14 +112,17 @@ const Menu = () => {
     setShowBTechDetails(false);
     setShowMEDetails(false);
     setShowPhDDetails(false);
+    window.scrollTo(0, 0); // Scroll to top
   };
 
   const handleCourseClick = (course: {name: string, icon: string, bg: string}) => {
     setSelectedDepartment(course);
+    window.scrollTo(0, 0); // Scroll to top
   };
 
   const handleBackFromDept = () => {
     setSelectedDepartment(null);
+    window.scrollTo(0, 0); // Scroll to top
   };
 
   // View States
