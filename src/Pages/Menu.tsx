@@ -277,21 +277,35 @@ const Menu = () => {
         {isMainNav && (
           <div className="nav-grid-container">
             <div className="nav-grid">
-              {navItems.map((item) => (
-                <button 
-                  key={item.id} 
-                  className={`nav-item ${item.className || ''}`}
-                  onClick={(e) => handleNavClick(item.id, e, item)}
-                  style={{
-                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${item.bg})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    color: 'white',
-                    textShadow: '0 2px 4px rgba(0,0,0,0.8)'
-                  }}
+              {navItems.map((item, index) => (
+                <div 
+                  key={item.id}
+                  className={`entry-wrapper ${item.className || ''}`}
+                  style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
-                  {item.title}
-                </button>
+                  <div className="drone-carrier">
+                    <Lottie 
+                      animationData={droneAnimation} 
+                      loop={true}
+                      style={{ width: '100%', height: '100%' }}
+                    />
+                  </div>
+                  <button 
+                    className={`nav-item ${item.className || ''}`}
+                    onClick={(e) => handleNavClick(item.id, e, item)}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${item.bg})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      color: 'white',
+                      textShadow: '0 2px 4px rgba(0,0,0,0.8)'
+                    }}
+                  >
+                    {item.title}
+                  </button>
+                </div>
               ))}
             </div>
           </div>
@@ -304,17 +318,29 @@ const Menu = () => {
             <div className="be-grid">
               {beCourses.map((course, index) => (
                 <div 
-                  key={index} 
-                  className="be-item"
-                  onClick={(e) => handleCourseClick(e, course)}
-                  style={{ 
-                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                  }}
+                  key={index}
+                  className="entry-wrapper"
+                  style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
-                  <span className="be-icon">{course.icon}</span>
-                  <span className="be-name">{course.name}</span>
+                  <div className="drone-carrier">
+                    <Lottie 
+                      animationData={droneAnimation} 
+                      loop={true}
+                      style={{ width: '100%', height: '100%' }}
+                    />
+                  </div>
+                  <div 
+                    className="be-item"
+                    onClick={(e) => handleCourseClick(e, course)}
+                    style={{ 
+                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center'
+                    }}
+                  >
+                    <span className="be-icon">{course.icon}</span>
+                    <span className="be-name">{course.name}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -331,17 +357,29 @@ const Menu = () => {
             <div className="btech-grid"> 
               {bTechCourses.map((course, index) => (
                 <div 
-                  key={index} 
-                  className="be-item"
-                  onClick={(e) => handleCourseClick(e, course)}
-                  style={{ 
-                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                  }}
+                  key={index}
+                  className="entry-wrapper"
+                  style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
-                  <span className="be-icon">{course.icon}</span>
-                  <span className="be-name">{course.name}</span>
+                  <div className="drone-carrier">
+                    <Lottie 
+                      animationData={droneAnimation} 
+                      loop={true}
+                      style={{ width: '100%', height: '100%' }}
+                    />
+                  </div>
+                  <div 
+                    className="be-item"
+                    onClick={(e) => handleCourseClick(e, course)}
+                    style={{ 
+                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center'
+                    }}
+                  >
+                    <span className="be-icon">{course.icon}</span>
+                    <span className="be-name">{course.name}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -358,17 +396,29 @@ const Menu = () => {
             <div className="btech-grid"> 
               {meCourses.map((course, index) => (
                 <div 
-                  key={index} 
-                  className="be-item"
-                  onClick={(e) => handleCourseClick(e, course)}
-                  style={{ 
-                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                  }}
+                  key={index}
+                  className="entry-wrapper"
+                  style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
-                  <span className="be-icon">{course.icon}</span>
-                  <span className="be-name">{course.name}</span>
+                  <div className="drone-carrier">
+                    <Lottie 
+                      animationData={droneAnimation} 
+                      loop={true}
+                      style={{ width: '100%', height: '100%' }}
+                    />
+                  </div>
+                  <div 
+                    className="be-item"
+                    onClick={(e) => handleCourseClick(e, course)}
+                    style={{ 
+                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center'
+                    }}
+                  >
+                    <span className="be-icon">{course.icon}</span>
+                    <span className="be-name">{course.name}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -385,19 +435,31 @@ const Menu = () => {
              <div className="btech-grid"> 
                {phdCourses.map((course, index) => (
                  <div 
-                   key={index} 
-                   className="be-item"
-                   onClick={(e) => handleCourseClick(e, course)}
-                   style={{ 
-                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
-                     backgroundSize: 'cover',
-                     backgroundPosition: 'center',
-                     color: 'white',
-                     textShadow: '0 2px 4px rgba(0,0,0,0.5)'
-                   }}
+                   key={index}
+                   className="entry-wrapper"
+                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                  >
-                   <span className="be-icon">{course.icon}</span>
-                   <span className="be-name">{course.name}</span>
+                   <div className="drone-carrier">
+                     <Lottie 
+                       animationData={droneAnimation} 
+                       loop={true}
+                       style={{ width: '100%', height: '100%' }}
+                     />
+                   </div>
+                   <div 
+                     className="be-item"
+                     onClick={(e) => handleCourseClick(e, course)}
+                     style={{ 
+                       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
+                       backgroundSize: 'cover',
+                       backgroundPosition: 'center',
+                       color: 'white',
+                       textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+                     }}
+                   >
+                     <span className="be-icon">{course.icon}</span>
+                     <span className="be-name">{course.name}</span>
+                   </div>
                  </div>
                ))}
              </div>

@@ -102,6 +102,17 @@
   }
 }
 
+@keyframes droneFlyAcross {
+  0% {
+    left: -150px;
+    transform: translateX(0);
+  }
+  100% {
+    left: 100vw;
+    transform: translateX(150px);
+  }
+}
+
 /* Flying Button Clone */
 .flying-button {
   display: flex;
@@ -115,6 +126,78 @@
   z-index: 9999;
   pointer-events: none;
   box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+/* ==================== ENTRY ANIMATION ==================== */
+
+/* Entry wrapper for staggered animation */
+/* entry-wrapper now acts as the grid item and animation container */
+.entry-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* Start off-screen */
+  transform: translateY(-120vh);
+  animation: dropCarry 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: var(--entry-delay, 0s);
+  /* Ensure it doesn't mess up grid placement if styles are applied */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ensure the button inside fills the wrapper */
+.entry-wrapper > button,
+.entry-wrapper > div.be-item {
+  width: 100%;
+  height: 100%;
+  /* Remove old entry animation from children */
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* The Drone Container */
+.drone-carrier {
+  position: absolute;
+  /* Position above the button */
+  top: -120px; 
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 130px;
+  z-index: 50;
+  pointer-events: none;
+  /* Drone leaves after the drop */
+  animation: droneDepart 1s ease-in forwards;
+  /* Delay = Wrapper Delay + Drop Duration (1.5s) + Hold (0.2s) */
+  animation-delay: calc(var(--entry-delay, 0s) + 1.7s);
+}
+
+@keyframes dropCarry {
+  0% {
+    transform: translateY(-120vh);
+  }
+  60% {
+    transform: translateY(20px);
+  }
+  80% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes droneDepart {
+  0% {
+    transform: translate(-50%, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -150px) scale(0.8);
+    opacity: 0;
+  }
 }
 
 /* Landing Page Layout */
