@@ -63,7 +63,7 @@ const Menu = () => {
     { name: 'CSE (Cyber Security)', icon: '🔐', bg: '/images/computerback.jpg', video: '/media/cyber.mp4' },
     { name: 'CSE (AI & ML)', icon: '🤖', bg: '/images/be/AIML-bg.jpg.jpeg', video: '/media/ai.mp4' },
     { name: 'Electronics & Communication', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
-    { name: 'Electrical & Electronics', icon: '⚡', bg: '/images/eee.jpg', video: '/media/elect.mp4' },
+    { name: 'Electrical & Electronics', icon: '⚡', bg: '/media/eee.jpg', video: '/media/elect.mp4' },
     { name: 'Mechanical Engineering', icon: '⚙️', bg: '/images/me.jpg', video: '/media/mech.mp4' },
   ];
 
@@ -95,9 +95,9 @@ const Menu = () => {
   ];
 
   // Single Department Data (No Sub-menu)
-  const bArchData = { name: 'Bachelor of Architecture', icon: '🏛️', bg: '/images/civilback.jpg', video: '/media/civil.mp4' };
-  const mbaData = { name: 'Master of Business Administration', icon: '📊', bg: '/images/mba.jpg' };
-  const mcaData = { name: 'Master of Computer Applications', icon: '💻', bg: '/images/mca.jpg', video: '/media/mcaback.mp4' };
+  const bArchData = { name: 'Bachelor of Architecture', icon: '🏛️', bg: '/images/civilback.jpg', video: '/media/be arch.mp4' };
+  const mbaData = { name: 'Master of Business Administration', icon: '📊', bg: '/images/mba.jpg', video: '/media/mba.mp4' };
+  const mcaData = { name: 'Master of Computer Applications', icon: '💻', bg: '/images/mca.jpg', video: '/media/mca.mp4?v=2' };
 
   // Start drone animation sequence
   const startDroneAnimation = (
@@ -277,6 +277,27 @@ const Menu = () => {
         {isPhDDetails && (
           <video className="phd-bg-video" autoPlay loop muted playsInline>
             <source src="/media/phd.mp4" type="video/mp4" />
+          </video>
+        )}
+
+        {/* BE Video Background */}
+        {isBEDetails && (
+          <video className="be-bg-video" autoPlay loop muted playsInline>
+            <source src="/media/be.mp4" type="video/mp4" />
+          </video>
+        )}
+
+        {/* B.Tech Video Background */}
+        {isBTechDetails && (
+          <video className="btech-bg-video" autoPlay loop muted playsInline>
+            <source src="/media/btech.mp4" type="video/mp4" />
+          </video>
+        )}
+
+        {/* ME Video Background */}
+        {isMEDetails && (
+          <video className="me-bg-video" autoPlay loop muted playsInline>
+            <source src="/media/me.mp4" type="video/mp4" />
           </video>
         )}
 

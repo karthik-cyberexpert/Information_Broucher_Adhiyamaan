@@ -26,6 +26,10 @@ export default function Placement() {
   const navigate = useNavigate();
   return (
     <div className="department-page placement-page">
+      {/* Video Background */}
+      <video className="placement-bg-video" autoPlay loop muted playsInline>
+        <source src="/media/placement.mp4" type="video/mp4" />
+      </video>
 
       {/* HEADING */}
       <h2 className="heading">Placements</h2>

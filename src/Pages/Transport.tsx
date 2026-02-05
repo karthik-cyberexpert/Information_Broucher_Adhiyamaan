@@ -10,13 +10,16 @@ const Transport = () => {
   // Routes Data extracted from reference
   const routesLeft = [
     "Ayyur", "Haleseebam", "Kagadasam", "Local Staff Bus", 
-    "Kaknoor", "Jawalagiri", "Mathur", "Seekanapalli", 
-    "Alsanatham", "Mathigiri", "Athipalli", "Kariyamangalam"
+    "Kaknoor", "Jawalagiri", "Mathur", "Seekanapalli"
+  ];
+
+  const routesCenter = [
+     "Alsanatham", "Mathigiri", "Athipalli", "Kariyamangalam", 
+     "Bargur", "Tirupathur", "Anchetty"
   ];
 
   const routesRight = [
-    "Bargur", "Tirupathur", "Anchetty", "Poonapalli", 
-    "Rayakottai", "Mudampatti", "Kelamangalam & Gowthalam", 
+    "Poonapalli", "Rayakottai", "Mudampatti", "Kelamangalam & Gowthalam", 
     "Berigai", "Krishnagiri", "Basthi", "Ashok Leyland"
   ];
 
@@ -36,160 +39,141 @@ const Transport = () => {
   }, []);
 
   // Animation Constants
-  const ANIMATION_DURATION = 4; // Faster animation as requested
+  const ANIMATION_DURATION = 7; // 7 seconds as requested
 
-  const RouteList = ({ routes, align }: { routes: string[], align: 'left' | 'right' }) => {
-     // We need to drive the animation based on the "Bus Progress" (0 to 1)
-     // 0 = Start of animation
-     // 1 = End of animation
-     
-     const totalItems = routes.length;
-     // The bus travels from -10% to 110% visually.
-     // Let's create a progress value that loops 0 -> 1.
-     
-     const [progress, setProgress] = React.useState(0);
+  // Helper to get bus position based on progress (0 -> 1)
+  // Path: Top-Left -> Bottom-Left -> Bottom-Right -> Top-Right
+  // Segments: 
+  // 1. Vertical Down (0 - 0.33)
+  // 2. Horizontal Right (0.33 - 0.66)
+  // 3. Vertical Up (0.66 - 1.0)
+  const getBusState = (progress: number) => {
+      // Coordinates in % (relative to container)
+      const LEFT_X = 18; // Inner edge of Left Col
+      const RIGHT_X = 82; // Inner edge of Right Col
+      const TOP_Y = 10;
+      const BOTTOM_Y = 85;
 
-     // Looping logic
-     React.useEffect(() => {
-        let start: number | null = null;
-        let animationFrame: number;
+      let x = 0;
+      let y = 0;
+      let rotation = 0;
 
-        const animate = (timestamp: number) => {
-            if (!start) start = timestamp;
-            const elapsed = (timestamp - start) / 1000; // seconds
-            
-            // Current Loop Progress (0 to 1)
-            const p = (elapsed % ANIMATION_DURATION) / ANIMATION_DURATION;
-            setProgress(p);
+      if (progress < 0.33) {
+          // Segment 1: Moving Down
+          const localP = progress / 0.33; // 0 to 1
+          x = LEFT_X;
+          y = TOP_Y + (localP * (BOTTOM_Y - TOP_Y));
+          rotation = 180; // Facing Down
+      } else if (progress < 0.66) {
+          // Segment 2: Moving Right
+          const localP = (progress - 0.33) / 0.33; // 0 to 1
+          x = LEFT_X + (localP * (RIGHT_X - LEFT_X));
+          y = BOTTOM_Y;
+          rotation = 90; 
+      } else {
+          // Segment 3: Moving Up
+          const localP = (progress - 0.66) / 0.34; // 0 to 1
+          x = RIGHT_X;
+          y = BOTTOM_Y - (localP * (BOTTOM_Y - TOP_Y));
+          rotation = 0; // Facing Up
+      }
+      return { x, y, rotation };
+  };
 
-            animationFrame = requestAnimationFrame(animate);
-        };
-
-        animationFrame = requestAnimationFrame(animate);
-        return () => cancelAnimationFrame(animationFrame);
-     }, []);
-
-     // Derived Values
-     // Left Side: Bus goes Top -> Bottom.  Progress 0 -> 1 maps to Index 0 -> Last
-     // Right Side: Bus goes Bottom -> Top. Progress 0 -> 1 maps to Last -> Index 0
-     
+  const RouteList = ({ routes, section, globalProgress }: { routes: string[], section: 'left' | 'center' | 'right', globalProgress: number }) => {
     return (
     <div style={{
-      position: 'relative',
       display: 'flex',
-      flexDirection: 'column',
-      gap: '8px', 
+      flexDirection: section === 'center' ? 'row' : 'column',
+      flexWrap: 'nowrap',
+      gap: '20px', // Increased vertical gap for professional look
       width: '100%',
-      alignItems: align === 'left' ? 'flex-start' : 'flex-end',
-      // Padding handled by container classes edge-left/right
+      height: '100%',
+      // Left: Align Right (to meet bus), Right: Align Left (to meet bus), Center: Center
+      alignItems: section === 'left' ? 'flex-end' : section === 'right' ? 'flex-start' : 'center',
+      justifyContent: section === 'center' ? 'center' : 'space-between',
     }}>
-      {/* The Bus */}
-      <motion.img 
-        src="/assets/bus.png"
-        // We use the computed progress to drive position directly to ensure sync
-        style={{
-            position: 'absolute',
-            left: align === 'left' ? '20%' : 'auto', 
-            right: align === 'right' ? '20%' : 'auto',
-            transform: align === 'left' ? 'translateX(-50%) rotate(180deg)' : 'translateX(50%) rotate(0deg)',
-            opacity: 1,
-            zIndex: 20,
-            width: '60px',
-            height: 'auto',
-            mixBlendMode: 'screen',
-            // Drive position with progress:
-            // Left: -10% -> 110%
-            // Right: 110% -> -10%
-            top: align === 'left' 
-                ? `${-10 + (progress * 130)}%` 
-                : `${120 - (progress * 130)}%`, // start lower (120%) go high (-10%)
-                
-            filter: 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.5))',
-        }}
-      />
-
       {routes.map((route, index) => {
-        // Calculations for visibility
-        // We want the card to show when the bus "passes" it.
-        // Left: Index 0 is at Top. Bus passes it early (progress ~ 0.1)
-        // Right: Index Last is at Bottom. Bus starts Bottom, passes it early.
-        
         let isVisible = false;
+        const total = routes.length;
         
-        // Threshold: At what progress % does the bus pass this card?
-        // We have N cards equally spaced.
-        // Card N's position is roughly (Index / Total) * 100 %.
-        
-        if (align === 'left') {
-            // Bus goes Top (0%) -> Bottom (100%)
-            // Card visual position ~ (index / totalItems)
-            const threshold = (index / totalItems); 
-            // Add a slight buffer so it reveals just AS the bus arrives, not after
-            isVisible = progress > (threshold - 0.05);
-        } else {
-             // Bus goes Bottom (110%) -> Top (-10%)
-             // We are rendering top-down, so index 0 is Top, index Last is Bottom.
-             // We want bottom cards to show first.
-             // Card visual position from bottom ~ ((total - index) / total)
-             // But simpler: Bus progress 0 means it's at bottom.
-             // As progress increases, it moves UP.
-             // So it reveals (total - 1 - index) items?
-             
-             // Let's map progress to "Current Height from Bottom".
-             // Progress 0 = 0% form bottom. Progress 1 = 100% from bottom.
-             // Card "depth" from bottom:
-             const indexFromBottom = totalItems - 1 - index;
-             const threshold = (indexFromBottom / totalItems);
-             
-             isVisible = progress > (threshold - 0.05);
+        if (section === 'left') {
+            const threshold = (index / total) * 0.33;
+            isVisible = globalProgress > threshold;
+        } else if (section === 'center') {
+            const threshold = 0.33 + (index / total) * 0.33;
+            isVisible = globalProgress > threshold;
+        } else if (section === 'right') {
+            const indexFromBottom = total - 1 - index; 
+            const threshold = 0.66 + (indexFromBottom / total) * 0.34;
+            isVisible = globalProgress > threshold;
         }
-
-        // Hard Reset at end of cycle:
-        // When progress wraps to 0, it becomes false, so they hide instantly.
-        // This gives the "Reset" effect the user described naturally loop-wise.
 
         return (
             <motion.div 
             key={route}
+            className={`route-card ${section}`}
             animate={{ 
                 opacity: isVisible ? 1 : 0,
-                x: isVisible ? 0 : (align === 'left' ? -20 : 20),
-                scale: isVisible ? 1 : 0.95
+                x: isVisible ? 0 : (section === 'left' ? -30 : section === 'right' ? 30 : 0),
+                scale: isVisible ? 1 : 0.9
             }}
-            transition={{ duration: 0.3 }} // Fast local transition for the reveal state
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: align === 'left' ? 'flex-start' : 'flex-end',
-                gap: '8px',
-                color: '#fff',
-                fontFamily: "'Inter', sans-serif",
-                fontSize: '0.85rem',
-                fontWeight: 500,
-                background: 'rgba(255, 255, 255, 0.1)',
-                backdropFilter: 'blur(5px)',
-                padding: '8px 16px',
-                borderRadius: '10px',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                width: 'fit-content',
-                cursor: 'default',
-                margin: '0'
-            }}
+            transition={{ duration: 0.4, ease: "backOut" }}
             whileHover={{
-                scale: 1.02,
-                background: 'rgba(255, 255, 255, 0.2)',
-                borderColor: 'rgba(255, 255, 255, 0.3)'
+                scale: 1.05,
+                x: section === 'left' ? -10 : section === 'right' ? 10 : 0,
+                borderColor: 'rgba(59, 130, 246, 0.5)',
+                boxShadow: '0 0 15px rgba(59, 130, 246, 0.3)'
             }}
             >
-            {align === 'left' && <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3b82f6', boxShadow: '0 0 8px #3b82f6', flexShrink: 0 }}></div>}
-            <span style={{ flex: 1, textAlign: align }}>{route}</span>
-            {align === 'right' && <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#3b82f6', boxShadow: '0 0 8px #3b82f6', flexShrink: 0 }}></div>}
+            {/* Left Section: Text then Dot */}
+            {section === 'left' && (
+                <>
+                    <span className="route-text" style={{ textAlign: 'right' }}>{route}</span>
+                    <div className="route-dot" />
+                </>
+            )}
+
+            {/* Center Section: Just Text (Dot below maybe? or no dot) */}
+            {section === 'center' && (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
+                    <div className="route-dot" style={{ background: '#10b981', boxShadow: '0 0 8px #10b981' }}/>
+                    <span className="route-text" style={{ textAlign: 'center', fontSize: '0.8rem' }}>{route}</span>
+                </div>
+            )}
+
+            {/* Right Section: Dot then Text */}
+            {section === 'right' && (
+                <>
+                    <div className="route-dot" />
+                    <span className="route-text" style={{ textAlign: 'left' }}>{route}</span>
+                </>
+            )}
             </motion.div>
         );
       })}
     </div>
   )};
+
+  // Global Animation Loop
+  const [progress, setProgress] = React.useState(0);
+  
+  React.useEffect(() => {
+    let start: number | null = null;
+    let animationFrame: number;
+
+    const animate = (timestamp: number) => {
+        if (!start) start = timestamp;
+        const elapsed = (timestamp - start) / 1000;
+        const p = (elapsed % ANIMATION_DURATION) / ANIMATION_DURATION;
+        setProgress(p);
+        animationFrame = requestAnimationFrame(animate);
+    };
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, []);
+
+  const busState = getBusState(progress);
 
   return (
     <div className="transport-page">
@@ -204,77 +188,99 @@ const Transport = () => {
             <source src="/media/bg_image.mp4" type="video/mp4" />
         </video>
 
+        {/* Global Bus Element */}
+        <motion.img 
+            src="/assets/bus.png"
+            style={{
+                position: 'absolute',
+                left: `${busState.x}%`,
+                top: `${busState.y}%`,
+                width: '60px',
+                height: 'auto',
+                zIndex: 50,
+                transform: `translate(-50%, -50%) rotate(${busState.rotation}deg)`,
+                filter: 'drop-shadow(0 0 15px rgba(59, 130, 246, 0.8))',
+                pointerEvents: 'none', // Don't block clicks
+                mixBlendMode: 'screen',
+            }}
+        />
+
         {/* Dark Overlay matching Home page */}
         <div className="transport-overlay"></div>
-
-        {/* Main Grid Layout */}
-        <div className="transport-grid">
-            {/* Top Edge - Header */}
-            <div className="edge-top">
-                <h1 className="transport-title">
-                    <Bus size={40} color="#3b82f6" style={{ filter: 'drop-shadow(0 0 10px #3b82f6)' }} />
-                    ACE Transport Routes
-                </h1>
-            </div>
-
-            {/* Left Edge - Route List 1 */}
-            <div className="edge-left">
-                <RouteList routes={routesLeft} align="left" />
-            </div>
-
-            {/* Center Content - The "Premium" Visual */}
-            <div className="center-stage">
-                <motion.div
-                    className="center-visual-container"
-                    initial={{ scale: 0.5, opacity: 0, rotateX: 20 }}
-                    animate={{ scale: 1, opacity: 1, rotateX: 0 }}
-                    transition={{ duration: 1.2, ease: "easeOut" }}
-                >
-                    {/* Glowing Rings removed for rect style */}
-
-                    {/* Central Glass Disc */}
-                    <div className="glass-disc" style={{ padding: 0, overflow: 'hidden' }}>
-                        <AnimatePresence mode="wait">
-                            <motion.img 
-                                key={currentImage}
-                                src={transportImages[currentImage]}
-                                initial={{ opacity: 0, scale: 1.1 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.8 }}
-                                style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    objectFit: 'cover',
-                                    borderRadius: '20px' // Match container radius
-                                }}
-                            />
-                        </AnimatePresence>
-                        
-                        {/* Overlay Text inside the box instead of below */}
-                         <div style={{
-                             position: 'absolute',
-                             bottom: '20px',
-                             left: '20px',
-                             zIndex: 20,
-                             textAlign: 'left'
-                         }}>
-                             <h1 className="campus-title" style={{ marginTop: 0, textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>
-                                Campus
-                            </h1>
-                            <p className="logistics-subtitle" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>
-                                Logistics
-                            </p>
-                         </div>
+    
+            {/* Main Grid Layout */}
+            <div className="transport-grid">
+                {/* Top Edge - Header */}
+                <div className="edge-top">
+                    <h1 className="transport-title">
+                        <Bus size={40} color="#3b82f6" style={{ filter: 'drop-shadow(0 0 10px #3b82f6)' }} />
+                        ACE Transport Routes
+                    </h1>
+                </div>
+    
+                {/* Left Edge - Route List 1 */}
+                <div className="edge-left">
+                    <RouteList routes={routesLeft} section="left" globalProgress={progress} />
+                </div>
+    
+                {/* Center Content - Split into Top (Visual) and Bottom (Routes) */}
+                <div className="center-stage">
+                    {/* Top: Image Visual */}
+                    <div className="center-visual-top">
+                        <motion.div
+                            className="center-visual-container"
+                            initial={{ scale: 0.5, opacity: 0, rotateX: 20 }}
+                            animate={{ scale: 1, opacity: 1, rotateX: 0 }}
+                            transition={{ duration: 1.2, ease: "easeOut" }}
+                        >
+                            {/* Central Glass Disc */}
+                            <div className="glass-disc" style={{ padding: 0, overflow: 'hidden' }}>
+                                <AnimatePresence mode="wait">
+                                    <motion.img 
+                                        key={currentImage}
+                                        src={transportImages[currentImage]}
+                                        initial={{ opacity: 0, scale: 1.1 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.8 }}
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover',
+                                            borderRadius: '20px' // Match container radius
+                                        }}
+                                    />
+                                </AnimatePresence>
+                                
+                                {/* Overlay Text */}
+                                    <div style={{
+                                        position: 'absolute',
+                                        bottom: '20px',
+                                        left: '20px',
+                                        zIndex: 20,
+                                        textAlign: 'left'
+                                    }}>
+                                        <h1 className="campus-title" style={{ marginTop: 0, textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>
+                                        Campus
+                                    </h1>
+                                    <p className="logistics-subtitle" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>
+                                        Logistics
+                                    </p>
+                                    </div>
+                            </div>
+                        </motion.div>
                     </div>
 
-                </motion.div>
-            </div>
-
-            {/* Right Edge - Route List 2 */}
-            <div className="edge-right">
-                <RouteList routes={routesRight} align="right" />
-            </div>
+                    {/* Bottom: Routes Center */}
+                    <div className="edge-center-bottom">
+                         <RouteList routes={routesCenter} section="center" globalProgress={progress} />
+                    </div>
+                </div>
+    
+                {/* Right Edge - Route List 2 */}
+                <div className="edge-right">
+                    <RouteList routes={routesRight} section="right" globalProgress={progress} />
+                </div>
 
             {/* Bottom Edge - Footer */}
             <div className="edge-bottom">
