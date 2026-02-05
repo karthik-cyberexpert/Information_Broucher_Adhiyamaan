@@ -98,8 +98,6 @@ const Menu = () => {
   const bArchData = { name: 'Bachelor of Architecture', icon: '🏛️', bg: '/images/civilback.jpg' };
   const mbaData = { name: 'Master of Business Administration', icon: '📊', bg: '/images/mba.jpg' };
   const mcaData = { name: 'Master of Computer Applications', icon: '💻', bg: '/images/mca.jpg' };
-  const aboutData = { name: 'About ACE', icon: '🏫', bg: '/images/aboutcollege.jpg' };
-  const hostelData = { name: 'Hostel Facilities', icon: '🏨', bg: '/images/hostel.jpg' };
 
   // Start drone animation sequence
   const startDroneAnimation = (

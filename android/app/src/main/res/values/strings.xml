@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Adhiyamaan Info</string>
+    <string name="title_activity_main">Adhiyamaan Info</string>
+    <string name="package_name">com.adhiyamaan.broucher</string>
+    <string name="custom_url_scheme">com.adhiyamaan.broucher</string>
+</resources>
