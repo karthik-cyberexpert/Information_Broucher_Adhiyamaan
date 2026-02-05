@@ -13,7 +13,7 @@ const routesLeft = [
 
 const routesCenter = [
    "Alsanatham", "Mathigiri", "Athipalli", "Kariyamangalam", 
-   "Bargur", "Tirupathur", "Anchetty"
+   "Bargur", "Tirupathur", "Anchetty", "Hosur", "Thally"
 ];
 
 const routesRight = [
@@ -49,14 +49,14 @@ const RouteList = ({ routes, section, globalProgress }: { routes: string[], sect
         const total = routes.length;
         
         if (section === 'left') {
-            const threshold = (index / total) * 0.33;
+            const threshold = ((index + 1) / total) * 0.33;
             isVisible = globalProgress > threshold;
         } else if (section === 'center') {
-            const threshold = 0.33 + (index / total) * 0.33;
+            const threshold = 0.33 + ((index + 1) / total) * 0.33;
             isVisible = globalProgress > threshold;
         } else if (section === 'right') {
             const indexFromBottom = total - 1 - index; 
-            const threshold = 0.66 + (indexFromBottom / total) * 0.34;
+            const threshold = 0.66 + ((indexFromBottom + 1) / total) * 0.34;
             isVisible = globalProgress > threshold;
         }
 
@@ -71,6 +71,7 @@ const RouteList = ({ routes, section, globalProgress }: { routes: string[], sect
             }}
             transition={{ 
                 duration: 0.3, 
+                delay: 0.2,
                 ease: "linear"
             }}
             whileHover={{
