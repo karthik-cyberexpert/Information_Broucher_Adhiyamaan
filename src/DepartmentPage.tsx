@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './DepartmentPage.css';
 
 interface DepartmentPageProps {
@@ -12,6 +12,40 @@ interface DepartmentPageProps {
 
 const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) => {
   const [activeTab, setActiveTab] = useState('About');
+  const [fallingIcons, setFallingIcons] = useState<Array<{id: number, icon: string, style: React.CSSProperties}>>([]);
+
+  // Icon Mapping
+  const getDeptIcons = (name: string) => {
+    const n = name.toLowerCase();
+    if (n.includes('aero')) return ['✈️', '🚁', '🛸', '🪂', '☁️', '🦅'];
+    if (n.includes('bio') || n.includes('medical')) return ['🧬', '🩺', '🏥', '🔬', '💊', '🦠'];
+    if (n.includes('civil') || n.includes('arch') || n.includes('structural')) return ['🏗️', '🧱', '🏠', '🌉', '👷', '📐'];
+    if (n.includes('computer') || n.includes('cse') || n.includes('it') || n.includes('mca') || n.includes('software')) return ['💻', '🖥️', '⌨️', '🖱️', '💾', '🌐', '👾'];
+    if (n.includes('electronic') || n.includes('communication') || n.includes('ece')) return ['📡', '📶', '📻', '📱', '🔋', '🔌'];
+    if (n.includes('electrical') || n.includes('eee') || n.includes('power')) return ['⚡', '💡', '🔌', '🔋', '🏭', '🔦'];
+    if (n.includes('mech') || n.includes('production') || n.includes('design')) return ['⚙️', '🔧', '🔩', '🛠️', '🚗', '🏍️'];
+    if (n.includes('artificial') || n.includes('ai') || n.includes('data')) return ['🧠', '🤖', '📊', '📈', '🔗', '👁️'];
+    if (n.includes('chem')) return ['🧪', '⚗️', '⚛️', '🔥', '💧', '☣️'];
+    if (n.includes('mba') || n.includes('business')) return ['📊', '💼', '💰', '📈', '🤝', '👔'];
+    if (n.includes('phys')) return ['⚛️', '🔭', '🌌', '🍎', '📏', '⚡'];
+    return ['🎓', '📚', '🏫', '📝', '✨', '🌟']; // Default
+  };
+
+  useEffect(() => {
+    const icons = getDeptIcons(department.name);
+    const newIcons = Array.from({ length: 20 }).map((_, i) => ({
+      id: i,
+      icon: icons[i % icons.length],
+      style: {
+        left: `${Math.random() * 100}%`,
+        animationDelay: `${Math.random() * 0.5}s`, // Start quickly
+        animationDuration: `${2 + Math.random() * 2}s`, // 2-4s throw
+        fontSize: `${3 + Math.random() * 2}rem`, // Bigger icons (3-5rem)
+        zIndex: 20
+      } as React.CSSProperties
+    }));
+    setFallingIcons(newIcons);
+  }, [department.name]);
 
   const menuItems = [
     { id: 'About', label: 'About' },
@@ -109,6 +143,19 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
         style={{ backgroundImage: `url(${department.bg})` }}
       />
       <div className="dept-overlay" />
+      
+      {/* Falling Icons Container */}
+      <div className="falling-icons-container">
+        {fallingIcons.map((icon) => (
+          <div 
+            key={icon.id} 
+            className="falling-icon"
+            style={icon.style}
+          >
+            {icon.icon}
+          </div>
+        ))}
+      </div>
 
       {/* Header */}
       <div className="dept-header">
@@ -135,7 +182,10 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
 
         {/* Main Content Area */}
         <div className="dept-main-content">
-          <div className="content-glass-card">
+          <div 
+            className="content-glass-card"
+            style={{ '--dept-bg': `url(${department.bg})` } as React.CSSProperties}
+          >
             {menuItems.map((item) => (
               <div 
                 key={item.id} 
