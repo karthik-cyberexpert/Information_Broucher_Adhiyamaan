@@ -4,8 +4,7 @@ import Lottie from 'lottie-react';
 import collegeLogo from '../assets/college-logo.png';
 // @ts-ignore - JSON import for Lottie
 import welcomeAnimation from '../../public/assets/Welcome Animation.json';
-// @ts-ignore - JSON import for Lottie
-import sadAnimation from '../../public/assets/Sad guy is walking.json';
+
 // We'll duplicate this CSS import or ensure App.css is global
 import '../App.css'; 
 import LightRays from '../components/LightRays'; 
@@ -14,7 +13,7 @@ const Home = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
-  const [showSad, setShowSad] = useState(false);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -28,10 +27,10 @@ const Home = () => {
   const handleClose = () => {
     setIsModalOpen(false);
     
-    // Show sad animation for 3 seconds when closing without submit
-    setShowSad(true);
+    // Show welcome animation for 3 seconds
+    setShowWelcome(true);
     setTimeout(() => {
-      setShowSad(false);
+      setShowWelcome(false);
       navigate('/menu');
     }, 3000);
   };
@@ -168,38 +167,7 @@ const Home = () => {
       )}
 
       {/* Sad Animation Overlay */}
-      {showSad && (
-        <div className="sad-overlay">
-           <div style={{ width: '100%', height: '600px', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
-              <LightRays
-                raysOrigin="top-center"
-                raysColor="#ffffff"
-                raysSpeed={1}
-                lightSpread={0.5}
-                rayLength={3}
-                followMouse={true}
-                mouseInfluence={0.1}
-                noiseAmount={0}
-                distortion={0}
-                className="custom-rays"
-                pulsating={false}
-                fadeDistance={1}
-                saturation={1}
-              />
-            </div>
-            <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-              <Lottie 
-                animationData={sadAnimation} 
-                loop={true}
-                className="sad-animation"
-                style={{ height: '400px' }}
-              />
-              <p className="sad-text" style={{ marginTop: '20px', zIndex: 10 }}>You haven't added your details!!!</p>
-            </div>
-          </div>
-        </div>
-      )}
+
     </div>
   );
 };

@@ -50,6 +50,11 @@ export default function Sports() {
 
   return (
     <div className="sports-page">
+      {/* BACKGROUND VIDEO */}
+      <video className="sports-bg-video" autoPlay loop muted playsInline>
+        <source src="/media/sports.mp4" type="video/mp4" />
+      </video>
+
       <h1 className="sports-title">🏆 Sports Facilities</h1>
 
       <div className="sports-layout">

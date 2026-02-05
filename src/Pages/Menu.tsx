@@ -24,7 +24,7 @@ const Menu = () => {
   const [showPhDDetails, setShowPhDDetails] = useState(false);
   
   // Selected Department State for Detailed View
-  const [selectedDepartment, setSelectedDepartment] = useState<{name: string, icon: string, bg: string} | null>(null);
+  const [selectedDepartment, setSelectedDepartment] = useState<{name: string, icon: string, bg: string, video?: string} | null>(null);
 
   // Drone Animation State
   const [droneState, setDroneState] = useState<DroneState>({
@@ -57,47 +57,47 @@ const Menu = () => {
   // B.E Courses Data
   const beCourses = [
     { name: 'Aeronautical Engineering', icon: '✈️', bg: '/images/aeroback.jpg' },
-    { name: 'Biomedical Engineering', icon: '🧬', bg: '/images/bioback.jpg' },
-    { name: 'Civil Engineering', icon: '🏗️', bg: '/images/civilback.jpg' },
-    { name: 'Computer Science & Engineering', icon: '💻', bg: '/images/computerback.jpg' },
-    { name: 'CSE (Cyber Security)', icon: '🔐', bg: '/images/computerback.jpg' },
-    { name: 'CSE (AI & ML)', icon: '🤖', bg: '/images/be/AIML-bg.jpg.jpeg' },
-    { name: 'Electronics & Communication', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg' },
-    { name: 'Electrical & Electronics', icon: '⚡', bg: '/images/be/eee1.jpg.jpeg' },
-    { name: 'Mechanical Engineering', icon: '⚙️', bg: '/images/me.jpg' },
+    { name: 'Biomedical Engineering', icon: '🧬', bg: '/images/bioback.jpg', video: '/media/bio.mp4' },
+    { name: 'Civil Engineering', icon: '🏗️', bg: '/images/civilback.jpg', video: '/media/civil.mp4' },
+    { name: 'Computer Science & Engineering', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
+    { name: 'CSE (Cyber Security)', icon: '🔐', bg: '/images/computerback.jpg', video: '/media/cyber.mp4' },
+    { name: 'CSE (AI & ML)', icon: '🤖', bg: '/images/be/AIML-bg.jpg.jpeg', video: '/media/ai.mp4' },
+    { name: 'Electronics & Communication', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
+    { name: 'Electrical & Electronics', icon: '⚡', bg: '/images/eee.jpg', video: '/media/elect.mp4' },
+    { name: 'Mechanical Engineering', icon: '⚙️', bg: '/images/me.jpg', video: '/media/mech.mp4' },
   ];
 
   // B.Tech Courses Data
   const bTechCourses = [
-    { name: 'Artificial Intelligence & Data Science', icon: '🧠', bg: '/images/btech/AIDS_BG.jpg' },
-    { name: 'Biotechnology', icon: '🔬', bg: '/images/btech/biobg.jpg' },
+    { name: 'Artificial Intelligence & Data Science', icon: '🧠', bg: '/images/btech/AIDS_BG.jpg', video: '/media/ai.mp4' },
+    { name: 'Biotechnology', icon: '🔬', bg: '/images/btech/biobg.jpg', video: '/media/bio.mp4' },
     { name: 'Chemical Engineering', icon: '🧪', bg: '/images/btech/CE_bg.jpg' },
-    { name: 'Computer Science and Business Systems', icon: '💼', bg: '/images/btech/csbsbg.jpg' },
-    { name: 'Information Technology', icon: '🖥️', bg: '/images/btech/ITbg.jpg' },
+    { name: 'Computer Science and Business Systems', icon: '💼', bg: '/images/btech/csbsbg.jpg', video: '/media/comp.mp4' },
+    { name: 'Information Technology', icon: '🖥️', bg: '/images/btech/ITbg.jpg', video: '/media/comp.mp4' },
   ];
 
   // M.E Courses Data
   const meCourses = [
-    { name: 'M.E. Communication System Engineering', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg' },
-    { name: 'M.E. Computer Science Engineering', icon: '💻', bg: '/images/computerback.jpg' },
-    { name: 'M.E. Engineering Design', icon: '📐', bg: '/images/me.jpg' },
-    { name: 'M.E. Power System Engineering', icon: '⚡', bg: '/images/be/eee1.jpg.jpeg' },
-    { name: 'M.E. Structural Engineering', icon: '🏗️', bg: '/images/civilback.jpg' },
+    { name: 'M.E. Communication System Engineering', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
+    { name: 'M.E. Computer Science Engineering', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
+    { name: 'M.E. Engineering Design', icon: '📐', bg: '/images/me.jpg', video: '/media/mech.mp4' },
+    { name: 'M.E. Power System Engineering', icon: '⚡', bg: '/images/be/eee1.jpg.jpeg', video: '/media/elect.mp4' },
+    { name: 'M.E. Structural Engineering', icon: '🏗️', bg: '/images/civilback.jpg', video: '/media/civil.mp4' },
   ];
 
   // Ph.D Courses Data
   const phdCourses = [
-    { name: 'Ph.D. Computer Science', icon: '💻', bg: '/images/computerback.jpg' },
-    { name: 'Ph.D. ECE', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg' },
-    { name: 'Ph.D. Mechanical Engineering', icon: '⚙️', bg: '/images/me.jpg' },
+    { name: 'Ph.D. Computer Science', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
+    { name: 'Ph.D. ECE', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
+    { name: 'Ph.D. Mechanical Engineering', icon: '⚙️', bg: '/images/me.jpg', video: '/media/mech.mp4' },
     { name: 'Ph.D. Chemistry', icon: '🧪', bg: '/images/btech/CE_bg.jpg' },
     { name: 'Ph.D. Physics', icon: '⚛️', bg: '/images/be/eee1.jpg.jpeg' },
   ];
 
   // Single Department Data (No Sub-menu)
-  const bArchData = { name: 'Bachelor of Architecture', icon: '🏛️', bg: '/images/civilback.jpg' };
+  const bArchData = { name: 'Bachelor of Architecture', icon: '🏛️', bg: '/images/civilback.jpg', video: '/media/civil.mp4' };
   const mbaData = { name: 'Master of Business Administration', icon: '📊', bg: '/images/mba.jpg' };
-  const mcaData = { name: 'Master of Computer Applications', icon: '💻', bg: '/images/mca.jpg' };
+  const mcaData = { name: 'Master of Computer Applications', icon: '💻', bg: '/images/mca.jpg', video: '/media/mcaback.mp4' };
 
   // Start drone animation sequence
   const startDroneAnimation = (
@@ -190,7 +190,7 @@ const Menu = () => {
 
   const handleCourseClick = (
     e: React.MouseEvent<HTMLDivElement>,
-    course: {name: string, icon: string, bg: string}
+    course: {name: string, icon: string, bg: string, video?: string}
   ) => {
     const action = () => {
       setSelectedDepartment(course);
@@ -273,6 +273,13 @@ const Menu = () => {
         isPhDDetails ? 'phd-page-bg' : ''
       }`}>
         
+        {/* PhD Video Background */}
+        {isPhDDetails && (
+          <video className="phd-bg-video" autoPlay loop muted playsInline>
+            <source src="/media/phd.mp4" type="video/mp4" />
+          </video>
+        )}
+
         {isMainNav && (
           <div className="nav-grid-container">
             <div className="nav-grid">

@@ -10,6 +10,7 @@
     font-family: "Segoe UI", sans-serif;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    background-color: rgba(15, 23, 42, 0.75); /* Dark fallback background with 0.75 opacity */
 }
 
 .sch-page::-webkit-scrollbar {
@@ -20,7 +21,7 @@
    BACKGROUND
 ========================= */
 
-.bg-img {
+.bg-video {
     position: fixed;
     inset: 0;
     width: 100%;

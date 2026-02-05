@@ -25,7 +25,10 @@ export default function Hostel() {
   return (
     <div className="hostel-page">
       {/* Background */}
-      <div className="hostel-bg"></div>
+      {/* Background */}
+      <video className="hostel-bg-video" autoPlay loop muted playsInline>
+        <source src="/media/hostel.mp4" type="video/mp4" />
+      </video>
 
       {/* Header */}
       <header className="hostel-header">

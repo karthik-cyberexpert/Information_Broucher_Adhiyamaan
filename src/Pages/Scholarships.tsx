@@ -20,10 +20,13 @@ export default function Scholarships() {
   return (
     <div className="sch-page">
       {/* BACKGROUND IMAGE */}
-      <img src="./images/scholarship.jpg" alt="bg" className="bg-img" />
+      {/* BACKGROUND VIDEO */}
+      <video className="bg-video" autoPlay loop muted playsInline poster="/images/scholarship.jpg">
+        <source src="/media/scholarship.mp4" type="video/mp4" />
+      </video>
 
       {/* HEADER */}
-      <header className="sch-header glass">
+      <header className="sch-header">
         <h1 className="typing">
           {"Scholarships".split("").map((c, i) => (
             <span key={i} style={{ "--delay": `${i * 0.08}s` } as React.CSSProperties}>

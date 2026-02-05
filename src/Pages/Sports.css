@@ -21,9 +21,16 @@ body::-webkit-scrollbar {
     height: 100vh;
     padding: 0px;
     margin-bottom: 20px;
-    background:
-        linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
-        url("/images/sports.jpg") center / cover no-repeat;
+}
+
+.sports-bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
 }
 
 /* TITLE */

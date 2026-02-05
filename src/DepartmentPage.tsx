@@ -6,6 +6,7 @@ interface DepartmentPageProps {
     name: string;
     icon: string;
     bg: string;
+    video?: string;
   };
   onBack: () => void;
 }
@@ -14,6 +15,8 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
   const [activeTab, setActiveTab] = useState('About');
   const [fallingIcons, setFallingIcons] = useState<Array<{id: number, icon: string, style: React.CSSProperties}>>([]);
 
+  // ... (keep getDeptIcons and useEffect exactly as is - no change needed there)
+  
   // Icon Mapping
   const getDeptIcons = (name: string) => {
     const n = name.toLowerCase();
@@ -137,11 +140,24 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
 
   return (
     <div className="dept-page-container">
-      {/* Background with overlay */}
-      <div 
-        className="dept-bg-image" 
-        style={{ backgroundImage: `url(${department.bg})` }}
-      />
+      {/* Background: Video or Image */}
+      {department.video ? (
+        <video 
+          className="dept-video-bg"
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+        >
+          <source src={department.video} type="video/mp4" />
+        </video>
+      ) : (
+        <div 
+          className="dept-bg-image" 
+          style={{ backgroundImage: `url(${department.bg})` }}
+        />
+      )}
+      
       <div className="dept-overlay" />
       
       {/* Falling Icons Container */}
@@ -184,7 +200,11 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
         <div className="dept-main-content">
           <div 
             className="content-glass-card"
-            style={{ '--dept-bg': `url(${department.bg})` } as React.CSSProperties}
+            style={{ 
+                '--dept-bg': department.video ? 'none' : `url(${department.bg})`,
+                // If video, we might want a slight transparent dark bg instead of image repetition
+                backgroundColor: department.video ? 'rgba(15, 23, 42, 0.7)' : undefined 
+            } as React.CSSProperties}
           >
             {menuItems.map((item) => (
               <div 
