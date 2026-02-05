@@ -114,13 +114,10 @@
     grid-column: 1;
     display: flex;
     flex-direction: column;
-    align-items: flex-end; /* Align to right */
+    align-items: center; /* Center horizontally over bus path */
     justify-content: space-between; /* Occupy full height */
     height: 100%;
-    padding-left: 0;
-    padding-right: 15%; /* Gap to align 13% bus line in 15% col */
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px 0;
     background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
 }
 
@@ -134,13 +131,10 @@
     grid-column: 3;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Align to left */
+    align-items: center; /* Center horizontally over bus path */
     justify-content: space-between; /* Occupy full height */
     height: 100%;
-    padding-right: 0;
-    padding-left: 15%; /* Gap to align 87% bus line in 15% col */
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px 0;
     background: linear-gradient(-90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
 }
 

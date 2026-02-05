@@ -40,7 +40,8 @@ const RouteList = ({ routes, section, globalProgress }: { routes: string[], sect
       gap: '20px',
       width: '100%',
       height: '100%',
-      alignItems: section === 'left' ? 'flex-end' : section === 'right' ? 'flex-start' : 'center',
+      // Centered for all sections so bus is on top
+      alignItems: 'center',
       justifyContent: section === 'center' ? 'center' : 'space-between',
     }}>
       {routes.map((route, index) => {
@@ -124,8 +125,8 @@ const Transport = () => {
   // 3. Vertical Up (0.66 - 1.0)
   const getBusState = (progress: number) => {
       // Coordinates in % (relative to container)
-      const LEFT_X = 13; // Inner edge of Left Col (15% with 2% margin)
-      const RIGHT_X = 87; // Inner edge of Right Col (85% + 2% margin)
+      const LEFT_X = 7.5; // Exactly Center of Left Col (15% / 2)
+      const RIGHT_X = 92.5; // Exactly Center of Right Col (100 - 15% / 2)
       const TOP_Y = 10;
       const BOTTOM_Y = 92;
 
