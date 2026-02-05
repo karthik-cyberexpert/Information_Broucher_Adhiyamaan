@@ -127,8 +127,8 @@ const Transport = () => {
       // Coordinates in % (relative to container)
       const LEFT_X = 7.5; // Exactly Center of Left Col (15% / 2)
       const RIGHT_X = 92.5; // Exactly Center of Right Col (100 - 15% / 2)
-      const TOP_Y = 10;
-      const BOTTOM_Y = 92;
+      const TOP_Y = 14;    // Matches center of side cards
+      const BOTTOM_Y = 88; // Aligns with the standardized 18px padding
 
       let x = 0;
       let y = 0;
@@ -191,19 +191,20 @@ const Transport = () => {
         </video>
 
         {/* Global Bus Element - Icon */}
-        <motion.div 
+        <motion.img 
+            src="/bus.png"
             style={{
                 position: 'absolute',
                 left: `${busState.x}%`,
                 top: `${busState.y}%`,
+                width: '60px', /* Adjusted size for the PNG bus */
+                height: 'auto',
                 zIndex: 100, /* Above route cards */
                 transform: `translate(-50%, -50%) rotate(${busState.rotation}deg)`,
-                filter: 'drop-shadow(0 0 10px rgba(234, 179, 8, 0.6))', /* Yellow glow */
+                filter: 'drop-shadow(0 0 10px rgba(0,0,0,0.5))',
                 pointerEvents: 'none',
             }}
-        >
-            <Bus size={40} color="#EAB308" fill="#EAB308" /> 
-        </motion.div>
+        />
 
         {/* Dark Overlay matching Home page */}
         <div className="transport-overlay"></div>

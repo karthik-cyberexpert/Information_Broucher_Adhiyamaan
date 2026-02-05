@@ -117,7 +117,7 @@
     align-items: center; /* Center horizontally over bus path */
     justify-content: space-between; /* Occupy full height */
     height: 100%;
-    padding: 20px 0;
+    padding: 18px 0; /* Centered on 14% and 88% bus line */
     background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
 }
 
@@ -134,7 +134,7 @@
     align-items: center; /* Center horizontally over bus path */
     justify-content: space-between; /* Occupy full height */
     height: 100%;
-    padding: 20px 0;
+    padding: 18px 0; /* Centered on 14% and 88% bus line */
     background: linear-gradient(-90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
 }
 
@@ -165,14 +165,15 @@
 }
 
 .edge-center-bottom {
-    margin-top: auto; /* Push to very bottom */
+    margin-top: auto; /* Push to very bottom of the middle row */
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center; 
     width: 100%;
-    padding-bottom: 20px; /* Must match edge-left/right padding-bottom */
-    gap: 8px;
+    gap: 12px;
+    height: 44px; /* Exact card height for centering */
+    margin-bottom: 18px; /* Balanced with 88% bus path height */
 }
 
 /* Center Visual Styles - Extracted from Inline */
