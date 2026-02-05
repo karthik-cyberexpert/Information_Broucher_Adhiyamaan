@@ -264,6 +264,7 @@ const Menu = () => {
           <img src={collegeLogo} className="college-logo" alt="College Logo" />
           <h1 className="college-name">Adhiyamaan College of Engineering</h1>
         </div>
+
       </header>
 
       <main className={`main-content ${
@@ -307,6 +308,36 @@ const Menu = () => {
                   </button>
                 </div>
               ))}
+            </div>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              width: '100%',
+              marginTop: '40px',
+              paddingBottom: '40px',
+              zIndex: 100,
+              position: 'relative'
+            }}>
+               <button className="home-btn" onClick={() => navigate('/')} style={{
+                 padding: '1rem 3rem',
+                 background: 'rgba(255, 255, 255, 0.15)',
+                 border: '1px solid rgba(255, 255, 255, 0.3)',
+                 borderRadius: '50px',
+                 color: 'white',
+                 cursor: 'pointer',
+                 backdropFilter: 'blur(12px)',
+                 fontSize: '1.2rem',
+                 fontWeight: 'bold',
+                 transition: 'all 0.3s ease',
+                 display: 'flex',
+                 alignItems: 'center',
+                 gap: '12px',
+                 boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+                 textTransform: 'uppercase',
+                 letterSpacing: '1px'
+               }}>
+                 🏠 Return Home
+               </button>
             </div>
           </div>
         )}
