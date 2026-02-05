@@ -49,8 +49,8 @@ const Transport = () => {
   // 3. Vertical Up (0.66 - 1.0)
   const getBusState = (progress: number) => {
       // Coordinates in % (relative to container)
-      const LEFT_X = 18; // Inner edge of Left Col
-      const RIGHT_X = 82; // Inner edge of Right Col
+      const LEFT_X = 13; // Inner edge of Left Col (15% with 2% margin)
+      const RIGHT_X = 87; // Inner edge of Right Col (85% + 2% margin)
       const TOP_Y = 10;
       const BOTTOM_Y = 85;
 
