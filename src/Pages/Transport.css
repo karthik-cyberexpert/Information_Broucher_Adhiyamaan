@@ -171,14 +171,14 @@
 }
 
 .edge-center-bottom {
-    flex: 0.8; 
+    margin-top: auto; /* Push to very bottom */
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center; 
-    width: 100%; /* Fill the 70% space */
-    padding-bottom: 30px;
-    gap: 8px; /* Tighter gap */
+    align-items: flex-end;
+    width: 100%;
+    padding-bottom: 20px; /* Must match edge-left/right padding-bottom */
+    gap: 8px;
 }
 
 /* Center Visual Styles - Extracted from Inline */

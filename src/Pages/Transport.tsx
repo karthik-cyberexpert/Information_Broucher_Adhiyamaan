@@ -52,7 +52,7 @@ const Transport = () => {
       const LEFT_X = 13; // Inner edge of Left Col (15% with 2% margin)
       const RIGHT_X = 87; // Inner edge of Right Col (85% + 2% margin)
       const TOP_Y = 10;
-      const BOTTOM_Y = 85;
+      const BOTTOM_Y = 92;
 
       let x = 0;
       let y = 0;
