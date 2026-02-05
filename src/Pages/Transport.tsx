@@ -5,30 +5,107 @@ import { useNavigate } from 'react-router-dom';
 import NavigationDock from '../components/NavigationDock';
 import './Transport.css';
 
+// Routes Data moved outside to prevent re-creation
+const routesLeft = [
+  "Ayyur", "Haleseebam", "Kagadasam", "Local Staff Bus", 
+  "Kaknoor", "Jawalagiri", "Mathur", "Seekanapalli"
+];
+
+const routesCenter = [
+   "Alsanatham", "Mathigiri", "Athipalli", "Kariyamangalam", 
+   "Bargur", "Tirupathur", "Anchetty"
+];
+
+const routesRight = [
+  "Poonapalli", "Rayakottai", "Mudampatti", "Kelamangalam & Gowthalam", 
+  "Berigai", "Krishnagiri", "Basthi", "Ashok Leyland"
+];
+
+const transportImages = [
+  "/images/transport.jpg",
+  "/images/t1.jpeg",
+  "/images/t2.jpeg"
+];
+
+// Animation Constants
+const ANIMATION_DURATION = 11; 
+
+// Sub-component defined outside to prevent re-mounting glitches during animation
+const RouteList = ({ routes, section, globalProgress }: { routes: string[], section: 'left' | 'center' | 'right', globalProgress: number }) => {
+    return (
+    <div style={{
+      display: 'flex',
+      flexDirection: section === 'center' ? 'row' : 'column',
+      flexWrap: 'nowrap',
+      gap: '20px',
+      width: '100%',
+      height: '100%',
+      alignItems: section === 'left' ? 'flex-end' : section === 'right' ? 'flex-start' : 'center',
+      justifyContent: section === 'center' ? 'center' : 'space-between',
+    }}>
+      {routes.map((route, index) => {
+        let isVisible = false;
+        const total = routes.length;
+        
+        if (section === 'left') {
+            const threshold = (index / total) * 0.33;
+            isVisible = globalProgress > threshold;
+        } else if (section === 'center') {
+            const threshold = 0.33 + (index / total) * 0.33;
+            isVisible = globalProgress > threshold;
+        } else if (section === 'right') {
+            const indexFromBottom = total - 1 - index; 
+            const threshold = 0.66 + (indexFromBottom / total) * 0.34;
+            isVisible = globalProgress > threshold;
+        }
+
+        return (
+            <motion.div 
+            key={route}
+            className={`route-card ${section}`}
+            initial={{ opacity: 0 }}
+            animate={{ 
+                opacity: isVisible ? 1 : 0,
+                x: isVisible ? 0 : (section === 'left' ? -15 : section === 'right' ? 15 : 0),
+            }}
+            transition={{ 
+                duration: 0.3, 
+                ease: "linear"
+            }}
+            whileHover={{
+                scale: 1.05,
+                borderColor: 'rgba(255, 255, 255, 0.8)',
+                background: 'rgba(255, 255, 255, 0.45)'
+            }}
+            >
+            {section === 'left' && (
+                <>
+                    <span className="route-text" style={{ textAlign: 'right' }}>{route}</span>
+                    <div className="route-dot" />
+                </>
+            )}
+
+            {section === 'center' && (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
+                    <div className="route-dot" style={{ background: '#10b981', boxShadow: '0 0 8px #10b981' }}/>
+                    <span className="route-text" style={{ textAlign: 'center', fontSize: '0.8rem' }}>{route}</span>
+                </div>
+            )}
+
+            {section === 'right' && (
+                <>
+                    <div className="route-dot" />
+                    <span className="route-text" style={{ textAlign: 'left' }}>{route}</span>
+                </>
+            )}
+            </motion.div>
+        );
+      })}
+    </div>
+  )};
+
 const Transport = () => {
   const navigate = useNavigate();
-  // Routes Data extracted from reference
-  const routesLeft = [
-    "Ayyur", "Haleseebam", "Kagadasam", "Local Staff Bus", 
-    "Kaknoor", "Jawalagiri", "Mathur", "Seekanapalli"
-  ];
-
-  const routesCenter = [
-     "Alsanatham", "Mathigiri", "Athipalli", "Kariyamangalam", 
-     "Bargur", "Tirupathur", "Anchetty"
-  ];
-
-  const routesRight = [
-    "Poonapalli", "Rayakottai", "Mudampatti", "Kelamangalam & Gowthalam", 
-    "Berigai", "Krishnagiri", "Basthi", "Ashok Leyland"
-  ];
-
-  const transportImages = [
-    "/images/transport.jpg",
-    "/images/t1.jpeg",
-    "/images/t2.jpeg"
-  ];
-  
   const [currentImage, setCurrentImage] = React.useState(0);
   
   React.useEffect(() => {
@@ -38,8 +115,6 @@ const Transport = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Animation Constants
-  const ANIMATION_DURATION = 7; // 7 seconds as requested
 
   // Helper to get bus position based on progress (0 -> 1)
   // Path: Top-Left -> Bottom-Left -> Bottom-Right -> Top-Right
@@ -80,80 +155,6 @@ const Transport = () => {
       return { x, y, rotation };
   };
 
-  const RouteList = ({ routes, section, globalProgress }: { routes: string[], section: 'left' | 'center' | 'right', globalProgress: number }) => {
-    return (
-    <div style={{
-      display: 'flex',
-      flexDirection: section === 'center' ? 'row' : 'column',
-      flexWrap: 'nowrap',
-      gap: '20px', // Increased vertical gap for professional look
-      width: '100%',
-      height: '100%',
-      // Left: Align Right (to meet bus), Right: Align Left (to meet bus), Center: Center
-      alignItems: section === 'left' ? 'flex-end' : section === 'right' ? 'flex-start' : 'center',
-      justifyContent: section === 'center' ? 'center' : 'space-between',
-    }}>
-      {routes.map((route, index) => {
-        let isVisible = false;
-        const total = routes.length;
-        
-        if (section === 'left') {
-            const threshold = (index / total) * 0.33;
-            isVisible = globalProgress > threshold;
-        } else if (section === 'center') {
-            const threshold = 0.33 + (index / total) * 0.33;
-            isVisible = globalProgress > threshold;
-        } else if (section === 'right') {
-            const indexFromBottom = total - 1 - index; 
-            const threshold = 0.66 + (indexFromBottom / total) * 0.34;
-            isVisible = globalProgress > threshold;
-        }
-
-        return (
-            <motion.div 
-            key={route}
-            className={`route-card ${section}`}
-            animate={{ 
-                opacity: isVisible ? 1 : 0,
-                x: isVisible ? 0 : (section === 'left' ? -30 : section === 'right' ? 30 : 0),
-                scale: isVisible ? 1 : 0.9
-            }}
-            transition={{ duration: 0.4, ease: "backOut" }}
-            whileHover={{
-                scale: 1.05,
-                x: section === 'left' ? -10 : section === 'right' ? 10 : 0,
-                borderColor: 'rgba(59, 130, 246, 0.5)',
-                boxShadow: '0 0 15px rgba(59, 130, 246, 0.3)'
-            }}
-            >
-            {/* Left Section: Text then Dot */}
-            {section === 'left' && (
-                <>
-                    <span className="route-text" style={{ textAlign: 'right' }}>{route}</span>
-                    <div className="route-dot" />
-                </>
-            )}
-
-            {/* Center Section: Just Text (Dot below maybe? or no dot) */}
-            {section === 'center' && (
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
-                    <div className="route-dot" style={{ background: '#10b981', boxShadow: '0 0 8px #10b981' }}/>
-                    <span className="route-text" style={{ textAlign: 'center', fontSize: '0.8rem' }}>{route}</span>
-                </div>
-            )}
-
-            {/* Right Section: Dot then Text */}
-            {section === 'right' && (
-                <>
-                    <div className="route-dot" />
-                    <span className="route-text" style={{ textAlign: 'left' }}>{route}</span>
-                </>
-            )}
-            </motion.div>
-        );
-      })}
-    </div>
-  )};
 
   // Global Animation Loop
   const [progress, setProgress] = React.useState(0);
@@ -188,22 +189,20 @@ const Transport = () => {
             <source src="/media/bg_image.mp4" type="video/mp4" />
         </video>
 
-        {/* Global Bus Element */}
-        <motion.img 
-            src="/assets/bus.png"
+        {/* Global Bus Element - Icon */}
+        <motion.div 
             style={{
                 position: 'absolute',
                 left: `${busState.x}%`,
                 top: `${busState.y}%`,
-                width: '60px',
-                height: 'auto',
-                zIndex: 50,
+                zIndex: 100, /* Above route cards */
                 transform: `translate(-50%, -50%) rotate(${busState.rotation}deg)`,
-                filter: 'drop-shadow(0 0 15px rgba(59, 130, 246, 0.8))',
-                pointerEvents: 'none', // Don't block clicks
-                mixBlendMode: 'screen',
+                filter: 'drop-shadow(0 0 10px rgba(234, 179, 8, 0.6))', /* Yellow glow */
+                pointerEvents: 'none',
             }}
-        />
+        >
+            <Bus size={40} color="#EAB308" fill="#EAB308" /> 
+        </motion.div>
 
         {/* Dark Overlay matching Home page */}
         <div className="transport-overlay"></div>
