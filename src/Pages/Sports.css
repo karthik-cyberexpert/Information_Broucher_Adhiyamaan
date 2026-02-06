@@ -84,21 +84,32 @@ body::-webkit-scrollbar {
     box-shadow: 0 10px 25px rgba(56, 189, 248, 0.35);
 }
 
-/* ENTRY ANIMATION (INDOOR + OUTDOOR) */
-.animate-card {
-    opacity: 0;
-    animation: cardSlideIn 0.6s ease forwards;
+/* SCROLL WINDOW Container */
+.scroll-window {
+    height: 400px; /* Adjust based on preferred visible height */
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
 }
 
-@keyframes cardSlideIn {
-    from {
-        transform: translateY(15px);
-        opacity: 0;
-    }
+/* SCROLL TRACK Animation */
+.scroll-track {
+    display: flex;
+    flex-direction: column;
+    animation: scroll-vertical 20s linear infinite;
+}
 
-    to {
+.scroll-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scroll-vertical {
+    0% {
         transform: translateY(0);
-        opacity: 1;
+    }
+    100% {
+        transform: translateY(-50%);
     }
 }
 

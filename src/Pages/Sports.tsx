@@ -63,16 +63,23 @@ export default function Sports() {
         <div className="glass-box indoor-box">
           <h2>Indoor Games</h2>
           <div className="bounce-ball blue"></div>
-
-          {indoorGames.map((game, i) => (
-            <div
-              key={i}
-              className="game-card animate-card"
-              style={{ animationDelay: `${i * 0.15}s` }}
-            >
-              {game}
+          
+          <div className="scroll-window">
+            <div className="scroll-track">
+              {/* Original List */}
+              {indoorGames.map((game, i) => (
+                <div key={`indoor-1-${i}`} className="game-card">
+                  {game}
+                </div>
+              ))}
+               {/* Duplicate List for Seamless Loop */}
+               {indoorGames.map((game, i) => (
+                <div key={`indoor-2-${i}`} className="game-card">
+                  {game}
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
 
         {/* CENTER GALLERY */}
@@ -91,15 +98,22 @@ export default function Sports() {
           <h2>Outdoor Games</h2>
           <div className="bounce-ball orange"></div>
 
-          {outdoorGames.map((game, i) => (
-            <div
-              key={i}
-              className="game-card animate-card"
-              style={{ animationDelay: `${i * 0.15}s` }}
-            >
-              {game}
+          <div className="scroll-window">
+            <div className="scroll-track">
+              {/* Original List */}
+              {outdoorGames.map((game, i) => (
+                <div key={`outdoor-1-${i}`} className="game-card">
+                  {game}
+                </div>
+              ))}
+              {/* Duplicate List for Seamless Loop */}
+              {outdoorGames.map((game, i) => (
+                <div key={`outdoor-2-${i}`} className="game-card">
+                  {game}
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
 
       </div>
