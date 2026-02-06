@@ -2,7 +2,7 @@
    TRANSPORT PAGE
    =============================== */
 .transport-page {
-    width: 100vw; 
+    width: 100vw;
     height: 100vh;
     position: relative;
     font-family: 'Inter', sans-serif;
@@ -29,7 +29,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.85) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.85) 100%);
     pointer-events: none;
     z-index: 0;
 }
@@ -41,7 +41,7 @@
     height: 100%;
     display: grid;
     /* Desktop: Reduced sides to give center more room */
-    grid-template-rows: 100px 1fr 80px; 
+    grid-template-rows: 100px 1fr 80px;
     grid-template-columns: 15% 70% 15%;
     z-index: 10;
 }
@@ -65,14 +65,16 @@
     font-family: 'Inter', sans-serif;
     font-size: 0.85rem;
     font-weight: 500;
-    background: rgba(255, 255, 255, 0.3); /* Brighter glass for better visibility */
+    background: rgba(255, 255, 255, 0.3);
+    /* Brighter glass for better visibility */
     backdrop-filter: blur(12px);
     padding: 8px 12px;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.4); /* Sharper border */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    /* Sharper border */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    width: 175px; 
-    height: 44px; 
+    width: 175px;
+    height: 44px;
     justify-content: space-between;
     cursor: default;
     margin: 0;
@@ -83,10 +85,11 @@
 /* Center cards overrides: Flexible to fit */
 .route-card.center {
     justify-content: center;
-    width: auto; 
+    width: auto;
     min-width: 100px;
-    flex: 1 1 auto; /* Allow shrinking/growing */
-    height: 50px; 
+    flex: 1 1 auto;
+    /* Allow shrinking/growing */
+    height: 50px;
     padding: 5px 8px;
 }
 
@@ -99,13 +102,13 @@
 }
 
 .route-dot {
-    width: 8px; 
-    height: 8px; 
-    border-radius: 50%; 
-    background: #3b82f6; 
-    box-shadow: 0 0 10px #3b82f6; 
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #3b82f6;
+    box-shadow: 0 0 10px #3b82f6;
     flex-shrink: 0;
-    border: 2px solid rgba(255,255,255,0.8);
+    border: 2px solid rgba(255, 255, 255, 0.8);
 }
 
 /* Left Route List */
@@ -114,11 +117,14 @@
     grid-column: 1;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center horizontally over bus path */
-    justify-content: space-between; /* Occupy full height */
+    align-items: center;
+    /* Center horizontally over bus path */
+    justify-content: space-between;
+    /* Occupy full height */
     height: 100%;
-    padding: 18px 0; /* Centered on 14% and 88% bus line */
-    background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
+    padding: 18px 0;
+    /* Centered on 14% and 88% bus line */
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 .edge-left::-webkit-scrollbar {
@@ -131,11 +137,14 @@
     grid-column: 3;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center horizontally over bus path */
-    justify-content: space-between; /* Occupy full height */
+    align-items: center;
+    /* Center horizontally over bus path */
+    justify-content: space-between;
+    /* Occupy full height */
     height: 100%;
-    padding: 18px 0; /* Centered on 14% and 88% bus line */
-    background: linear-gradient(-90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
+    padding: 18px 0;
+    /* Centered on 14% and 88% bus line */
+    background: linear-gradient(-90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 .edge-right::-webkit-scrollbar {
@@ -152,7 +161,7 @@
     align-items: center;
     width: 100%;
     height: 100%;
-    overflow: visible; 
+    overflow: visible;
 }
 
 .center-visual-top {
@@ -165,21 +174,24 @@
 }
 
 .edge-center-bottom {
-    margin-top: auto; /* Push to very bottom of the middle row */
+    margin-top: auto;
+    /* Push to very bottom of the middle row */
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     width: 100%;
     gap: 12px;
-    height: 44px; /* Exact card height for centering */
-    margin-bottom: 18px; /* Balanced with 88% bus path height */
+    height: 44px;
+    /* Exact card height for centering */
+    margin-bottom: 18px;
+    /* Balanced with 88% bus path height */
 }
 
 /* Center Visual Styles - Extracted from Inline */
 .center-visual-container {
     position: relative;
-    width: 600px;
+    width: 1200px;
     height: 400px;
     display: flex;
     flex-direction: column;
@@ -188,18 +200,20 @@
 }
 
 /* Removed circular glowing rings */
-.glowing-ring-outer, .glowing-ring-inner {
+.glowing-ring-outer,
+.glowing-ring-inner {
     display: none;
 }
 
 .glass-disc {
     width: 100%;
     height: 100%;
-    border-radius: 20px; /* Rounded rectangle */
+    border-radius: 20px;
+    /* Rounded rectangle */
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -222,14 +236,14 @@
     font-size: 2.5rem;
     font-weight: 700;
     color: white;
-    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     letter-spacing: 2px;
     z-index: 3;
 }
 
 .logistics-subtitle {
     font-family: 'Inter', sans-serif;
-    color: rgba(255,255,255,0.7);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 0.9rem;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -245,7 +259,7 @@
     align-items: center;
     padding: 0 60px;
     padding-bottom: 20px;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 /* RESPONSIVE MEDIA QUERIES */
@@ -256,7 +270,7 @@
         grid-template-rows: 150px 1fr 100px;
         grid-template-columns: minmax(400px, 1fr) 1.5fr minmax(400px, 1fr);
     }
-    
+
     .transport-title {
         font-size: 4rem;
     }
@@ -264,14 +278,16 @@
     .center-visual-container {
         transform: scale(1.5);
     }
-    
-    .edge-left, .edge-right {
+
+    .edge-left,
+    .edge-right {
         padding-left: 60px;
         padding-right: 60px;
     }
 
     /* Increase route card font sizes - targeted via child selection or global increase scoped to wrapper */
-    .edge-left div, .edge-right div {
+    .edge-left div,
+    .edge-right div {
         font-size: 1.2rem;
     }
 }
@@ -281,10 +297,12 @@
     .transport-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto 1fr auto; /* Header, Visual, Split Lists, Footer */
+        grid-template-rows: auto auto 1fr auto;
+        /* Header, Visual, Split Lists, Footer */
         height: auto;
         min-height: 100vh;
-        overflow-y: auto; /* Allow scrolling */
+        overflow-y: auto;
+        /* Allow scrolling */
     }
 
     .edge-top {
@@ -305,7 +323,8 @@
         display: flex;
         justify-content: center;
         padding: 40px 0;
-        transform: scale(0.8); /* Scale down slightly more for tablet */
+        transform: scale(0.8);
+        /* Scale down slightly more for tablet */
         width: 100%;
     }
 
@@ -315,7 +334,8 @@
         grid-column: 1;
         padding-left: 20px;
         background: none;
-        overflow: visible; /* Let parent scroll */
+        overflow: visible;
+        /* Let parent scroll */
         height: auto;
         width: 100%;
     }
@@ -325,7 +345,8 @@
         grid-column: 2;
         padding-right: 20px;
         background: none;
-        overflow: visible; /* Let parent scroll */
+        overflow: visible;
+        /* Let parent scroll */
         height: auto;
         width: 100%;
     }
@@ -366,38 +387,47 @@
     }
 
     .center-stage {
-        order: 1; /* Visual first */
+        order: 1;
+        /* Visual first */
         transform: scale(0.65);
         margin: -30px 0;
         padding: 0;
-        height: 300px; /* Ensure space is reserved */
+        height: 300px;
+        /* Ensure space is reserved */
         z-index: 4;
     }
 
     /* Lists container wrapper for mobile to stack them */
-    .edge-left, .edge-right {
-        order: 2; /* Lists after visual */
+    .edge-left,
+    .edge-right {
+        order: 2;
+        /* Lists after visual */
         width: 100%;
         padding: 0 20px;
-        justify-content: flex-start; /* Align start for readability */
-        height: 250px; /* Fixed height for auto-scroll window */
-        overflow: hidden; /* Hide overflow for marquee effect */
+        justify-content: flex-start;
+        /* Align start for readability */
+        height: 250px;
+        /* Fixed height for auto-scroll window */
+        overflow: hidden;
+        /* Hide overflow for marquee effect */
         position: relative;
         mask-image: linear-gradient(transparent, black 10%, black 90%, transparent);
         -webkit-mask-image: linear-gradient(transparent, black 10%, black 90%, transparent);
     }
-    
+
     .edge-right {
         order: 3;
     }
 
     /* Mobile Auto-Scroll Animation Class applied to the internal div */
-    .edge-left > div, .edge-right > div {
+    .edge-left>div,
+    .edge-right>div {
         animation: autoScrollUp 15s linear infinite;
         /* Pause on hover */
     }
-    
-    .edge-left > div:hover, .edge-right > div:hover {
+
+    .edge-left>div:hover,
+    .edge-right>div:hover {
         animation-play-state: paused;
     }
 
@@ -413,6 +443,11 @@
 
 /* Auto Scroll Keyframes */
 @keyframes autoScrollUp {
-    0% { transform: translateY(10%); }
-    100% { transform: translateY(-100%); }
+    0% {
+        transform: translateY(10%);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
 }

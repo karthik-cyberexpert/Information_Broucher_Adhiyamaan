@@ -5,7 +5,7 @@ import collegeLogo from '../assets/college-logo.png';
 import DepartmentPage from '../DepartmentPage';
 // @ts-ignore
 import droneAnimation from '../../public/assets/drone_fly.json';
-import '../App.css'; 
+import '../App.css';
 
 interface DroneState {
   active: boolean;
@@ -22,9 +22,9 @@ const Menu = () => {
   const [showBTechDetails, setShowBTechDetails] = useState(false);
   const [showMEDetails, setShowMEDetails] = useState(false);
   const [showPhDDetails, setShowPhDDetails] = useState(false);
-  
+
   // Selected Department State for Detailed View
-  const [selectedDepartment, setSelectedDepartment] = useState<{name: string, icon: string, bg: string, video?: string} | null>(null);
+  const [selectedDepartment, setSelectedDepartment] = useState<{ name: string, icon: string, bg: string, video?: string } | null>(null);
 
   // Drone Animation State
   const [droneState, setDroneState] = useState<DroneState>({
@@ -39,14 +39,14 @@ const Menu = () => {
 
   // Navigation Items Data
   const navItems = [
-    { title: 'B.E', id: 'be', bg: '/images/bebaack.jpg' },
-    { title: 'B.Tech', id: 'btech', bg: '/images/tech_bg.png' },
-    { title: 'B.Arch', id: 'barch', bg: '/images/civilback.jpg' },
-    { title: 'MBA', id: 'mba', bg: '/images/mba.jpg' },
-    { title: 'MCA', id: 'mca', bg: '/images/mca.jpg' },
+    { title: 'B.E.', id: 'be', bg: '/images/bebaack.jpg' },
+    { title: 'B.Tech.', id: 'btech', bg: '/images/tech_bg.png' },
+    { title: 'B.Arch.', id: 'barch', bg: '/images/civilback.jpg' },
+    { title: 'MBA.', id: 'mba', bg: '/images/mba.jpg' },
+    { title: 'MCA.', id: 'mca', bg: '/images/mca.jpg' },
     { title: 'ABOUT', id: 'about', className: 'nav-item-large', bg: '/images/aboutcollege.jpg' },
-    { title: 'M.E', id: 'me', bg: '/images/me.jpg' },
-    { title: 'P.H.D', id: 'phd', bg: '/images/college.jpeg' },
+    { title: 'M.E.', id: 'me', bg: '/images/me.jpg' },
+    { title: 'Ph.D.', id: 'phd', bg: '/images/college.jpeg' },
     { title: 'Placement', id: 'placement', bg: '/images/placement.jpg' },
     { title: 'Sports', id: 'sports', bg: '/images/sports.jpg' },
     { title: 'Hostel', id: 'hostel', bg: '/images/hostel.jpg' },
@@ -108,7 +108,7 @@ const Menu = () => {
   ) => {
     const button = e.currentTarget;
     const rect = button.getBoundingClientRect();
-    
+
     // Set flying button appearance
     setFlyingButtonText(title);
     setFlyingButtonBg(bg);
@@ -136,7 +136,7 @@ const Menu = () => {
     // Phase 2: After drone descends (0.8s), start grabbing
     setTimeout(() => {
       setDroneState(prev => ({ ...prev, phase: 'grab' }));
-      
+
       // Phase 3: After grab (0.3s), ascend together
       setTimeout(() => {
         setDroneState(prev => ({ ...prev, phase: 'ascend' }));
@@ -145,7 +145,7 @@ const Menu = () => {
           top: -200,
           transition: 'top 0.8s ease-in'
         }));
-        
+
         // Complete animation and navigate
         setTimeout(() => {
           setDroneState({ active: false, buttonRect: null, phase: null, pendingAction: null });
@@ -190,7 +190,7 @@ const Menu = () => {
 
   const handleCourseClick = (
     e: React.MouseEvent<HTMLDivElement>,
-    course: {name: string, icon: string, bg: string, video?: string}
+    course: { name: string, icon: string, bg: string, video?: string }
   ) => {
     const action = () => {
       setSelectedDepartment(course);
@@ -217,7 +217,7 @@ const Menu = () => {
     if (!droneState.buttonRect) return {};
     const rect = droneState.buttonRect;
     const droneSize = 120;
-    
+
     switch (droneState.phase) {
       case 'descend':
         return {
@@ -247,9 +247,9 @@ const Menu = () => {
 
   if (isDepartmentView && selectedDepartment) {
     return (
-      <DepartmentPage 
-        department={selectedDepartment} 
-        onBack={handleBackFromDept} 
+      <DepartmentPage
+        department={selectedDepartment}
+        onBack={handleBackFromDept}
       />
     );
   }
@@ -265,14 +265,13 @@ const Menu = () => {
 
       </header>
 
-      <main className={`main-content ${
-        isMainNav ? 'inner-page-bg' : 
-        isBEDetails ? 'be-page-bg' : 
-        isBTechDetails ? 'btech-page-bg' : 
-        isMEDetails ? 'me-page-bg' : 
-        isPhDDetails ? 'phd-page-bg' : ''
-      }`}>
-        
+      <main className={`main-content ${isMainNav ? 'inner-page-bg' :
+        isBEDetails ? 'be-page-bg' :
+          isBTechDetails ? 'btech-page-bg' :
+            isMEDetails ? 'me-page-bg' :
+              isPhDDetails ? 'phd-page-bg' : ''
+        }`}>
+
         {/* PhD Video Background */}
         {isPhDDetails && (
           <video className="phd-bg-video" autoPlay loop muted playsInline>
@@ -305,19 +304,19 @@ const Menu = () => {
           <div className="nav-grid-container">
             <div className="nav-grid">
               {navItems.map((item, index) => (
-                <div 
+                <div
                   key={item.id}
                   className={`entry-wrapper ${item.className || ''}`}
                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
                   <div className="drone-carrier">
-                    <Lottie 
-                      animationData={droneAnimation} 
+                    <Lottie
+                      animationData={droneAnimation}
                       loop={true}
                       style={{ width: '100%', height: '100%' }}
                     />
                   </div>
-                  <button 
+                  <button
                     className={`nav-item ${item.className || ''}`}
                     onClick={(e) => handleNavClick(item.id, e, item)}
                     style={{
@@ -344,26 +343,26 @@ const Menu = () => {
               zIndex: 100,
               position: 'relative'
             }}>
-               <button className="home-btn" onClick={() => navigate('/')} style={{
-                 padding: '1rem 3rem',
-                 background: 'rgba(255, 255, 255, 0.15)',
-                 border: '1px solid rgba(255, 255, 255, 0.3)',
-                 borderRadius: '50px',
-                 color: 'white',
-                 cursor: 'pointer',
-                 backdropFilter: 'blur(12px)',
-                 fontSize: '1.2rem',
-                 fontWeight: 'bold',
-                 transition: 'all 0.3s ease',
-                 display: 'flex',
-                 alignItems: 'center',
-                 gap: '12px',
-                 boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
-                 textTransform: 'uppercase',
-                 letterSpacing: '1px'
-               }}>
-                 🏠 Return Home
-               </button>
+              <button className="home-btn" onClick={() => navigate('/')} style={{
+                padding: '1.5rem 6rem',
+                background: 'rgba(255, 255, 255, 0.15)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                borderRadius: '50px',
+                color: 'white',
+                cursor: 'pointer',
+                backdropFilter: 'blur(12px)',
+                fontSize: '1.6rem',
+                fontWeight: 'bold',
+                transition: 'all 0.3s ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+                textTransform: 'uppercase',
+                letterSpacing: '1px'
+              }}>
+                🏠 Return Home
+              </button>
             </div>
           </div>
         )}
@@ -374,22 +373,22 @@ const Menu = () => {
             <h2 className="be-title">BE Courses</h2>
             <div className="be-grid">
               {beCourses.map((course, index) => (
-                <div 
+                <div
                   key={index}
                   className="entry-wrapper"
                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
                   <div className="drone-carrier">
-                    <Lottie 
-                      animationData={droneAnimation} 
+                    <Lottie
+                      animationData={droneAnimation}
                       loop={true}
                       style={{ width: '100%', height: '100%' }}
                     />
                   </div>
-                  <div 
+                  <div
                     className="be-item"
                     onClick={(e) => handleCourseClick(e, course)}
-                    style={{ 
+                    style={{
                       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center'
@@ -411,24 +410,24 @@ const Menu = () => {
         {isBTechDetails && (
           <div className="be-container">
             <h2 className="be-title">B.Tech Courses</h2>
-            <div className="btech-grid"> 
+            <div className="btech-grid">
               {bTechCourses.map((course, index) => (
-                <div 
+                <div
                   key={index}
                   className="entry-wrapper"
                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
                   <div className="drone-carrier">
-                    <Lottie 
-                      animationData={droneAnimation} 
+                    <Lottie
+                      animationData={droneAnimation}
                       loop={true}
                       style={{ width: '100%', height: '100%' }}
                     />
                   </div>
-                  <div 
+                  <div
                     className="be-item"
                     onClick={(e) => handleCourseClick(e, course)}
-                    style={{ 
+                    style={{
                       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center'
@@ -450,24 +449,24 @@ const Menu = () => {
         {isMEDetails && (
           <div className="be-container">
             <h2 className="be-title">M.E Courses</h2>
-            <div className="btech-grid"> 
+            <div className="btech-grid">
               {meCourses.map((course, index) => (
-                <div 
+                <div
                   key={index}
                   className="entry-wrapper"
                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
                   <div className="drone-carrier">
-                    <Lottie 
-                      animationData={droneAnimation} 
+                    <Lottie
+                      animationData={droneAnimation}
                       loop={true}
                       style={{ width: '100%', height: '100%' }}
                     />
                   </div>
-                  <div 
+                  <div
                     className="be-item"
                     onClick={(e) => handleCourseClick(e, course)}
-                    style={{ 
+                    style={{
                       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center'
@@ -488,42 +487,42 @@ const Menu = () => {
         {/* Ph.D Grid */}
         {isPhDDetails && (
           <div className="be-container">
-             <h2 className="be-title">Ph.D. Programs</h2>
-             <div className="btech-grid"> 
-               {phdCourses.map((course, index) => (
-                 <div 
-                   key={index}
-                   className="entry-wrapper"
-                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
-                 >
-                   <div className="drone-carrier">
-                     <Lottie 
-                       animationData={droneAnimation} 
-                       loop={true}
-                       style={{ width: '100%', height: '100%' }}
-                     />
-                   </div>
-                   <div 
-                     className="be-item"
-                     onClick={(e) => handleCourseClick(e, course)}
-                     style={{ 
-                       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
-                       backgroundSize: 'cover',
-                       backgroundPosition: 'center',
-                       color: 'white',
-                       textShadow: '0 2px 4px rgba(0,0,0,0.5)'
-                     }}
-                   >
-                     <span className="be-icon">{course.icon}</span>
-                     <span className="be-name">{course.name}</span>
-                   </div>
-                 </div>
-               ))}
-             </div>
-             <button className="menu-back-btn" onClick={handleBackToNav}>
-               MENU
-             </button>
-           </div>
+            <h2 className="be-title">Ph.D. Programs</h2>
+            <div className="btech-grid">
+              {phdCourses.map((course, index) => (
+                <div
+                  key={index}
+                  className="entry-wrapper"
+                  style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
+                >
+                  <div className="drone-carrier">
+                    <Lottie
+                      animationData={droneAnimation}
+                      loop={true}
+                      style={{ width: '100%', height: '100%' }}
+                    />
+                  </div>
+                  <div
+                    className="be-item"
+                    onClick={(e) => handleCourseClick(e, course)}
+                    style={{
+                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      color: 'white',
+                      textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+                    }}
+                  >
+                    <span className="be-icon">{course.icon}</span>
+                    <span className="be-name">{course.name}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button className="menu-back-btn" onClick={handleBackToNav}>
+              MENU
+            </button>
+          </div>
         )}
 
       </main>
@@ -532,7 +531,7 @@ const Menu = () => {
       {droneState.active && (
         <>
           {/* Flying Button Clone */}
-          <div 
+          <div
             className="flying-button"
             style={{
               ...flyingButtonStyle,
@@ -543,11 +542,11 @@ const Menu = () => {
           >
             {flyingButtonText}
           </div>
-          
+
           {/* Drone */}
           <div style={getDroneStyle()}>
-            <Lottie 
-              animationData={droneAnimation} 
+            <Lottie
+              animationData={droneAnimation}
               loop={true}
               style={{ width: '100%', height: '100%' }}
             />
