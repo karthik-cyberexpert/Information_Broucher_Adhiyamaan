@@ -81,26 +81,94 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
         return (
           <>
             <h3>Infrastructure</h3>
-            <div className="infra-grid">
-              <div className="infra-card">
-                <span className="infra-icon">🖥️</span>
-                <h4>Modern Labs</h4>
-                <p>Equipped with the latest hardware and software tools.</p>
-              </div>
-              <div className="infra-card">
-                <span className="infra-icon">📚</span>
-                <h4>Department Library</h4>
-                <p>Extensive collection of books, journals, and digital resources.</p>
-              </div>
-              <div className="infra-card">
-                <span className="infra-icon">📡</span>
-                <h4>Smart Classrooms</h4>
-                <p>Wi-Fi enabled rooms with advanced teaching aids.</p>
-              </div>
-              <div className="infra-card">
-                <span className="infra-icon">🔬</span>
-                <h4>R&D Center</h4>
-                <p>Dedicated space for research and innovation projects.</p>
+            <div className="infra-scroll-window">
+              <div className="infra-scroll-track">
+                {/* Original Items */}
+                <div className="infra-grid">
+                  <div className="infra-card full-width">
+                    <div className="infra-content-left">
+                      <span className="infra-icon">🖥️</span>
+                      <h4>Modern Labs</h4>
+                      <p>Equipped with the latest hardware and software tools.</p>
+                    </div>
+                    <div className="infra-image-right">
+                      <img src="/images/computerback.jpg" alt="Labs" />
+                    </div>
+                  </div>
+                  <div className="infra-card full-width">
+                    <div className="infra-content-left">
+                      <span className="infra-icon">📚</span>
+                      <h4>Department Library</h4>
+                      <p>Extensive collection of books, journals, and digital resources.</p>
+                    </div>
+                    <div className="infra-image-right">
+                      <img src="/images/aboutcollege.jpg" alt="Library" />
+                    </div>
+                  </div>
+                  <div className="infra-card full-width">
+                    <div className="infra-content-left">
+                      <span className="infra-icon">📡</span>
+                      <h4>Smart Classrooms</h4>
+                      <p>Wi-Fi enabled rooms with advanced teaching aids.</p>
+                    </div>
+                    <div className="infra-image-right">
+                      <img src="/images/civilback.jpg" alt="Classrooms" />
+                    </div>
+                  </div>
+                  <div className="infra-card full-width">
+                    <div className="infra-content-left">
+                      <span className="infra-icon">🔬</span>
+                      <h4>R&D Center</h4>
+                      <p>Dedicated space for research and innovation projects.</p>
+                    </div>
+                    <div className="infra-image-right">
+                      <img src="/images/me.jpg" alt="R&D" />
+                    </div>
+                  </div>
+                </div>
+                {/* Duplicate Items for Loop */}
+                <div className="infra-grid">
+                  <div className="infra-card full-width">
+                    <div className="infra-content-left">
+                      <span className="infra-icon">🖥️</span>
+                      <h4>Modern Labs</h4>
+                      <p>Equipped with the latest hardware and software tools.</p>
+                    </div>
+                    <div className="infra-image-right">
+                      <img src="/images/computerback.jpg" alt="Labs" />
+                    </div>
+                  </div>
+                  <div className="infra-card full-width">
+                    <div className="infra-content-left">
+                      <span className="infra-icon">📚</span>
+                      <h4>Department Library</h4>
+                      <p>Extensive collection of books, journals, and digital resources.</p>
+                    </div>
+                    <div className="infra-image-right">
+                      <img src="/images/aboutcollege.jpg" alt="Library" />
+                    </div>
+                  </div>
+                  <div className="infra-card full-width">
+                    <div className="infra-content-left">
+                      <span className="infra-icon">📡</span>
+                      <h4>Smart Classrooms</h4>
+                      <p>Wi-Fi enabled rooms with advanced teaching aids.</p>
+                    </div>
+                    <div className="infra-image-right">
+                      <img src="/images/civilback.jpg" alt="Classrooms" />
+                    </div>
+                  </div>
+                  <div className="infra-card full-width">
+                    <div className="infra-content-left">
+                      <span className="infra-icon">🔬</span>
+                      <h4>R&D Center</h4>
+                      <p>Dedicated space for research and innovation projects.</p>
+                    </div>
+                    <div className="infra-image-right">
+                      <img src="/images/me.jpg" alt="R&D" />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </>
@@ -113,13 +181,26 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
               Graduates from the {department.name} department have excellent placement records. 
               Our students are recruited by top-tier companies and research organizations globally.
             </p>
-            <ul className="career-list">
-              <li>Software Development & Engineering</li>
-              <li>Research & Data Analysis</li>
-              <li>System Architecture</li>
-              <li>Project Management</li>
-              <li>Consultancy & Advisory Roles</li>
-            </ul>
+            <div className="infra-scroll-window" style={{ height: '300px' }}>
+              <div className="infra-scroll-track">
+                {/* Original List */}
+                <ul className="career-list">
+                  <li>Software Development & Engineering</li>
+                  <li>Research & Data Analysis</li>
+                  <li>System Architecture</li>
+                  <li>Project Management</li>
+                  <li>Consultancy & Advisory Roles</li>
+                </ul>
+                {/* Duplicate List */}
+                <ul className="career-list">
+                  <li>Software Development & Engineering</li>
+                  <li>Research & Data Analysis</li>
+                  <li>System Architecture</li>
+                  <li>Project Management</li>
+                  <li>Consultancy & Advisory Roles</li>
+                </ul>
+              </div>
+            </div>
           </>
         );
       case 'Contact':

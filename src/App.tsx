@@ -10,6 +10,7 @@ import Hostel from './Pages/Hostel';
 import ScrollToTop from './components/ScrollToTop';
 import ClickSpark from './components/ClickSpark';
 import InactivityHandler from './components/InactivityHandler';
+import RightSideNav from './components/RightSideNav';
 import './App.css';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         duration={400}
       >
         <ScrollToTop />
+        <RightSideNav />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/menu" element={<Menu />} />
