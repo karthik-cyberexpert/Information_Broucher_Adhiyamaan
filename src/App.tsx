@@ -7,6 +7,7 @@ import Sports from './Pages/Sports';
 import Transport from './Pages/Transport';
 import About from './Pages/About';
 import Hostel from './Pages/Hostel';
+import BikePage from './Pages/BikePage'; // Import BikePage
 import ScrollToTop from './components/ScrollToTop';
 import ClickSpark from './components/ClickSpark';
 import InactivityHandler from './components/InactivityHandler';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/transport" element={<Transport />} />
           <Route path="/about" element={<About />} />
           <Route path="/hostel" element={<Hostel />} />
+          <Route path="/bike-animation" element={<BikePage />} />
         </Routes>
       </ClickSpark>
     </>

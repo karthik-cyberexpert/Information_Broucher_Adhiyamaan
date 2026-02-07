@@ -375,7 +375,11 @@
 
 /* Modal Container */
 .modal {
-  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  /* Glassmorphism Background */
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 24px;
   padding: 40px;
   width: 90%;
@@ -1188,4 +1192,41 @@
   .be-icon {
     font-size: 2rem;
   }
+}
+
+/* Dedicated Bike Page Styles */
+.bike-page-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: url('/images/college.jpeg') no-repeat center center/cover;
+}
+
+/* Glass Background Overlay */
+.glass-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.45); /* Increased opacity for "very very light" image look */
+  backdrop-filter: blur(12px); /* Slightly less blur to see the college */
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 0;
+}
+
+/* Square Modal Override - Now Tall Rectangle */
+.square-modal {
+  width: 450px !important;
+  /* height: 450px !important; REMOVED to allow auto growth */
+  min-height: 550px !important; /* Taller to fit content */
+  height: auto !important;
+  max-width: 90vw !important;
+  /* aspect-ratio: 1/1; REMOVED - not a square anymore */
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden !important; /* No scroll */
+  padding: 40px !important; /* Ensure padding stays */
 }

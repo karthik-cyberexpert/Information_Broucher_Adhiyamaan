@@ -11,50 +11,13 @@ import LightRays from '../components/LightRays';
 
 const Home = () => {
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: ''
-  });
+  // Form state removed as it moved to BikePage, 
+  // but if we need it for welcome animation context we can restart it there.
 
   const handleClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleClose = () => {
-    setIsModalOpen(false);
-    
-    // Show welcome animation for 3 seconds
-    setShowWelcome(true);
-    setTimeout(() => {
-      setShowWelcome(false);
-      navigate('/menu');
-    }, 3000);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    setIsModalOpen(false);
-    setFormData({ name: '', email: '', phone: '' });
-    
-    // Show welcome animation for 3 seconds
-    setShowWelcome(true);
-    setTimeout(() => {
-      setShowWelcome(false);
-      navigate('/menu');
-    }, 3000);
+    navigate('/bike-animation');
   };
 
   return (
@@ -85,55 +48,8 @@ const Home = () => {
         </div>
       </div>
 
-      {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <button className="modal-close" onClick={handleClose}>&times;</button>
-            <h2 className="modal-title">Add your Details</h2>
-            <form onSubmit={handleSubmit} className="modal-form">
-              <div className="form-group">
-                <label htmlFor="name" className="form-label">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  className="form-input"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email" className="form-label">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="form-input"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="phone" className="form-label">Phone Number</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  required
-                  className="form-input"
-                />
-              </div>
-              <button type="submit" className="submit-btn">Submit</button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* Welcome Animation Overlay */}
+      {/* Welcome Animation Overlay - Still kept here if needed for other flows, 
+          but BikePage now handles post-form welcome. */}
       {showWelcome && (
         <div className="welcome-overlay">
           <div style={{ width: '100%', height: '600px', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
