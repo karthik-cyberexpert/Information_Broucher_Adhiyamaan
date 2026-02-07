@@ -30,14 +30,15 @@ const RightSideNav = () => {
             transform: 'translateY(-50%)',
             display: 'flex',
             flexDirection: 'column',
-            gap: '15px',
-            padding: '12px 8px',
-            background: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(12px)',
-            borderRadius: '30px',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
-            zIndex: 1000
+            gap: '20px',
+            padding: '20px 12px',
+            background: 'rgba(0, 0, 0, 0.65)',
+            backdropFilter: 'blur(16px)',
+            borderRadius: '40px',
+            border: '2px solid rgba(255, 255, 255, 0.25)',
+            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.5)',
+            zIndex: 1000,
+            transition: 'all 0.3s ease'
         }}>
             {/* Scroll Up */}
             <button
