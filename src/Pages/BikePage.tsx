@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BikePullAnimation from '../components/BikePullAnimation';
+import ParticleExplosion from '../components/ParticleExplosion';
 import Lottie from 'lottie-react';
 // @ts-ignore
 import welcomeAnimation from '../assets/Welcome Animation.json';
@@ -10,6 +11,7 @@ import '../App.css'; // Ensure global styles (modal, form) are available
 const BikePage = () => {
   const navigate = useNavigate();
   const [showWelcome, setShowWelcome] = useState(false);
+  const [isExploding, setIsExploding] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,8 +19,13 @@ const BikePage = () => {
   });
 
   const handleClose = () => {
-    // Navigate back to home or show welcome animation then menu?
-    // Let's follow original flow: Welcome Animation -> /menu
+    // Trigger explosion first
+    setIsExploding(true);
+  };
+
+  const handleExplosionComplete = () => {
+    setIsExploding(false);
+    // Show welcome animation
     setShowWelcome(true);
     setTimeout(() => {
       setShowWelcome(false);
@@ -48,49 +55,53 @@ const BikePage = () => {
 
         {!showWelcome && (
             <BikePullAnimation onComplete={() => {}}>
-                <div className="modal square-modal">
-                <button className="modal-close" onClick={() => navigate('/')}>&times;</button>
-                <h2 className="modal-title">Add your Details</h2>
-                <form onSubmit={handleSubmit} className="modal-form">
-                    <div className="form-group">
-                    <label htmlFor="name" className="form-label">Name</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        className="form-input"
-                    />
+                {isExploding ? (
+                    <ParticleExplosion onComplete={handleExplosionComplete} />
+                ) : (
+                    <div className="modal square-modal">
+                    <button className="modal-close" onClick={handleClose}>&times;</button>
+                    <h2 className="modal-title">Add your Details</h2>
+                    <form onSubmit={handleSubmit} className="modal-form">
+                        <div className="form-group">
+                        <label htmlFor="name" className="form-label">Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleInputChange}
+                            required
+                            className="form-input"
+                        />
+                        </div>
+                        <div className="form-group">
+                        <label htmlFor="email" className="form-label">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            required
+                            className="form-input"
+                        />
+                        </div>
+                        <div className="form-group">
+                        <label htmlFor="phone" className="form-label">Phone Number</label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleInputChange}
+                            required
+                            className="form-input"
+                        />
+                        </div>
+                        <button type="submit" className="submit-btn">Submit</button>
+                    </form>
                     </div>
-                    <div className="form-group">
-                    <label htmlFor="email" className="form-label">Email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                        className="form-input"
-                    />
-                    </div>
-                    <div className="form-group">
-                    <label htmlFor="phone" className="form-label">Phone Number</label>
-                    <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        required
-                        className="form-input"
-                    />
-                    </div>
-                    <button type="submit" className="submit-btn">Submit</button>
-                </form>
-                </div>
+                )}
             </BikePullAnimation>
         )}
 
