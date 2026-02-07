@@ -11,6 +11,7 @@ interface BikePullAnimationProps {
 
 const BikePullAnimation = ({ onComplete, children }: BikePullAnimationProps) => {
   const controls = useAnimation();
+  const bikeControls = useAnimation();
   const lottieRef = useRef<LottieRefCurrentProps>(null);
 
   useEffect(() => {
@@ -27,19 +28,29 @@ const BikePullAnimation = ({ onComplete, children }: BikePullAnimationProps) => 
       await controls.start({ 
           x: 'calc(50vw - 250px)', // Centering
           transition: { 
-              duration: 5, // Increased to 5s
+              duration: 5, 
               ease: "easeOut",
               type: "spring",
               damping: 20,
-              stiffness: 30 // Softer spring for longer duration
+              stiffness: 30
           } 
       });
 
       if (onComplete) onComplete();
+
+      // 3. Bike Exit: Drive away to the right
+      // The container stops, so we animate the bike relative to it.
+      await bikeControls.start({
+          x: '150vw', // Move way off to the right
+          transition: {
+              duration: 2.5,
+              ease: "easeIn" // Accelerate away
+          }
+      });
     };
 
     sequence();
-  }, [controls, onComplete]);
+  }, [controls, bikeControls, onComplete]);
 
   return (
     <motion.div 
@@ -58,59 +69,31 @@ const BikePullAnimation = ({ onComplete, children }: BikePullAnimationProps) => 
       }}
     >
         {/* Bike Container - Leading the way */}
-        {/* If Bike pulls Modal from Left, Bike must be in front (Right side) */}
         
-        <div style={{ pointerEvents: 'auto' }}>
+        <div style={{ pointerEvents: 'auto', position: 'relative', zIndex: 20 }}>
             {children}
         </div>
 
-        {/* Rope Connector */}
-        <div style={{
-            width: '100px',
-            height: '6px',
-            background: 'linear-gradient(to right, #5d4037, #3e2723)',
-            borderRadius: '4px',
-            position: 'relative',
-            zIndex: 5,
-            margin: '0 -10px',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.3)'
-        }}>
-            {/* Knot at modal end */}
-            <div style={{
-                position: 'absolute',
-                left: '-4px',
-                top: '-5px',
-                width: '16px',
-                height: '16px',
-                background: '#3e2723',
-                borderRadius: '50%'
-            }} />
-             {/* Knot at bike end */}
-             <div style={{
-                position: 'absolute',
-                right: '-4px',
-                top: '-5px',
-                width: '16px',
-                height: '16px',
-                background: '#3e2723',
-                borderRadius: '50%'
-            }} />
-        </div>
+        {/* Rope Connector REMOVED */}
 
         {/* Bike Container */}
-        <div style={{ 
-            width: '250px', 
-            height: '250px', 
-            zIndex: 10,
-            // Removed scaleX(-1) as per user request (reverse direction)
-        }}>
+        <motion.div 
+            animate={bikeControls}
+            style={{ 
+                width: '400px', 
+                height: '400px', 
+                position: 'relative', 
+                zIndex: 20, 
+                marginLeft: '-80px', 
+            }}
+        >
             <Lottie 
                 lottieRef={lottieRef}
                 animationData={riderAnimation} 
                 loop={true} 
                 style={{ width: '100%', height: '100%' }}
             />
-        </div>
+        </motion.div>
 
     </motion.div>
   );
