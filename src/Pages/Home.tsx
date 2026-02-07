@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Lottie from 'lottie-react';
 import collegeLogo from '../assets/college-logo.png';
 // @ts-ignore - JSON import for Lottie
-import welcomeAnimation from '../../public/assets/Welcome Animation.json';
+import welcomeAnimation from '../assets/Welcome Animation.json';
 
 // We'll duplicate this CSS import or ensure App.css is global
 import '../App.css'; 

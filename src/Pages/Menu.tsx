@@ -4,7 +4,7 @@ import Lottie from 'lottie-react';
 import collegeLogo from '../assets/college-logo.png';
 import DepartmentPage from '../DepartmentPage';
 // @ts-ignore
-import droneAnimation from '../../public/assets/drone_fly.json';
+import droneAnimation from '../assets/drone_fly.json';
 import '../App.css';
 
 interface DroneState {

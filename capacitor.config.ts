@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'Adhiyamaan Info',
   webDir: 'dist',
   server: {
-    url: 'http://192.168.46.151:5173',
+    url: 'http://10.251.191.5:5173',
     cleartext: true
   }
 };
