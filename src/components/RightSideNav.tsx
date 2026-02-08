@@ -1,8 +1,11 @@
 import { ArrowUp, ArrowDown, ChevronLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const RightSideNav = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+
+    if (location.pathname === '/transport') return null;
 
     const scrollUp = () => {
         window.scrollBy({

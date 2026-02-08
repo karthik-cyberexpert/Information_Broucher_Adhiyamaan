@@ -451,3 +451,12 @@
         transform: translateY(-100%);
     }
 }
+
+/* Utility to hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}

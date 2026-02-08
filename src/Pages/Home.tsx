@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Lottie from 'lottie-react';
-import collegeLogo from '../assets/college-logo.png';
+// @ts-ignore
+import TransparentGif from '../components/TransparentGif';
 // @ts-ignore - JSON import for Lottie
 import welcomeAnimation from '../assets/Welcome Animation.json';
 
@@ -35,8 +36,13 @@ const Home = () => {
 
       <header className="header">
         <div className="logo-container">
-          <img src={collegeLogo} className="college-logo" alt="College Logo" />
-          <h1 className="college-name">Adhiyamaan College of Engineering</h1>
+          <TransparentGif 
+            src="/images/logo33.gif" 
+            width={300} 
+            height={90} 
+            className="college-logo"
+            style={{ borderRadius: '16px' }}
+          />
         </div>
       </header>
 

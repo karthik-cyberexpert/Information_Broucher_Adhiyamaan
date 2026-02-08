@@ -1,17 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Lottie from 'lottie-react';
-import collegeLogo from '../assets/college-logo.png';
-import DepartmentPage from '../DepartmentPage';
 // @ts-ignore
-import droneAnimation from '../assets/drone_fly.json';
+import TransparentGif from '../components/TransparentGif';
+import DepartmentPage from '../DepartmentPage';
 import '../App.css';
+import '../components/Menu.css'; // Ensure we have the specific CSS
 
-interface DroneState {
+interface TorchState {
   active: boolean;
-  buttonRect: DOMRect | null;
-  phase: 'descend' | 'grab' | 'ascend' | null;
-  pendingAction: (() => void) | null;
+  rect: DOMRect | null;
+  title: string;
+  bg: string;
+  onComplete: (() => void) | null;
+  isExiting: boolean; // For the zoom/fade phase
 }
 
 const Menu = () => {
@@ -26,16 +28,26 @@ const Menu = () => {
   // Selected Department State for Detailed View
   const [selectedDepartment, setSelectedDepartment] = useState<{ name: string, icon: string, bg: string, video?: string } | null>(null);
 
-  // Drone Animation State
-  const [droneState, setDroneState] = useState<DroneState>({
+  // Torch Animation State
+  const [torchState, setTorchState] = useState<TorchState>({
     active: false,
-    buttonRect: null,
-    phase: null,
-    pendingAction: null
+    rect: null,
+    title: '',
+    bg: '',
+    onComplete: null,
+    isExiting: false
   });
-  const [flyingButtonStyle, setFlyingButtonStyle] = useState<React.CSSProperties>({});
-  const [flyingButtonText, setFlyingButtonText] = useState('');
-  const [flyingButtonBg, setFlyingButtonBg] = useState('');
+
+  // Torch Animation Data State
+  const [torchAnimationData, setTorchAnimationData] = useState<any>(null);
+
+  // Fetch Torch Animation JSON
+  useEffect(() => {
+    fetch('/assets/torch.json')
+      .then(response => response.json())
+      .then(data => setTorchAnimationData(data))
+      .catch(error => console.error("Error loading torch animation:", error));
+  }, []);
 
   // Navigation Items Data
   const navItems = [
@@ -99,8 +111,8 @@ const Menu = () => {
   const mbaData = { name: 'Master of Business Administration', icon: '📊', bg: '/images/mba.jpg', video: '/media/mba.mp4' };
   const mcaData = { name: 'Master of Computer Applications', icon: '💻', bg: '/images/mca.jpg', video: '/media/mca.mp4?v=2' };
 
-  // Start drone animation sequence
-  const startDroneAnimation = (
+  // Start Torch Animation Sequence
+  const startTorchAnimation = (
     e: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
     title: string,
     bg: string,
@@ -109,50 +121,29 @@ const Menu = () => {
     const button = e.currentTarget;
     const rect = button.getBoundingClientRect();
 
-    // Set flying button appearance
-    setFlyingButtonText(title);
-    setFlyingButtonBg(bg);
-    setFlyingButtonStyle({
-      position: 'fixed',
-      left: rect.left,
-      top: rect.top,
-      width: rect.width,
-      height: rect.height,
-      opacity: 1,
-      transition: 'none'
+    // Init Torch State
+    setTorchState({
+        active: true,
+        rect,
+        title,
+        bg,
+        onComplete: action,
+        isExiting: false
     });
 
-    // Hide original button
-    button.style.opacity = '0';
-
-    // Start drone animation
-    setDroneState({
-      active: true,
-      buttonRect: rect,
-      phase: 'descend',
-      pendingAction: action
-    });
-
-    // Phase 2: After drone descends (0.8s), start grabbing
+    // Phase 1: Torch Focus (1 second)
+    // Then Phase 2: Zoom and Fade
     setTimeout(() => {
-      setDroneState(prev => ({ ...prev, phase: 'grab' }));
-
-      // Phase 3: After grab (0.3s), ascend together
-      setTimeout(() => {
-        setDroneState(prev => ({ ...prev, phase: 'ascend' }));
-        setFlyingButtonStyle(prev => ({
-          ...prev,
-          top: -200,
-          transition: 'top 0.8s ease-in'
-        }));
-
-        // Complete animation and navigate
+        setTorchState(prev => ({ ...prev, isExiting: true }));
+        
+        // Wait for exit animation to finish (e.g., 0.5s or 0.8s), then navigate
         setTimeout(() => {
-          setDroneState({ active: false, buttonRect: null, phase: null, pendingAction: null });
-          action();
-        }, 800);
-      }, 300);
-    }, 800);
+             // Reset state
+             setTorchState({ active: false, rect: null, title: '', bg: '', onComplete: null, isExiting: false });
+             // Execute Navigation
+             action();
+        }, 800); 
+    }, 1000);
   };
 
   const handleNavClick = (id: string, e: React.MouseEvent<HTMLButtonElement>, item: typeof navItems[0]) => {
@@ -177,7 +168,7 @@ const Menu = () => {
       else if (id === 'mca') setSelectedDepartment(mcaData);
     };
 
-    startDroneAnimation(e, item.title, item.bg, action);
+    startTorchAnimation(e, item.title, item.bg, action);
   };
 
   const handleBackToNav = () => {
@@ -196,7 +187,7 @@ const Menu = () => {
       setSelectedDepartment(course);
       window.scrollTo(0, 0);
     };
-    startDroneAnimation(e, course.name, course.bg, action);
+    startTorchAnimation(e, course.name, course.bg, action);
   };
 
   const handleBackFromDept = () => {
@@ -212,39 +203,6 @@ const Menu = () => {
   const isMEDetails = showMEDetails && !isDepartmentView;
   const isPhDDetails = showPhDDetails && !isDepartmentView;
 
-  // Calculate drone position based on phase
-  const getDroneStyle = (): React.CSSProperties => {
-    if (!droneState.buttonRect) return {};
-    const rect = droneState.buttonRect;
-    const droneSize = 120;
-
-    switch (droneState.phase) {
-      case 'descend':
-        return {
-          position: 'fixed',
-          left: rect.left + rect.width / 2 - droneSize / 2,
-          top: rect.top - droneSize + 20,
-          width: droneSize,
-          height: droneSize,
-          animation: 'droneDescend 0.8s ease-out forwards',
-          zIndex: 10000
-        };
-      case 'grab':
-      case 'ascend':
-        return {
-          position: 'fixed',
-          left: rect.left + rect.width / 2 - droneSize / 2,
-          top: droneState.phase === 'ascend' ? -150 : rect.top - droneSize + 20,
-          width: droneSize,
-          height: droneSize,
-          transition: droneState.phase === 'ascend' ? 'top 0.8s ease-in' : 'none',
-          zIndex: 10000
-        };
-      default:
-        return {};
-    }
-  };
-
   if (isDepartmentView && selectedDepartment) {
     return (
       <DepartmentPage
@@ -259,8 +217,13 @@ const Menu = () => {
       {/* Header */}
       <header className="header">
         <div className="logo-container">
-          <img src={collegeLogo} className="college-logo" alt="College Logo" />
-          <h1 className="college-name">Adhiyamaan College of Engineering</h1>
+          <TransparentGif 
+            src="/images/logo33.gif" 
+            width={300} 
+            height={90} 
+            className="college-logo" 
+            style={{ borderRadius: '16px', backgroundColor: 'rgba(255, 255, 255, 0.75)',height:'50px',width:'200px' }}
+          />
         </div>
 
       </header>
@@ -309,13 +272,6 @@ const Menu = () => {
                   className={`entry-wrapper ${item.className || ''}`}
                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
-                  <div className="drone-carrier">
-                    <Lottie
-                      animationData={droneAnimation}
-                      loop={true}
-                      style={{ width: '100%', height: '100%' }}
-                    />
-                  </div>
                   <button
                     className={`nav-item ${item.className || ''}`}
                     onClick={(e) => handleNavClick(item.id, e, item)}
@@ -378,13 +334,6 @@ const Menu = () => {
                   className="entry-wrapper"
                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
-                  <div className="drone-carrier">
-                    <Lottie
-                      animationData={droneAnimation}
-                      loop={true}
-                      style={{ width: '100%', height: '100%' }}
-                    />
-                  </div>
                   <div
                     className="be-item"
                     onClick={(e) => handleCourseClick(e, course)}
@@ -408,41 +357,34 @@ const Menu = () => {
 
         {/* B.Tech Grid */}
         {isBTechDetails && (
-          <div className="be-container">
-            <h2 className="be-title">B.Tech Courses</h2>
-            <div className="btech-grid">
-              {bTechCourses.map((course, index) => (
-                <div
-                  key={index}
-                  className="entry-wrapper"
-                  style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
-                >
-                  <div className="drone-carrier">
-                    <Lottie
-                      animationData={droneAnimation}
-                      loop={true}
-                      style={{ width: '100%', height: '100%' }}
-                    />
-                  </div>
-                  <div
-                    className="be-item"
-                    onClick={(e) => handleCourseClick(e, course)}
-                    style={{
-                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center'
-                    }}
-                  >
-                    <span className="be-icon">{course.icon}</span>
-                    <span className="be-name">{course.name}</span>
-                  </div>
+            <div className="be-container">
+                <h2 className="be-title">B.Tech Courses</h2>
+                <div className="btech-grid">
+                {bTechCourses.map((course, index) => (
+                    <div
+                    key={index}
+                    className="entry-wrapper"
+                    style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
+                    >
+                    <div
+                        className="be-item"
+                        onClick={(e) => handleCourseClick(e, course)}
+                        style={{
+                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center'
+                        }}
+                    >
+                        <span className="be-icon">{course.icon}</span>
+                        <span className="be-name">{course.name}</span>
+                    </div>
+                    </div>
+                ))}
                 </div>
-              ))}
+                <button className="menu-back-btn" onClick={handleBackToNav}>
+                MENU
+                </button>
             </div>
-            <button className="menu-back-btn" onClick={handleBackToNav}>
-              MENU
-            </button>
-          </div>
         )}
 
         {/* M.E Grid */}
@@ -456,13 +398,6 @@ const Menu = () => {
                   className="entry-wrapper"
                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
-                  <div className="drone-carrier">
-                    <Lottie
-                      animationData={droneAnimation}
-                      loop={true}
-                      style={{ width: '100%', height: '100%' }}
-                    />
-                  </div>
                   <div
                     className="be-item"
                     onClick={(e) => handleCourseClick(e, course)}
@@ -495,13 +430,6 @@ const Menu = () => {
                   className="entry-wrapper"
                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
-                  <div className="drone-carrier">
-                    <Lottie
-                      animationData={droneAnimation}
-                      loop={true}
-                      style={{ width: '100%', height: '100%' }}
-                    />
-                  </div>
                   <div
                     className="be-item"
                     onClick={(e) => handleCourseClick(e, course)}
@@ -527,31 +455,70 @@ const Menu = () => {
 
       </main>
 
-      {/* Drone Animation Overlay */}
-      {droneState.active && (
-        <>
-          {/* Flying Button Clone */}
-          <div
-            className="flying-button"
-            style={{
-              ...flyingButtonStyle,
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${flyingButtonBg})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          >
-            {flyingButtonText}
-          </div>
+      {/* Torch Animation Overlay */}
+      {torchState.active && torchState.rect && (
+        <div className="torch-interaction-layer">
+           {/* Dark Overlay for non-focused items */}
+           <div className="dim-overlay" />
 
-          {/* Drone */}
-          <div style={getDroneStyle()}>
-            <Lottie
-              animationData={droneAnimation}
-              loop={true}
-              style={{ width: '100%', height: '100%' }}
-            />
-          </div>
-        </>
+           {/* Focused Item Clone (High Z-Index) */}
+           <div 
+             className={`focused-clone ${torchState.isExiting ? 'zoom-exit' : ''}`}
+             style={{
+                position: 'fixed',
+                left: torchState.rect.left,
+                top: torchState.rect.top,
+                width: torchState.rect.width,
+                height: torchState.rect.height,
+                backgroundImage: torchState.bg.includes('gradient') ? torchState.bg : `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url(${torchState.bg})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                borderRadius: '16px', // Match .nav-item / .be-item
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: 'white',
+                fontWeight: 800,
+                fontSize: torchState.rect.height > 100 ? '1.5rem' : '1.2rem', // Approximation
+                zIndex: 10001,
+                boxShadow: '0 0 30px rgba(255, 255, 255, 0.3)', // Glow
+                textTransform: 'uppercase',
+                textShadow: '0 2px 4px rgba(0,0,0,0.8)'
+             }}
+           >
+                {/* Simplified content - just text for nav items, icon+text for courses */}
+                {/* Since we don't have the exact mapped item here easily without passing more data, 
+                    we can just render the title we passed. 
+                    For course items, we might miss the icon if we don't pass it.
+                    Let's just use the title for now, it's the main thing.
+                 */}
+                 {torchState.title}
+           </div>
+
+           {/* Torch Lottie Animation */}
+           {torchAnimationData && (
+               <div 
+                className="torch-lottie-container"
+                style={{
+                    position: 'fixed',
+                    left: torchState.rect.left + torchState.rect.width / 2 - 150, // Center torch (assume 300px width)
+                    top: torchState.rect.top - 100, // Adjust vertically
+                    width: 300,
+                    height: 300,
+                    zIndex: 10002,
+                    pointerEvents: 'none',
+                    opacity: torchState.isExiting ? 0 : 1, // Fade out torch when exiting
+                    transition: 'opacity 0.2s'
+                }}
+               >
+                <Lottie 
+                    animationData={torchAnimationData}
+                    loop={true}
+                    autoPlay={true}
+                />
+               </div>
+           )}
+        </div>
       )}
     </>
   );

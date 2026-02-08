@@ -1,5 +1,7 @@
 // @ts-ignore
 import { useNavigate } from "react-router-dom";
+import { Home } from "lucide-react";
+import { motion } from "framer-motion";
 import "../components/Menu.css";
 import "./placement.css";
 // @ts-ignore
@@ -75,9 +77,28 @@ export default function Placement() {
       </div>
 
       <div className="me-nav-controls">
-        <button className="me-nav-btn menu-nav-btn" onClick={() => navigate("/menu")}>
-          <img src="/images/menu.gif" alt="Menu" />
-        </button>
+        <motion.button 
+          className="me-nav-btn menu-nav-btn" 
+          onClick={() => navigate("/menu")}
+          whileHover={{ scale: 1.2, rotate: 15 }}
+          whileTap={{ scale: 0.9 }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ 
+            opacity: 1, 
+            y: 0,
+            boxShadow: [
+              "0 4px 20px rgba(0,0,0,0.25)",
+              "0 0 30px rgba(59, 130, 246, 0.6)",
+              "0 4px 20px rgba(0,0,0,0.25)"
+            ]
+          }}
+          transition={{
+            y: { type: "spring", stiffness: 100 },
+            boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+          }}
+        >
+          <Home size={32} color="#1e293b" strokeWidth={2.5} />
+        </motion.button>
       </div>
     </div>
   );
