@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Lottie from 'lottie-react';
 // @ts-ignore
 import TransparentGif from '../components/TransparentGif';
@@ -16,17 +16,90 @@ interface TorchState {
   isExiting: boolean; // For the zoom/fade phase
 }
 
+// --- DATA DEFINITIONS ---
+
+const navItems = [
+  { title: 'B.E.', id: 'be', bg: '/images/bebaack.jpg' },
+  { title: 'B.Tech.', id: 'btech', bg: '/images/tech_bg.png' },
+  { title: 'B.Arch.', id: 'barch', bg: '/images/civilback.jpg' },
+  { title: 'MBA.', id: 'mba', bg: '/images/mba.jpg' },
+  { title: 'MCA.', id: 'mca', bg: '/images/mca.jpg' },
+  { title: 'ABOUT', id: 'about', className: 'nav-item-large', bg: '/images/aboutcollege.jpg' },
+  { title: 'M.E.', id: 'me', bg: '/images/me.jpg' },
+  { title: 'Ph.D.', id: 'phd', bg: '/images/college.jpeg' },
+  { title: 'Placement', id: 'placement', bg: '/images/placement.jpg' },
+  { title: 'Sports', id: 'sports', bg: '/images/sports.jpg' },
+  { title: 'Hostel', id: 'hostel', bg: '/images/hostel.jpg' },
+  { title: 'Transport', id: 'transport', bg: '/images/transport.jpg' },
+  { title: 'Scholarship', id: 'scholarship', bg: '/images/scholarship.jpg' },
+];
+
+const beCourses = [
+  { name: 'Aeronautical Engineering', icon: '✈️', bg: '/images/aeroback.jpg' },
+  { name: 'Biomedical Engineering', icon: '🧬', bg: '/images/bioback.jpg', video: '/media/bio.mp4' },
+  { name: 'Civil Engineering', icon: '🏗️', bg: '/images/civilback.jpg', video: '/media/civil.mp4' },
+  { name: 'Computer Science & Engineering', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
+  { name: 'CSE (Cyber Security)', icon: '🔐', bg: '/images/computerback.jpg', video: '/media/cyber.mp4' },
+  { name: 'CSE (AI & ML)', icon: '🤖', bg: '/images/be/AIML-bg.jpg.jpeg', video: '/media/ai.mp4' },
+  { name: 'Electronics & Communication', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
+  { name: 'Electrical & Electronics', icon: '⚡', bg: '/media/eee.jpg', video: '/media/elect.mp4' },
+  { name: 'Mechanical Engineering', icon: '⚙️', bg: '/images/me.jpg', video: '/media/mech.mp4' },
+];
+
+const bTechCourses = [
+  { name: 'Artificial Intelligence & Data Science', icon: '🧠', bg: '/images/btech/AIDS_BG.jpg', video: '/media/ai.mp4' },
+  { name: 'Biotechnology', icon: '🔬', bg: '/images/btech/biobg.jpg', video: '/media/bio.mp4' },
+  { name: 'Chemical Engineering', icon: '🧪', bg: '/images/btech/CE_bg.jpg' },
+  { name: 'Computer Science and Business Systems', icon: '💼', bg: '/images/btech/csbsbg.jpg', video: '/media/comp.mp4' },
+  { name: 'Information Technology', icon: '🖥️', bg: '/images/btech/ITbg.jpg', video: '/media/comp.mp4' },
+];
+
+const meCourses = [
+  { name: 'M.E. Communication System Engineering', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
+  { name: 'M.E. Computer Science Engineering', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
+  { name: 'M.E. Engineering Design', icon: '📐', bg: '/images/me.jpg', video: '/media/mech.mp4' },
+  { name: 'M.E. Power System Engineering', icon: '⚡', bg: '/images/be/eee1.jpg.jpeg', video: '/media/elect.mp4' },
+  { name: 'M.E. Structural Engineering', icon: '🏗️', bg: '/images/civilback.jpg', video: '/media/civil.mp4' },
+];
+
+const phdCourses = [
+  { name: 'Ph.D. Computer Science', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
+  { name: 'Ph.D. ECE', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
+  { name: 'Ph.D. Mechanical Engineering', icon: '⚙️', bg: '/images/me.jpg', video: '/media/mech.mp4' },
+  { name: 'Ph.D. Chemistry', icon: '🧪', bg: '/images/btech/CE_bg.jpg' },
+  { name: 'Ph.D. Physics', icon: '⚛️', bg: '/images/be/eee1.jpg.jpeg' },
+];
+
+const bArchData = { name: 'Bachelor of Architecture', icon: '🏛️', bg: '/images/civilback.jpg', video: '/media/be arch.mp4' };
+const mbaData = { name: 'Master of Business Administration', icon: '📊', bg: '/images/mba.jpg', video: '/media/mba.mp4' };
+const mcaData = { name: 'Master of Computer Applications', icon: '💻', bg: '/images/mca.jpg', video: '/media/mca.mp4?v=2' };
+
+// Combine all courses for easy lookup by name
+const allCourses = [
+    ...beCourses,
+    ...bTechCourses,
+    ...meCourses,
+    ...phdCourses,
+    bArchData,
+    mbaData,
+    mcaData
+];
+
+
 const Menu = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // Navigation States for Sub-menus
-  const [showBEDetails, setShowBEDetails] = useState(false);
-  const [showBTechDetails, setShowBTechDetails] = useState(false);
-  const [showMEDetails, setShowMEDetails] = useState(false);
-  const [showPhDDetails, setShowPhDDetails] = useState(false);
+  // Get current state from URL
+  const currentCategory = searchParams.get('category');
+  const currentDeptName = searchParams.get('dept');
 
-  // Selected Department State for Detailed View
-  const [selectedDepartment, setSelectedDepartment] = useState<{ name: string, icon: string, bg: string, video?: string } | null>(null);
+  // Derive selected Department from URL
+  // We need to find the full department object matching the name
+  const selectedDepartment = currentDeptName 
+      ? allCourses.find(c => c.name === currentDeptName) || null
+      : null;
+
 
   // Torch Animation State
   const [torchState, setTorchState] = useState<TorchState>({
@@ -49,67 +122,6 @@ const Menu = () => {
       .catch(error => console.error("Error loading torch animation:", error));
   }, []);
 
-  // Navigation Items Data
-  const navItems = [
-    { title: 'B.E.', id: 'be', bg: '/images/bebaack.jpg' },
-    { title: 'B.Tech.', id: 'btech', bg: '/images/tech_bg.png' },
-    { title: 'B.Arch.', id: 'barch', bg: '/images/civilback.jpg' },
-    { title: 'MBA.', id: 'mba', bg: '/images/mba.jpg' },
-    { title: 'MCA.', id: 'mca', bg: '/images/mca.jpg' },
-    { title: 'ABOUT', id: 'about', className: 'nav-item-large', bg: '/images/aboutcollege.jpg' },
-    { title: 'M.E.', id: 'me', bg: '/images/me.jpg' },
-    { title: 'Ph.D.', id: 'phd', bg: '/images/college.jpeg' },
-    { title: 'Placement', id: 'placement', bg: '/images/placement.jpg' },
-    { title: 'Sports', id: 'sports', bg: '/images/sports.jpg' },
-    { title: 'Hostel', id: 'hostel', bg: '/images/hostel.jpg' },
-    { title: 'Transport', id: 'transport', bg: '/images/transport.jpg' },
-    { title: 'Scholarship', id: 'scholarship', bg: '/images/scholarship.jpg' },
-  ];
-
-  // B.E Courses Data
-  const beCourses = [
-    { name: 'Aeronautical Engineering', icon: '✈️', bg: '/images/aeroback.jpg' },
-    { name: 'Biomedical Engineering', icon: '🧬', bg: '/images/bioback.jpg', video: '/media/bio.mp4' },
-    { name: 'Civil Engineering', icon: '🏗️', bg: '/images/civilback.jpg', video: '/media/civil.mp4' },
-    { name: 'Computer Science & Engineering', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
-    { name: 'CSE (Cyber Security)', icon: '🔐', bg: '/images/computerback.jpg', video: '/media/cyber.mp4' },
-    { name: 'CSE (AI & ML)', icon: '🤖', bg: '/images/be/AIML-bg.jpg.jpeg', video: '/media/ai.mp4' },
-    { name: 'Electronics & Communication', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
-    { name: 'Electrical & Electronics', icon: '⚡', bg: '/media/eee.jpg', video: '/media/elect.mp4' },
-    { name: 'Mechanical Engineering', icon: '⚙️', bg: '/images/me.jpg', video: '/media/mech.mp4' },
-  ];
-
-  // B.Tech Courses Data
-  const bTechCourses = [
-    { name: 'Artificial Intelligence & Data Science', icon: '🧠', bg: '/images/btech/AIDS_BG.jpg', video: '/media/ai.mp4' },
-    { name: 'Biotechnology', icon: '🔬', bg: '/images/btech/biobg.jpg', video: '/media/bio.mp4' },
-    { name: 'Chemical Engineering', icon: '🧪', bg: '/images/btech/CE_bg.jpg' },
-    { name: 'Computer Science and Business Systems', icon: '💼', bg: '/images/btech/csbsbg.jpg', video: '/media/comp.mp4' },
-    { name: 'Information Technology', icon: '🖥️', bg: '/images/btech/ITbg.jpg', video: '/media/comp.mp4' },
-  ];
-
-  // M.E Courses Data
-  const meCourses = [
-    { name: 'M.E. Communication System Engineering', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
-    { name: 'M.E. Computer Science Engineering', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
-    { name: 'M.E. Engineering Design', icon: '📐', bg: '/images/me.jpg', video: '/media/mech.mp4' },
-    { name: 'M.E. Power System Engineering', icon: '⚡', bg: '/images/be/eee1.jpg.jpeg', video: '/media/elect.mp4' },
-    { name: 'M.E. Structural Engineering', icon: '🏗️', bg: '/images/civilback.jpg', video: '/media/civil.mp4' },
-  ];
-
-  // Ph.D Courses Data
-  const phdCourses = [
-    { name: 'Ph.D. Computer Science', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
-    { name: 'Ph.D. ECE', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
-    { name: 'Ph.D. Mechanical Engineering', icon: '⚙️', bg: '/images/me.jpg', video: '/media/mech.mp4' },
-    { name: 'Ph.D. Chemistry', icon: '🧪', bg: '/images/btech/CE_bg.jpg' },
-    { name: 'Ph.D. Physics', icon: '⚛️', bg: '/images/be/eee1.jpg.jpeg' },
-  ];
-
-  // Single Department Data (No Sub-menu)
-  const bArchData = { name: 'Bachelor of Architecture', icon: '🏛️', bg: '/images/civilback.jpg', video: '/media/be arch.mp4' };
-  const mbaData = { name: 'Master of Business Administration', icon: '📊', bg: '/images/mba.jpg', video: '/media/mba.mp4' };
-  const mcaData = { name: 'Master of Computer Applications', icon: '💻', bg: '/images/mca.jpg', video: '/media/mca.mp4?v=2' };
 
   // Start Torch Animation Sequence
   const startTorchAnimation = (
@@ -156,26 +168,27 @@ const Menu = () => {
 
       window.scrollTo(0, 0);
 
-      // Handle Sub-menus
-      if (id === 'be') setShowBEDetails(true);
-      else if (id === 'btech') setShowBTechDetails(true);
-      else if (id === 'me') setShowMEDetails(true);
-      else if (id === 'phd') setShowPhDDetails(true);
-
-      // Handle Single Departments
-      else if (id === 'barch') setSelectedDepartment(bArchData);
-      else if (id === 'mba') setSelectedDepartment(mbaData);
-      else if (id === 'mca') setSelectedDepartment(mcaData);
+      // Handle Sub-menus/Single Departments via URL params
+      if (id === 'be' || id === 'btech' || id === 'me' || id === 'phd') {
+          setSearchParams({ category: id });
+      } 
+      // Handle Single Departments direct navigation
+      else if (id === 'barch') {
+          setSearchParams({ dept: bArchData.name });
+      }
+      else if (id === 'mba') {
+          setSearchParams({ dept: mbaData.name });
+      }
+      else if (id === 'mca') {
+          setSearchParams({ dept: mcaData.name });
+      }
     };
 
     startTorchAnimation(e, item.title, item.bg, action);
   };
 
   const handleBackToNav = () => {
-    setShowBEDetails(false);
-    setShowBTechDetails(false);
-    setShowMEDetails(false);
-    setShowPhDDetails(false);
+    setSearchParams({}); // Clear params to go back to main menu
     window.scrollTo(0, 0);
   };
 
@@ -184,24 +197,33 @@ const Menu = () => {
     course: { name: string, icon: string, bg: string, video?: string }
   ) => {
     const action = () => {
-      setSelectedDepartment(course);
+      // Keep category if it exists, add dept
+      const newParams: any = { dept: course.name };
+      if (currentCategory) newParams.category = currentCategory;
+      setSearchParams(newParams);
       window.scrollTo(0, 0);
     };
     startTorchAnimation(e, course.name, course.bg, action);
   };
 
   const handleBackFromDept = () => {
-    setSelectedDepartment(null);
+    // If we have a category (BE/BTech etc), go back to that category listing
+    if (currentCategory) {
+        setSearchParams({ category: currentCategory });
+    } else {
+        // Otherwise go back to main menu
+        setSearchParams({});
+    }
     window.scrollTo(0, 0);
   };
 
   // View States
   const isDepartmentView = !!selectedDepartment;
-  const isMainNav = !showBEDetails && !showBTechDetails && !showMEDetails && !showPhDDetails && !isDepartmentView;
-  const isBEDetails = showBEDetails && !isDepartmentView;
-  const isBTechDetails = showBTechDetails && !isDepartmentView;
-  const isMEDetails = showMEDetails && !isDepartmentView;
-  const isPhDDetails = showPhDDetails && !isDepartmentView;
+  const isMainNav = !currentCategory && !isDepartmentView;
+  const isBEDetails = currentCategory === 'be' && !isDepartmentView;
+  const isBTechDetails = currentCategory === 'btech' && !isDepartmentView;
+  const isMEDetails = currentCategory === 'me' && !isDepartmentView;
+  const isPhDDetails = currentCategory === 'phd' && !isDepartmentView;
 
   if (isDepartmentView && selectedDepartment) {
     return (
@@ -525,4 +547,3 @@ const Menu = () => {
 };
 
 export default Menu;
-

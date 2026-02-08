@@ -177,11 +177,11 @@ export default function Scholarships() {
         )}
       </div>
 
-      <div className="me-nav-controls">
+      {/* <div className="me-nav-controls">
         <button className="me-nav-btn menu-nav-btn" onClick={() => navigate("/menu")}>
           <img src="/images/menu.gif" alt="Menu" />
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

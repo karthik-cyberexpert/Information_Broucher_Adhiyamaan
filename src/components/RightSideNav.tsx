@@ -1,11 +1,13 @@
 import { ArrowUp, ArrowDown, ChevronLeft } from 'lucide-react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 
 const RightSideNav = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    if (location.pathname === '/transport') return null;
+    // Hide on Transport page as per original code, and also hide on Home page as per new requirement
+    if (location.pathname === '/transport' || location.pathname === '/') return null;
 
     const scrollUp = () => {
         window.scrollBy({
@@ -22,7 +24,42 @@ const RightSideNav = () => {
     };
 
     const goBack = () => {
-        navigate(-1);
+        const path = location.pathname;
+
+        // 1. If Bike Page -> Go to Home
+        if (path === '/bike-animation') {
+            navigate('/');
+            return;
+        }
+
+        // 2. If Menu Page
+        if (path === '/menu') {
+            const currentDept = searchParams.get('dept');
+            const currentCategory = searchParams.get('category');
+
+            if (currentDept) {
+                // If in a deep department view (e.g. Aeronautical)
+                // Go back to the category list if it exists (e.g. BE), or root if not
+                if (currentCategory) {
+                    setSearchParams({ category: currentCategory });
+                } else {
+                    setSearchParams({});
+                }
+            } else if (currentCategory) {
+                // If in a sub-menu (e.g. BE course list) -> Go to Menu Root
+                setSearchParams({});
+            } else {
+                // If in Menu Root -> Go to Home
+                navigate('/');
+            }
+            return;
+        }
+
+        // 3. All other pages (Placement, Sports, etc.) -> Go to Menu
+        // "if departments page, go to menu page or sub-menu page if available" 
+        // -> This refers to our DepartmentPage which is rendered at /menu when dept param is present.
+        // So for actual separate routes like /placement, we go to /menu.
+        navigate('/menu');
     };
 
     return (

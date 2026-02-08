@@ -30,7 +30,7 @@ const BikePage = () => {
     setTimeout(() => {
       setShowWelcome(false);
       navigate('/menu');
-    }, 3000);
+    }, 1500);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
