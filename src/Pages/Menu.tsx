@@ -104,11 +104,44 @@ const DroneAnimation = () => {
     return (
         <div style={{
             position: 'absolute',
-            top: '-150%',
+            top: '-140%',
             left: '50%',
             transform: 'translateX(-50%)',
-            width: '200%', 
-            height: '200%',
+            width: '170%', 
+            height: '170%',
+            pointerEvents: 'none',
+            zIndex: 20
+        }}>
+           <Lottie 
+                lottieRef={lottieRef}
+                animationData={droneAnimation} 
+                loop={false}
+                autoplay={true}
+                style={{ width: '100%', height: '100%' }}
+            />
+        </div>
+    );
+};
+
+// Sub-Menu Drone Animation (Smaller & Adjusted)
+const SubMenuDroneAnimation = () => {
+    // @ts-ignore
+    const lottieRef = useRef<any>(null);
+    
+    useEffect(() => {
+        if (lottieRef.current) {
+            lottieRef.current.setSpeed(3.25);
+        }
+    }, []);
+
+    return (
+        <div style={{
+            position: 'absolute',
+            top: '-80%', // Adjusted for smaller height
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '120%', // Smaller relative width for sub-menu items
+            height: '120%',
             pointerEvents: 'none',
             zIndex: 20
         }}>
@@ -409,7 +442,7 @@ const Menu = () => {
                     <span className="be-name">{course.name}</span>
                   </div>
                     {/* Drone Animation Container for Sub-Menu */}
-                    <DroneAnimation />
+                    <SubMenuDroneAnimation />
                 </div>
               ))}
             </div>
@@ -443,7 +476,7 @@ const Menu = () => {
                         <span className="be-name">{course.name}</span>
                     </div>
                         {/* Drone Animation Container for Sub-Menu */}
-                        <DroneAnimation />
+                        <SubMenuDroneAnimation />
                     </div>
                 ))}
                 </div>
@@ -477,7 +510,8 @@ const Menu = () => {
                     <span className="be-name">{course.name}</span>
                   </div>
                     {/* Drone Animation Container for Sub-Menu */}
-                    <DroneAnimation />
+                    {/* Drone Animation Container for Sub-Menu */}
+                    <SubMenuDroneAnimation />
                 </div>
               ))}
             </div>
@@ -513,7 +547,8 @@ const Menu = () => {
                     <span className="be-name">{course.name}</span>
                   </div>
                     {/* Drone Animation Container for Sub-Menu */}
-                    <DroneAnimation />
+                    {/* Drone Animation Container for Sub-Menu */}
+                    <SubMenuDroneAnimation />
                 </div>
               ))}
             </div>
