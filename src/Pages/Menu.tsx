@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Lottie from 'lottie-react';
 // @ts-ignore
@@ -85,6 +85,43 @@ const allCourses = [
     mbaData,
     mcaData
 ];
+
+
+// Helper Component for Drone Animation (2s duration)
+const DroneAnimation = () => {
+    // @ts-ignore
+    const lottieRef = useRef<any>(null);
+    
+    useEffect(() => {
+        // Original: ~6.5s (391 frames / 60 fps)
+        // Target: 2s
+        // Speed: 6.5 / 2 = 3.25
+        if (lottieRef.current) {
+            lottieRef.current.setSpeed(3.25);
+        }
+    }, []);
+
+    return (
+        <div style={{
+            position: 'absolute',
+            top: '-150%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '200%', 
+            height: '200%',
+            pointerEvents: 'none',
+            zIndex: 20
+        }}>
+           <Lottie 
+                lottieRef={lottieRef}
+                animationData={droneAnimation} 
+                loop={false}
+                autoplay={true}
+                style={{ width: '100%', height: '100%' }}
+            />
+        </div>
+    );
+};
 
 
 const Menu = () => {
@@ -311,23 +348,7 @@ const Menu = () => {
                     {item.title}
                   </button>
                     {/* Drone Animation Container */}
-                    <div style={{
-                        position: 'absolute',
-                        top: '-150%', // Position above the button
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        width: '200%', // Make drone larger than button width
-                        height: '200%',
-                        pointerEvents: 'none',
-                        zIndex: 20
-                    }}>
-                        <Lottie 
-                            animationData={droneAnimation} 
-                            loop={false} // Run once
-                            autoplay={true}
-                            style={{ width: '100%', height: '100%' }}
-                        />
-                    </div>
+                    <DroneAnimation />
                 </div>
               ))}
             </div>
@@ -388,23 +409,7 @@ const Menu = () => {
                     <span className="be-name">{course.name}</span>
                   </div>
                     {/* Drone Animation Container for Sub-Menu */}
-                    <div style={{
-                        position: 'absolute',
-                        top: '-150%',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        width: '200%',
-                        height: '200%',
-                        pointerEvents: 'none',
-                        zIndex: 20
-                    }}>
-                        <Lottie 
-                            animationData={droneAnimation} 
-                            loop={false} 
-                            autoplay={true}
-                            style={{ width: '100%', height: '100%' }}
-                        />
-                    </div>
+                    <DroneAnimation />
                 </div>
               ))}
             </div>
@@ -438,23 +443,7 @@ const Menu = () => {
                         <span className="be-name">{course.name}</span>
                     </div>
                         {/* Drone Animation Container for Sub-Menu */}
-                        <div style={{
-                            position: 'absolute',
-                            top: '-150%',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            width: '200%',
-                            height: '200%',
-                            pointerEvents: 'none',
-                            zIndex: 20
-                        }}>
-                            <Lottie 
-                                animationData={droneAnimation} 
-                                loop={false} 
-                                autoplay={true}
-                                style={{ width: '100%', height: '100%' }}
-                            />
-                        </div>
+                        <DroneAnimation />
                     </div>
                 ))}
                 </div>
@@ -488,23 +477,7 @@ const Menu = () => {
                     <span className="be-name">{course.name}</span>
                   </div>
                     {/* Drone Animation Container for Sub-Menu */}
-                    <div style={{
-                        position: 'absolute',
-                        top: '-150%',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        width: '200%',
-                        height: '200%',
-                        pointerEvents: 'none',
-                        zIndex: 20
-                    }}>
-                        <Lottie 
-                            animationData={droneAnimation} 
-                            loop={false} 
-                            autoplay={true}
-                            style={{ width: '100%', height: '100%' }}
-                        />
-                    </div>
+                    <DroneAnimation />
                 </div>
               ))}
             </div>
@@ -540,23 +513,7 @@ const Menu = () => {
                     <span className="be-name">{course.name}</span>
                   </div>
                     {/* Drone Animation Container for Sub-Menu */}
-                    <div style={{
-                        position: 'absolute',
-                        top: '-150%',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        width: '200%',
-                        height: '200%',
-                        pointerEvents: 'none',
-                        zIndex: 20
-                    }}>
-                        <Lottie 
-                            animationData={droneAnimation} 
-                            loop={false} 
-                            autoplay={true}
-                            style={{ width: '100%', height: '100%' }}
-                        />
-                    </div>
+                    <DroneAnimation />
                 </div>
               ))}
             </div>
