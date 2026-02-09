@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
 import "../components/Menu.css";
 import "./Scholarships.css";
 
 export default function Scholarships() {
-  const navigate = useNavigate();
+
   const [active, setActive] = useState("overview");
   const [keyTrigger, setKeyTrigger] = useState(0);
 

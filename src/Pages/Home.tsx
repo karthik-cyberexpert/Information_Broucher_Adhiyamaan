@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Lottie from 'lottie-react';
 // @ts-ignore
@@ -12,7 +12,7 @@ import LightRays from '../components/LightRays';
 
 const Home = () => {
   const navigate = useNavigate();
-  const [showWelcome, setShowWelcome] = useState(false);
+  const [showWelcome] = useState(false);
 
   // Form state removed as it moved to BikePage, 
   // but if we need it for welcome animation context we can restart it there.

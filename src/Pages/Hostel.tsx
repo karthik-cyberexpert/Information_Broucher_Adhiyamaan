@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import "../components/Menu.css";
 import "./Hostel.css";
 
@@ -19,7 +19,7 @@ const facilities = [
 ];
 
 export default function Hostel() {
-  const navigate = useNavigate();
+
   const [activeImage, setActiveImage] = useState(0);
 
   return (

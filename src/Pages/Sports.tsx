@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import "../components/Menu.css";
 import "./Sports.css";
 
@@ -35,7 +35,7 @@ const outdoorGames = [
 ];
 
 export default function Sports() {
-  const navigate = useNavigate();
+
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState("right");
 

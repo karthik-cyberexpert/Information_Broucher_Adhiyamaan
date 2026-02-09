@@ -48,7 +48,9 @@ const RouteList = ({ routes, section, globalProgress }: { routes: string[], sect
                 let isVisible = false;
                 const total = routes.length;
 
-                if (section === 'left') {
+                if (globalProgress >= 1) { // Force show all when animation completes
+                    isVisible = true;
+                } else if (section === 'left') {
                     const threshold = ((index + 1) / total) * 0.33;
                     isVisible = globalProgress > threshold;
                 } else if (section === 'center') {
@@ -169,9 +171,11 @@ const Transport = () => {
         const animate = (timestamp: number) => {
             if (!start) start = timestamp;
             const elapsed = (timestamp - start) / 1000;
-            const p = (elapsed % ANIMATION_DURATION) / ANIMATION_DURATION;
+            const p = Math.min(elapsed / ANIMATION_DURATION, 1);
             setProgress(p);
-            animationFrame = requestAnimationFrame(animate);
+            if (p < 1) {
+                animationFrame = requestAnimationFrame(animate);
+            }
         };
         animationFrame = requestAnimationFrame(animate);
         return () => cancelAnimationFrame(animationFrame);
@@ -294,7 +298,7 @@ const Transport = () => {
                     </div>
 
                     {/* Right Edge - Route List 2 */}
-                    <div className="edge-right" style={{ display: 'none' }}>
+                    <div className="edge-right">
                         <RouteList routes={routesRight} section="right" globalProgress={progress} />
                     </div>
 
@@ -394,7 +398,7 @@ const Transport = () => {
                                     
                                     // Threshold: Item is at (i + 1) / (total + 1) roughly.
                                     const threshold = (i + 1) / (arr.length + 2); 
-                                    const isVisible = mobileLoop > threshold - 0.1; // Reveal slightly before/as it passes
+                                    const isVisible = progress >= 1 || (mobileLoop > threshold - 0.1); // Reveal slightly before/as it passes
 
                                     return (
                                         <motion.div 
@@ -442,7 +446,7 @@ const Transport = () => {
                                     // Reveal if Bus Y < Item Y (Bus has passed it moving up).
                                     const itemY = (i + 1) / (arr.length + 2);
                                     
-                                    const isVisible = busY < itemY + 0.05; // Reveal as it passes up
+                                    const isVisible = progress >= 1 || (busY < itemY + 0.05); // Reveal as it passes up
 
                                     return (
                                         <motion.div 
