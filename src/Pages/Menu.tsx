@@ -6,6 +6,7 @@ import TransparentGif from '../components/TransparentGif';
 import DepartmentPage from '../DepartmentPage';
 import '../App.css';
 import '../components/Menu.css'; // Ensure we have the specific CSS
+import droneAnimation from '../assets/drone_fly.json';
 
 interface TorchState {
   active: boolean;
@@ -309,6 +310,24 @@ const Menu = () => {
                   >
                     {item.title}
                   </button>
+                    {/* Drone Animation Container */}
+                    <div style={{
+                        position: 'absolute',
+                        top: '-150%', // Position above the button
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        width: '200%', // Make drone larger than button width
+                        height: '200%',
+                        pointerEvents: 'none',
+                        zIndex: 20
+                    }}>
+                        <Lottie 
+                            animationData={droneAnimation} 
+                            loop={false} // Run once
+                            autoplay={true}
+                            style={{ width: '100%', height: '100%' }}
+                        />
+                    </div>
                 </div>
               ))}
             </div>
@@ -368,6 +387,24 @@ const Menu = () => {
                     <span className="be-icon">{course.icon}</span>
                     <span className="be-name">{course.name}</span>
                   </div>
+                    {/* Drone Animation Container for Sub-Menu */}
+                    <div style={{
+                        position: 'absolute',
+                        top: '-150%',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        width: '200%',
+                        height: '200%',
+                        pointerEvents: 'none',
+                        zIndex: 20
+                    }}>
+                        <Lottie 
+                            animationData={droneAnimation} 
+                            loop={false} 
+                            autoplay={true}
+                            style={{ width: '100%', height: '100%' }}
+                        />
+                    </div>
                 </div>
               ))}
             </div>
@@ -400,6 +437,24 @@ const Menu = () => {
                         <span className="be-icon">{course.icon}</span>
                         <span className="be-name">{course.name}</span>
                     </div>
+                        {/* Drone Animation Container for Sub-Menu */}
+                        <div style={{
+                            position: 'absolute',
+                            top: '-150%',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            width: '200%',
+                            height: '200%',
+                            pointerEvents: 'none',
+                            zIndex: 20
+                        }}>
+                            <Lottie 
+                                animationData={droneAnimation} 
+                                loop={false} 
+                                autoplay={true}
+                                style={{ width: '100%', height: '100%' }}
+                            />
+                        </div>
                     </div>
                 ))}
                 </div>
@@ -432,6 +487,24 @@ const Menu = () => {
                     <span className="be-icon">{course.icon}</span>
                     <span className="be-name">{course.name}</span>
                   </div>
+                    {/* Drone Animation Container for Sub-Menu */}
+                    <div style={{
+                        position: 'absolute',
+                        top: '-150%',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        width: '200%',
+                        height: '200%',
+                        pointerEvents: 'none',
+                        zIndex: 20
+                    }}>
+                        <Lottie 
+                            animationData={droneAnimation} 
+                            loop={false} 
+                            autoplay={true}
+                            style={{ width: '100%', height: '100%' }}
+                        />
+                    </div>
                 </div>
               ))}
             </div>
@@ -466,6 +539,24 @@ const Menu = () => {
                     <span className="be-icon">{course.icon}</span>
                     <span className="be-name">{course.name}</span>
                   </div>
+                    {/* Drone Animation Container for Sub-Menu */}
+                    <div style={{
+                        position: 'absolute',
+                        top: '-150%',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        width: '200%',
+                        height: '200%',
+                        pointerEvents: 'none',
+                        zIndex: 20
+                    }}>
+                        <Lottie 
+                            animationData={droneAnimation} 
+                            loop={false} 
+                            autoplay={true}
+                            style={{ width: '100%', height: '100%' }}
+                        />
+                    </div>
                 </div>
               ))}
             </div>
