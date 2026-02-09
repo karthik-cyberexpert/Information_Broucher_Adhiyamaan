@@ -510,7 +510,7 @@ const Menu = () => {
                     <span className="be-name">{course.name}</span>
                   </div>
                     {/* Drone Animation Container for Sub-Menu */}
-                    {/* Drone Animation Container for Sub-Menu */}
+
                     <SubMenuDroneAnimation />
                 </div>
               ))}
@@ -547,7 +547,7 @@ const Menu = () => {
                     <span className="be-name">{course.name}</span>
                   </div>
                     {/* Drone Animation Container for Sub-Menu */}
-                    {/* Drone Animation Container for Sub-Menu */}
+
                     <SubMenuDroneAnimation />
                 </div>
               ))}
