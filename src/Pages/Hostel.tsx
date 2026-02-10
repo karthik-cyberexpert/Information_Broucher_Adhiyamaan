@@ -4,9 +4,9 @@ import "../components/Menu.css";
 import "./Hostel.css";
 
 const hostelImages = [
-  "/images/hostel.jpg",
-  "/images/hostel.jpg",
-  "/images/hostel.jpg",
+  "/images/hostel/h1.jpg",
+  "/images/hostel/h2.jpg",
+  "/images/hostel/h3.jpg",
 ];
 
 const facilities = [

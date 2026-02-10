@@ -1,6 +1,6 @@
 import React from 'react';
 import { Bus, MapPin } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import NavigationDock from '../components/NavigationDock';
 import './Transport.css';
@@ -22,9 +22,9 @@ const routesRight = [
 ];
 
 const transportImages = [
-    "/images/transport.jpg",
-    "/images/t1.jpeg",
-    "/images/t2.jpeg"
+    "/images/transport/t1.jpeg",
+    "/images/transport/t2.jpeg",
+    "/images/transport/t3.jpg"
 ];
 
 // Animation Constants
@@ -116,7 +116,7 @@ const Transport = () => {
     React.useEffect(() => {
         const timer = setInterval(() => {
             setCurrentImage((prev) => (prev + 1) % transportImages.length);
-        }, 3000);
+        }, 3000); // Back to a slightly slower interval without the flip
         return () => clearInterval(timer);
     }, []);
 
@@ -249,44 +249,29 @@ const Transport = () => {
                         <div className="center-visual-top">
                             <motion.div
                                 className="center-visual-container"
-                                initial={{ scale: 0.5, opacity: 0, rotateX: 20 }}
-                                animate={{ scale: 1, opacity: 1, rotateX: 0 }}
+                                initial={{ scale: 0.5, opacity: 0 }}
+                                animate={{
+                                    scale: 1,
+                                    opacity: 1
+                                }}
                                 transition={{ duration: 1.2, ease: "easeOut" }}
                             >
-                                {/* Central Glass Disc */}
-                                <div className="glass-disc" style={{ padding: 0, overflow: 'hidden' }}>
-                                    <AnimatePresence mode="wait">
-                                        <motion.img
-                                            key={currentImage}
-                                            src={transportImages[currentImage]}
-                                            initial={{ opacity: 0, scale: 1.1 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            transition={{ duration: 0.8 }}
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                                objectFit: 'cover',
-                                                borderRadius: '20px' // Match container radius
-                                            }}
-                                        />
-                                    </AnimatePresence>
+                                <div className="glass-disc" style={{
+                                    padding: 0,
+                                    overflow: 'hidden'
+                                }}>
+                                    <img
+                                        src={transportImages[currentImage]}
+                                        alt="Transport"
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover',
+                                            borderRadius: '20px'
+                                        }}
+                                    />
 
-                                    {/* Overlay Text */}
-                                    <div style={{
-                                        position: 'absolute',
-                                        bottom: '20px',
-                                        left: '20px',
-                                        zIndex: 20,
-                                        textAlign: 'left'
-                                    }}>
-                                        <h1 className="campus-title" style={{ marginTop: 0, textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>
-                                            Campus
-                                        </h1>
-                                        <p className="logistics-subtitle" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>
-                                            Logistics
-                                        </p>
-                                    </div>
+
                                 </div>
                             </motion.div>
                         </div>
@@ -330,20 +315,16 @@ const Transport = () => {
                             boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
                             position: 'relative'
                         }}>
-                            <AnimatePresence mode="wait">
-                                <motion.img
-                                    key={currentImage}
-                                    src={transportImages[currentImage]}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.5 }}
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                />
-                            </AnimatePresence>
-                            <div style={{ position: 'absolute', bottom: 15, left: 15, zIndex: 2 }}>
-                                <h2 style={{ margin: 0, fontSize: '1.5rem', textShadow: '0 2px 4px black' }}>Campus Logistics</h2>
-                            </div>
+                            <img
+                                src={transportImages[currentImage]}
+                                alt="Transport Mobile"
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover'
+                                }}
+                            />
+
                         </div>
                     </div>
 
@@ -361,12 +342,12 @@ const Transport = () => {
                             {/* Animated Bus: Top -> Bottom */}
                             <motion.img
                                 src="/bus.png"
-                                style={{ 
-                                    position: 'absolute', 
-                                    left: '50%', 
-                                    x: '-50%', 
-                                    zIndex: 0, 
-                                    width: '40px', 
+                                style={{
+                                    position: 'absolute',
+                                    left: '50%',
+                                    x: '-50%',
+                                    zIndex: 0,
+                                    width: '40px',
                                     opacity: 0.6,
                                     transform: 'rotate(180deg)',
                                     filter: 'drop-shadow(0 0 5px rgba(59, 130, 246, 0.5))'
@@ -374,7 +355,7 @@ const Transport = () => {
                                 animate={{ top: ['-10%', '110%'] }}
                                 transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
                             />
-                            
+
                             <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '15px', padding: '10px 0', alignItems: 'center' }}>
                                 <h3 style={{ fontSize: '1rem', color: '#93c5fd', marginBottom: '5px' }}>Zone A</h3>
                                 {[...routesLeft, ...routesCenter.slice(0, Math.ceil(routesCenter.length / 2))].map((r, i, arr) => {
@@ -387,22 +368,22 @@ const Transport = () => {
                                     // Global progress is 20s. Let's map it: 0-0.5 is one pass, 0.5-1 is another? 
                                     // Or just use 'progress' directly. 
                                     // Bus is at Top (0%) at progress X, Bottom (100%) at progress Y.
-                                    
+
                                     // Let's rely on the bus passing visual.
                                     // Since the user asked for "if and only if the bus crossed then only", we need strict sync.
                                     // We'll use the 'progress' state.
-                                    
+
                                     // Left Bus: 0 -> 1 over 10s (half of global 20s for tighter loop? or just use global).
                                     // Let's make mobile progress loop faster: 8s.
                                     const mobileLoop = (progress * ANIMATION_DURATION) % 8 / 8; // 0 to 1 over 8s
-                                    
+
                                     // Threshold: Item is at (i + 1) / (total + 1) roughly.
-                                    const threshold = (i + 1) / (arr.length + 2); 
+                                    const threshold = (i + 1) / (arr.length + 2);
                                     const isVisible = progress >= 1 || (mobileLoop > threshold - 0.1); // Reveal slightly before/as it passes
 
                                     return (
-                                        <motion.div 
-                                            key={i} 
+                                        <motion.div
+                                            key={i}
                                             animate={{ opacity: isVisible ? 1 : 0.2, scale: isVisible ? 1 : 0.95 }}
                                             transition={{ duration: 0.3 }}
                                             style={{ background: 'rgba(255,255,255,0.1)', padding: '8px 12px', borderRadius: '8px', fontSize: '0.85rem', width: '90%', textAlign: 'center' }}
@@ -417,14 +398,14 @@ const Transport = () => {
                         {/* Right Column: Bottom -> Top Bus */}
                         <div className="mobile-col-right" style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
                             {/* Animated Bus: Bottom -> Top */}
-                             <motion.img
+                            <motion.img
                                 src="/bus.png"
-                                style={{ 
-                                    position: 'absolute', 
-                                    left: '50%', 
-                                    x: '-50%', 
-                                    zIndex: 0, 
-                                    width: '40px', 
+                                style={{
+                                    position: 'absolute',
+                                    left: '50%',
+                                    x: '-50%',
+                                    zIndex: 0,
+                                    width: '40px',
                                     opacity: 0.6,
                                     // Upright for going up
                                     filter: 'drop-shadow(0 0 5px rgba(239, 68, 68, 0.5))'
@@ -440,17 +421,17 @@ const Transport = () => {
                                     // Progress 0 -> 1. Bus Y: 1 -> 0.
                                     const mobileLoop = (progress * ANIMATION_DURATION) % 8 / 8; // 0 to 1 over 8s
                                     const busY = 1 - mobileLoop; // 1.0 (bottom) to 0.0 (top)
-                                    
+
                                     // Items are laid out Top to Bottom (0 to N).
                                     // Item Y is approx (i + 1) / (arr.length + 2).
                                     // Reveal if Bus Y < Item Y (Bus has passed it moving up).
                                     const itemY = (i + 1) / (arr.length + 2);
-                                    
+
                                     const isVisible = progress >= 1 || (busY < itemY + 0.05); // Reveal as it passes up
 
                                     return (
-                                        <motion.div 
-                                            key={i} 
+                                        <motion.div
+                                            key={i}
                                             animate={{ opacity: isVisible ? 1 : 0.2, scale: isVisible ? 1 : 0.95 }}
                                             transition={{ duration: 0.3 }}
                                             style={{ background: 'rgba(255,255,255,0.1)', padding: '8px 12px', borderRadius: '8px', fontSize: '0.85rem', width: '90%', textAlign: 'center' }}
