@@ -7,6 +7,7 @@ import TransparentGif from '../components/TransparentGif';
 import welcomeAnimation from '../assets/Welcome Animation.json';
 
 // We'll duplicate this CSS import or ensure App.css is global
+import { Info } from 'lucide-react';
 import '../App.css'; 
 import LightRays from '../components/LightRays'; 
 
@@ -17,7 +18,7 @@ const Home = () => {
   // Form state removed as it moved to BikePage, 
   // but if we need it for welcome animation context we can restart it there.
 
-  const handleClick = () => {
+  const handleClick = () => { 
     navigate('/bike-animation');
   };
 
@@ -48,6 +49,12 @@ const Home = () => {
 
       <div className="main-content">
         <div className="click-here-container">
+           <div className="info-badge">
+             <div className="info-icon-circle">
+               <Info size={14} />
+             </div>
+             <p className="click-more-info">To explore more details and insights</p>
+           </div>
            <button className="start-btn" onClick={handleClick}>
              CLICK HERE
            </button>

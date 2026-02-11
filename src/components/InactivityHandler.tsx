@@ -26,8 +26,8 @@ const InactivityHandler: React.FC<InactivityHandlerProps> = ({
   };
 
   useEffect(() => {
-    // Don't track on home page
-    if (location.pathname === '/') {
+    // Don't track on home page or thank you page
+    if (location.pathname === '/' || location.pathname === '/thank-you') {
       setShowWarning(false);
       return;
     }
@@ -38,8 +38,8 @@ const InactivityHandler: React.FC<InactivityHandlerProps> = ({
       const timeRemaining = timeout - timeSinceLastActivity;
 
       if (timeRemaining <= 0) {
-        // Timeout reached
-        navigate('/');
+        // Timeout reached - Go to Thank You page first
+        navigate('/thank-you');
         resetTimer();
       } else if (timeRemaining <= warningDuration) {
         // Show warning

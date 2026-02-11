@@ -7,7 +7,8 @@ import Sports from './Pages/Sports';
 import Transport from './Pages/Transport';
 import About from './Pages/About';
 import Hostel from './Pages/Hostel';
-import BikePage from './Pages/BikePage'; // Import BikePage
+import BikePage from './Pages/BikePage'; 
+import ThankYou from './Pages/ThankYou';
 import ScrollToTop from './components/ScrollToTop';
 import ClickSpark from './components/ClickSpark';
 import InactivityHandler from './components/InactivityHandler';
@@ -17,7 +18,8 @@ import './App.css';
 function App() {
   return (
     <>
-      <InactivityHandler timeout={90000} warningDuration={10000} />
+      {/* <InactivityHandler timeout={90000} warningDuration={10000} /> */}
+      <InactivityHandler timeout={15000} warningDuration={5000} />
       <ClickSpark
         sparkColor='#fff'
         sparkSize={10}
@@ -37,6 +39,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/hostel" element={<Hostel />} />
           <Route path="/bike-animation" element={<BikePage />} />
+          <Route path="/thank-you" element={<ThankYou />} />
         </Routes>
       </ClickSpark>
     </>
