@@ -59,6 +59,7 @@ body::-webkit-scrollbar {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
     overflow: hidden;
     position: relative;
+    text-align: justify;
 }
 
 /* HEADINGS */
@@ -75,7 +76,9 @@ body::-webkit-scrollbar {
     margin: 8px 0;
     border-left: 4px solid #38bdf8;
     border-radius: 6px;
+    border-radius: 6px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: justify;
 }
 
 /* HOVER */
@@ -86,7 +89,8 @@ body::-webkit-scrollbar {
 
 /* SCROLL WINDOW Container */
 .scroll-window {
-    height: 400px; /* Adjust based on preferred visible height */
+    height: 400px;
+    /* Adjust based on preferred visible height */
     overflow: hidden;
     position: relative;
     mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
@@ -108,6 +112,7 @@ body::-webkit-scrollbar {
     0% {
         transform: translateY(0);
     }
+
     100% {
         transform: translateY(-50%);
     }
@@ -169,23 +174,23 @@ body::-webkit-scrollbar {
     body {
         overflow: auto !important;
     }
-    
+
     .sports-page {
         height: auto !important;
         min-height: 100vh;
         overflow: visible !important;
         padding: 20px;
     }
-    
+
     .sports-layout {
         display: block;
         height: auto;
     }
-    
+
     .glass-box {
         margin-bottom: 20px;
     }
-    
+
     .gallery-box {
         height: 300px;
     }

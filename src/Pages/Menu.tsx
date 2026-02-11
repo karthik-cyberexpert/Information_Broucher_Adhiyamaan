@@ -71,89 +71,96 @@ const phdCourses = [
   { name: 'Ph.D. Physics', icon: '⚛️', bg: '/images/be/eee1.jpg.jpeg' },
 ];
 
+const mbaCourses = [
+  { name: 'MBA Part Time', icon: '⌛', bg: '/images/mba/mba%20parttime.jpg', video: '/media/mba.mp4' },
+  { name: 'MBA Full Time', icon: '🎓', bg: '/images/mba/mba%20fulltime.jpg', video: '/media/mba.mp4' },
+  { name: 'MBA Logistics and Supply Chain Management', icon: '📦', bg: '/images/mba/mba%20logistic.jpg', video: '/media/mba.mp4' },
+];
+
 const bArchData = { name: 'Bachelor of Architecture', icon: '🏛️', bg: '/images/civilback.jpg', video: '/media/be arch.mp4' };
 const mbaData = { name: 'Master of Business Administration', icon: '📊', bg: '/images/mba.jpg', video: '/media/mba.mp4' };
 const mcaData = { name: 'Master of Computer Applications', icon: '💻', bg: '/images/mca.jpg', video: '/media/mca.mp4?v=2' };
 
 // Combine all courses for easy lookup by name
 const allCourses = [
-    ...beCourses,
-    ...bTechCourses,
-    ...meCourses,
-    ...phdCourses,
-    bArchData,
-    mbaData,
-    mcaData
+  ...beCourses,
+  ...bTechCourses,
+  ...meCourses,
+  ...phdCourses,
+  ...mbaCourses,
+  bArchData,
+  mbaData,
+  mcaData
 ];
 
 
 // Helper Component for Drone Animation (2s duration)
 const DroneAnimation = () => {
-    // @ts-ignore
-    const lottieRef = useRef<any>(null);
-    
-    useEffect(() => {
-        // Original: ~6.5s (391 frames / 60 fps)
-        // Target: 2s
-        // Speed: 6.5 / 2 = 3.25
-        if (lottieRef.current) {
-            lottieRef.current.setSpeed(3.25);
-        }
-    }, []);
+  // @ts-ignore
+  const lottieRef = useRef<any>(null);
 
-    return (
-        <div style={{
-            position: 'absolute',
-            top: '-140%',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '170%', 
-            height: '170%',
-            pointerEvents: 'none',
-            zIndex: 20
-        }}>
-           <Lottie 
-                lottieRef={lottieRef}
-                animationData={droneAnimation} 
-                loop={false}
-                autoplay={true}
-                style={{ width: '100%', height: '100%' }}
-            />
-        </div>
-    );
+  useEffect(() => {
+    // Original: ~6.5s (391 frames / 60 fps)
+    // Target: 2s
+    // Speed: 6.5 / 2 = 3.25
+    if (lottieRef.current) {
+      lottieRef.current.setSpeed(3.25);
+    }
+  }, []);
+
+  return (
+    <div style={{
+      position: 'absolute',
+      top: '-140%',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      width: '170%',
+      height: '170%',
+      pointerEvents: 'none',
+      zIndex: 20
+    }}>
+      <Lottie
+        lottieRef={lottieRef}
+        animationData={droneAnimation}
+        loop={false}
+        autoplay={true}
+        style={{ width: '100%', height: '100%' }}
+      />
+    </div>
+  );
 };
 
 // Sub-Menu Drone Animation (Smaller & Adjusted)
 const SubMenuDroneAnimation = () => {
-    // @ts-ignore
-    const lottieRef = useRef<any>(null);
-    
-    useEffect(() => {
-        if (lottieRef.current) {
-            lottieRef.current.setSpeed(3.25);
-        }
-    }, []);
+  // @ts-ignore
+  const lottieRef = useRef<any>(null);
 
-    return (
-        <div style={{
-            position: 'absolute',
-            top: '-80%', // Adjusted for smaller height
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '120%', // Smaller relative width for sub-menu items
-            height: '120%',
-            pointerEvents: 'none',
-            zIndex: 20
-        }}>
-           <Lottie 
-                lottieRef={lottieRef}
-                animationData={droneAnimation} 
-                loop={false}
-                autoplay={true}
-                style={{ width: '100%', height: '100%' }}
-            />
-        </div>
-    );
+  useEffect(() => {
+    if (lottieRef.current) {
+      lottieRef.current.setSpeed(3.25);
+    }
+  }, []);
+
+  return (
+    <div style={{
+      position: 'absolute',
+      top: '-80%', // Adjusted for smaller height
+      left: '50%',
+      transform: 'translateX(-50%)',
+      width: '120%', // Smaller relative width for sub-menu items
+      height: '120%',
+      pointerEvents: 'none',
+      zIndex: 20
+    }}>
+      <Lottie
+        lottieRef={lottieRef}
+        animationData={droneAnimation}
+        loop={false}
+        autoplay={true}
+        style={{ width: '100%', height: '100%' }}
+      />
+    </div>
+  );
 };
 
 
@@ -167,9 +174,9 @@ const Menu = () => {
 
   // Derive selected Department from URL
   // We need to find the full department object matching the name
-  const selectedDepartment = currentDeptName 
-      ? allCourses.find(c => c.name === currentDeptName) || null
-      : null;
+  const selectedDepartment = currentDeptName
+    ? allCourses.find(c => c.name === currentDeptName) || null
+    : null;
 
 
   // Torch Animation State
@@ -206,26 +213,26 @@ const Menu = () => {
 
     // Init Torch State
     setTorchState({
-        active: true,
-        rect,
-        title,
-        bg,
-        onComplete: action,
-        isExiting: false
+      active: true,
+      rect,
+      title,
+      bg,
+      onComplete: action,
+      isExiting: false
     });
 
     // Phase 1: Torch Focus (1 second)
     // Then Phase 2: Zoom and Fade
     setTimeout(() => {
-        setTorchState(prev => ({ ...prev, isExiting: true }));
-        
-        // Wait for exit animation to finish (e.g., 0.5s or 0.8s), then navigate
-        setTimeout(() => {
-             // Reset state
-             setTorchState({ active: false, rect: null, title: '', bg: '', onComplete: null, isExiting: false });
-             // Execute Navigation
-             action();
-        }, 800); 
+      setTorchState(prev => ({ ...prev, isExiting: true }));
+
+      // Wait for exit animation to finish (e.g., 0.5s or 0.8s), then navigate
+      setTimeout(() => {
+        // Reset state
+        setTorchState({ active: false, rect: null, title: '', bg: '', onComplete: null, isExiting: false });
+        // Execute Navigation
+        action();
+      }, 800);
     }, 1000);
   };
 
@@ -241,17 +248,17 @@ const Menu = () => {
 
       // Handle Sub-menus/Single Departments via URL params
       if (id === 'be' || id === 'btech' || id === 'me' || id === 'phd') {
-          setSearchParams({ category: id });
-      } 
+        setSearchParams({ category: id });
+      }
       // Handle Single Departments direct navigation
       else if (id === 'barch') {
-          setSearchParams({ dept: bArchData.name });
+        setSearchParams({ dept: bArchData.name });
       }
       else if (id === 'mba') {
-          setSearchParams({ dept: mbaData.name });
+        setSearchParams({ category: 'mba' });
       }
       else if (id === 'mca') {
-          setSearchParams({ dept: mcaData.name });
+        setSearchParams({ dept: mcaData.name });
       }
     };
 
@@ -280,10 +287,10 @@ const Menu = () => {
   const handleBackFromDept = () => {
     // If we have a category (BE/BTech etc), go back to that category listing
     if (currentCategory) {
-        setSearchParams({ category: currentCategory });
+      setSearchParams({ category: currentCategory });
     } else {
-        // Otherwise go back to main menu
-        setSearchParams({});
+      // Otherwise go back to main menu
+      setSearchParams({});
     }
     window.scrollTo(0, 0);
   };
@@ -295,6 +302,7 @@ const Menu = () => {
   const isBTechDetails = currentCategory === 'btech' && !isDepartmentView;
   const isMEDetails = currentCategory === 'me' && !isDepartmentView;
   const isPhDDetails = currentCategory === 'phd' && !isDepartmentView;
+  const isMBADetails = currentCategory === 'mba' && !isDepartmentView;
 
   if (isDepartmentView && selectedDepartment) {
     return (
@@ -310,12 +318,12 @@ const Menu = () => {
       {/* Header */}
       <header className="header">
         <div className="logo-container">
-          <TransparentGif 
-            src="/images/logo33.gif" 
-            width={300} 
-            height={90} 
-            className="college-logo" 
-            style={{ borderRadius: '16px', backgroundColor: 'rgba(255, 255, 255, 0.75)',height:'50px',width:'200px' }}
+          <TransparentGif
+            src="/images/logo33.gif"
+            width={300}
+            height={90}
+            className="college-logo"
+            style={{ borderRadius: '16px', backgroundColor: 'rgba(255, 255, 255, 0.75)', height: '50px', width: '200px' }}
           />
         </div>
 
@@ -325,7 +333,8 @@ const Menu = () => {
         isBEDetails ? 'be-page-bg' :
           isBTechDetails ? 'btech-page-bg' :
             isMEDetails ? 'me-page-bg' :
-              isPhDDetails ? 'phd-page-bg' : ''
+              isPhDDetails ? 'phd-page-bg' :
+                isMBADetails ? 'mba-page-bg' : ''
         }`}>
 
         {/* PhD Video Background */}
@@ -356,6 +365,13 @@ const Menu = () => {
           </video>
         )}
 
+        {/* MBA Video Background */}
+        {isMBADetails && (
+          <video className="mba-bg-video" autoPlay loop muted playsInline>
+            <source src="/media/mba.mp4" type="video/mp4" />
+          </video>
+        )}
+
         {isMainNav && (
           <div className="nav-grid-container">
             <div className="nav-grid">
@@ -380,8 +396,8 @@ const Menu = () => {
                   >
                     {item.title}
                   </button>
-                    {/* Drone Animation Container */}
-                    <DroneAnimation />
+                  {/* Drone Animation Container */}
+                  <DroneAnimation />
                 </div>
               ))}
             </div>
@@ -441,8 +457,8 @@ const Menu = () => {
                     <span className="be-icon">{course.icon}</span>
                     <span className="be-name">{course.name}</span>
                   </div>
-                    {/* Drone Animation Container for Sub-Menu */}
-                    <SubMenuDroneAnimation />
+                  {/* Drone Animation Container for Sub-Menu */}
+                  <SubMenuDroneAnimation />
                 </div>
               ))}
             </div>
@@ -454,36 +470,36 @@ const Menu = () => {
 
         {/* B.Tech Grid */}
         {isBTechDetails && (
-            <div className="be-container">
-                <h2 className="be-title">B.Tech Courses</h2>
-                <div className="btech-grid">
-                {bTechCourses.map((course, index) => (
-                    <div
-                    key={index}
-                    className="entry-wrapper"
-                    style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
-                    >
-                    <div
-                        className="be-item"
-                        onClick={(e) => handleCourseClick(e, course)}
-                        style={{
-                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center'
-                        }}
-                    >
-                        <span className="be-icon">{course.icon}</span>
-                        <span className="be-name">{course.name}</span>
-                    </div>
-                        {/* Drone Animation Container for Sub-Menu */}
-                        <SubMenuDroneAnimation />
-                    </div>
-                ))}
+          <div className="be-container">
+            <h2 className="be-title">B.Tech Courses</h2>
+            <div className="btech-grid">
+              {bTechCourses.map((course, index) => (
+                <div
+                  key={index}
+                  className="entry-wrapper"
+                  style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
+                >
+                  <div
+                    className="be-item"
+                    onClick={(e) => handleCourseClick(e, course)}
+                    style={{
+                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center'
+                    }}
+                  >
+                    <span className="be-icon">{course.icon}</span>
+                    <span className="be-name">{course.name}</span>
+                  </div>
+                  {/* Drone Animation Container for Sub-Menu */}
+                  <SubMenuDroneAnimation />
                 </div>
-                <button className="menu-back-btn" onClick={handleBackToNav}>
-                MENU
-                </button>
+              ))}
             </div>
+            <button className="menu-back-btn" onClick={handleBackToNav}>
+              MENU
+            </button>
+          </div>
         )}
 
         {/* M.E Grid */}
@@ -509,9 +525,9 @@ const Menu = () => {
                     <span className="be-icon">{course.icon}</span>
                     <span className="be-name">{course.name}</span>
                   </div>
-                    {/* Drone Animation Container for Sub-Menu */}
+                  {/* Drone Animation Container for Sub-Menu */}
 
-                    <SubMenuDroneAnimation />
+                  <SubMenuDroneAnimation />
                 </div>
               ))}
             </div>
@@ -546,9 +562,45 @@ const Menu = () => {
                     <span className="be-icon">{course.icon}</span>
                     <span className="be-name">{course.name}</span>
                   </div>
-                    {/* Drone Animation Container for Sub-Menu */}
+                  {/* Drone Animation Container for Sub-Menu */}
 
-                    <SubMenuDroneAnimation />
+                  <SubMenuDroneAnimation />
+                </div>
+              ))}
+            </div>
+            <button className="menu-back-btn" onClick={handleBackToNav}>
+              MENU
+            </button>
+          </div>
+        )}
+
+        {/* MBA Grid */}
+        {isMBADetails && (
+          <div className="be-container">
+            <h2 className="be-title">MBA Programs</h2>
+            <div className="be-grid">
+              {mbaCourses.map((course, index) => (
+                <div
+                  key={index}
+                  className="entry-wrapper"
+                  style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
+                >
+                  <div
+                    className="be-item"
+                    onClick={(e) => handleCourseClick(e, course)}
+                    style={{
+                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      color: 'white',
+                      textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+                    }}
+                  >
+                    <span className="be-icon">{course.icon}</span>
+                    <span className="be-name">{course.name}</span>
+                  </div>
+                  {/* Drone Animation Container for Sub-Menu */}
+                  <SubMenuDroneAnimation />
                 </div>
               ))}
             </div>
@@ -563,66 +615,66 @@ const Menu = () => {
       {/* Torch Animation Overlay */}
       {torchState.active && torchState.rect && (
         <div className="torch-interaction-layer">
-           {/* Dark Overlay for non-focused items */}
-           <div className="dim-overlay" />
+          {/* Dark Overlay for non-focused items */}
+          <div className="dim-overlay" />
 
-           {/* Focused Item Clone (High Z-Index) */}
-           <div 
-             className={`focused-clone ${torchState.isExiting ? 'zoom-exit' : ''}`}
-             style={{
-                position: 'fixed',
-                left: torchState.rect.left,
-                top: torchState.rect.top,
-                width: torchState.rect.width,
-                height: torchState.rect.height,
-                backgroundImage: torchState.bg.includes('gradient') ? torchState.bg : `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url(${torchState.bg})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: '16px', // Match .nav-item / .be-item
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                color: 'white',
-                fontWeight: 800,
-                fontSize: torchState.rect.height > 100 ? '1.5rem' : '1.2rem', // Approximation
-                zIndex: 10001,
-                boxShadow: '0 0 30px rgba(255, 255, 255, 0.3)', // Glow
-                textTransform: 'uppercase',
-                textShadow: '0 2px 4px rgba(0,0,0,0.8)'
-             }}
-           >
-                {/* Simplified content - just text for nav items, icon+text for courses */}
-                {/* Since we don't have the exact mapped item here easily without passing more data, 
+          {/* Focused Item Clone (High Z-Index) */}
+          <div
+            className={`focused-clone ${torchState.isExiting ? 'zoom-exit' : ''}`}
+            style={{
+              position: 'fixed',
+              left: torchState.rect.left,
+              top: torchState.rect.top,
+              width: torchState.rect.width,
+              height: torchState.rect.height,
+              backgroundImage: torchState.bg.includes('gradient') ? torchState.bg : `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url(${torchState.bg})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              borderRadius: '16px', // Match .nav-item / .be-item
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              color: 'white',
+              fontWeight: 800,
+              fontSize: torchState.rect.height > 100 ? '1.5rem' : '1.2rem', // Approximation
+              zIndex: 10001,
+              boxShadow: '0 0 30px rgba(255, 255, 255, 0.3)', // Glow
+              textTransform: 'uppercase',
+              textShadow: '0 2px 4px rgba(0,0,0,0.8)'
+            }}
+          >
+            {/* Simplified content - just text for nav items, icon+text for courses */}
+            {/* Since we don't have the exact mapped item here easily without passing more data, 
                     we can just render the title we passed. 
                     For course items, we might miss the icon if we don't pass it.
                     Let's just use the title for now, it's the main thing.
                  */}
-                 {torchState.title}
-           </div>
+            {torchState.title}
+          </div>
 
-           {/* Torch Lottie Animation */}
-           {torchAnimationData && (
-               <div 
-                className="torch-lottie-container"
-                style={{
-                    position: 'fixed',
-                    left: torchState.rect.left + torchState.rect.width / 2 - 150, // Center torch (assume 300px width)
-                    top: torchState.rect.top - 100, // Adjust vertically
-                    width: 300,
-                    height: 300,
-                    zIndex: 10002,
-                    pointerEvents: 'none',
-                    opacity: torchState.isExiting ? 0 : 1, // Fade out torch when exiting
-                    transition: 'opacity 0.2s'
-                }}
-               >
-                <Lottie 
-                    animationData={torchAnimationData}
-                    loop={true}
-                    autoPlay={true}
-                />
-               </div>
-           )}
+          {/* Torch Lottie Animation */}
+          {torchAnimationData && (
+            <div
+              className="torch-lottie-container"
+              style={{
+                position: 'fixed',
+                left: torchState.rect.left + torchState.rect.width / 2 - 150, // Center torch (assume 300px width)
+                top: torchState.rect.top - 100, // Adjust vertically
+                width: 300,
+                height: 300,
+                zIndex: 10002,
+                pointerEvents: 'none',
+                opacity: torchState.isExiting ? 0 : 1, // Fade out torch when exiting
+                transition: 'opacity 0.2s'
+              }}
+            >
+              <Lottie
+                animationData={torchAnimationData}
+                loop={true}
+                autoPlay={true}
+              />
+            </div>
+          )}
         </div>
       )}
     </>

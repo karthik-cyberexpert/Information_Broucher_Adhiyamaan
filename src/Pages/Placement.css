@@ -5,7 +5,8 @@
     height: 100vh;
     width: 100%;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+    background: rgba(0, 0, 0, 0.4);
+    /* Dark overlay */
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: none;
@@ -58,7 +59,7 @@
 .top-section {
     display: flex;
     gap: 3%;
-    width:97%
+    width: 97%
 }
 
 /* CARD */
@@ -71,6 +72,7 @@
     opacity: 0;
     transform: scale(0.9);
     animation: zoomIn 0.7s ease-out forwards;
+    text-align: justify;
 }
 
 .top-box:nth-child(2) {
@@ -85,7 +87,7 @@
    ===================== */
 .mosaic-wrapper {
     height: 300px;
-    width:600px;
+    width: 600px;
     margin-left: 60px;
     overflow: hidden;
     border-radius: 8px;
@@ -230,7 +232,7 @@
         width: 100%;
         margin-left: 0;
     }
-    
+
     /* Mobile scroll fix */
     .placement-page {
         height: auto !important;
