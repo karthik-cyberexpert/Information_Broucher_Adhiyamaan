@@ -68,7 +68,7 @@ const phdCourses = [
   { name: 'Ph.D. ECE', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
   { name: 'Ph.D. Mechanical Engineering', icon: '⚙️', bg: '/images/me.jpg', video: '/media/mech.mp4' },
   { name: 'Ph.D. Chemistry', icon: '🧪', bg: '/images/btech/CE_bg.jpg' },
-  { name: 'Ph.D. Physics', icon: '⚛️', bg: '/images/be/eee1.jpg.jpeg' },
+  { name: 'Ph.D. Physics', icon: '⚛️', bg: '/images/phd%20physics.jpg' },
 ];
 
 const mbaCourses = [
@@ -578,7 +578,7 @@ const Menu = () => {
         {isMBADetails && (
           <div className="be-container">
             <h2 className="be-title">MBA Programs</h2>
-            <div className="be-grid">
+            <div className="be-grid mba-mobile-scroll">
               {mbaCourses.map((course, index) => (
                 <div
                   key={index}

@@ -13,10 +13,10 @@ interface DepartmentPageProps {
 
 const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) => {
   const [activeTab, setActiveTab] = useState('About');
-  const [fallingIcons, setFallingIcons] = useState<Array<{id: number, icon: string, style: React.CSSProperties}>>([]);
+  const [fallingIcons, setFallingIcons] = useState<Array<{ id: number, icon: string, style: React.CSSProperties }>>([]);
 
   // ... (keep getDeptIcons and useEffect exactly as is - no change needed there)
-  
+
   // Icon Mapping
   const getDeptIcons = (name: string) => {
     const n = name.toLowerCase();
@@ -50,29 +50,76 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
     setFallingIcons(newIcons);
   }, [department.name]);
 
-  const menuItems = [
-    { id: 'About', label: 'About' },
-    { id: 'Infrastructure', label: 'Infrastructure' },
-    { id: 'Career', label: 'Career Opportunities' },
-    { id: 'Contact', label: 'Contact' },
-  ];
+
+  // Static Data for Supervisor/Approval Images
+  const supervisorData: Record<string, { supervisor?: string; approval?: string }> = {
+    'Mechanical Engineering': {
+      supervisor: '/images/phd/mechinical supervisor .jpeg',
+      approval: '/images/phd/mechanical approval copy.jpeg',
+    },
+    'Ph.D. Mechanical Engineering': {
+      supervisor: '/images/phd/mechinical supervisor .jpeg',
+      approval: '/images/phd/mechanical approval copy.jpeg',
+    },
+    'Electronics & Communication': {
+      supervisor: '/images/phd/ece supervisor.jpeg',
+      approval: '/images/phd/ece approval.jpeg',
+    },
+    'Ph.D. ECE': {
+      supervisor: '/images/phd/ece supervisor.jpeg',
+      approval: '/images/phd/ece approval.jpeg',
+    },
+    'Computer Science & Engineering': {
+      supervisor: '/images/phd/computer secondary.jpeg',
+      approval: '/images/phd/computer approval.jpeg',
+    },
+    'Ph.D. Computer Science': {
+      supervisor: '/images/phd/computer secondary.jpeg',
+      approval: '/images/phd/computer approval.jpeg',
+    },
+  };
+
+  // Dynamic Menu Items based on Department
+  // Treat Mechanical and ECE (BE) as PhD for layout purposes to show Supervisor/Approval
+  const isPhD = department.name.startsWith('Ph.D.');
+  const forcePhDLayout =
+    department.name === 'Mechanical Engineering' ||
+    department.name === 'Electronics & Communication' ||
+    department.name === 'Computer Science & Engineering';
+
+  const shouldUsePhDLayout = isPhD || forcePhDLayout;
+
+  const menuItems = shouldUsePhDLayout
+    ? [
+      { id: 'About', label: 'About' },
+      { id: 'SecondarySupervisor', label: 'Secondary Supervisor' },
+      { id: 'ApprovalCopy', label: 'Approval Copy' },
+    ]
+    : [
+      { id: 'About', label: 'About' },
+      { id: 'Infrastructure', label: 'Infrastructure' },
+      { id: 'Career', label: 'Career Opportunities' },
+      { id: 'Contact', label: 'Contact' },
+    ];
 
   // Helper to render specific content based on ID
   const renderSectionContent = (id: string) => {
+    const images = supervisorData[department.name] || {};
+
     switch (id) {
       case 'About':
         return (
           <>
             <h3>About {department.name}</h3>
             <p>
-              The Department of {department.name} is dedicated to providing world-class education 
-              and research opportunities. Our curriculum is designed to foster innovation, 
-              critical thinking, and practical skills that prepare students for leadership roles 
+              The Department of {department.name} is dedicated to providing world-class education
+              and research opportunities. Our curriculum is designed to foster innovation,
+              critical thinking, and practical skills that prepare students for leadership roles
               in their respective fields.
             </p>
             <p>
-              Established with a vision to excel, the department boasts state-of-the-art laboratories, 
-              experienced faculty, and a vibrant student community. We focus on holistic development, 
+              Established with a vision to excel, the department boasts state-of-the-art laboratories,
+              experienced faculty, and a vibrant student community. We focus on holistic development,
               encouraging both academic excellence and co-curricular participation.
             </p>
           </>
@@ -178,7 +225,7 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
           <>
             <h3>Career Opportunities</h3>
             <p>
-              Graduates from the {department.name} department have excellent placement records. 
+              Graduates from the {department.name} department have excellent placement records.
               Our students are recruited by top-tier companies and research organizations globally.
             </p>
             <div className="infra-scroll-window" style={{ height: '300px' }}>
@@ -214,6 +261,40 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
             </div>
           </>
         );
+      case 'SecondarySupervisor':
+        return (
+          <>
+            <h3>Secondary Supervisor</h3>
+            <div className="dept-section-placeholder">
+              {images.supervisor ? (
+                <img
+                  src={images.supervisor}
+                  alt={`${department.name} Supervisor`}
+                  style={{ maxWidth: '100%', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}
+                />
+              ) : (
+                <p>Details about the Secondary Supervisor will be available here.</p>
+              )}
+            </div>
+          </>
+        );
+      case 'ApprovalCopy':
+        return (
+          <>
+            <h3>Approval Copy</h3>
+            <div className="dept-section-placeholder">
+              {images.approval ? (
+                <img
+                  src={images.approval}
+                  alt={`${department.name} Approval Copy`}
+                  style={{ maxWidth: '100%', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}
+                />
+              ) : (
+                <p>The Approval Copy documents will be displayed here.</p>
+              )}
+            </div>
+          </>
+        );
       default:
         return null;
     }
@@ -223,29 +304,29 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
     <div className="dept-page-container">
       {/* Background: Video or Image */}
       {department.video ? (
-        <video 
+        <video
           className="dept-video-bg"
-          autoPlay 
-          loop 
-          muted 
+          autoPlay
+          loop
+          muted
           playsInline
         >
           <source src={department.video} type="video/mp4" />
         </video>
       ) : (
-        <div 
-          className="dept-bg-image" 
+        <div
+          className="dept-bg-image"
           style={{ backgroundImage: `url(${department.bg})` }}
         />
       )}
-      
+
       <div className="dept-overlay" />
-      
+
       {/* Falling Icons Container */}
       <div className="falling-icons-container">
         {fallingIcons.map((icon) => (
-          <div 
-            key={icon.id} 
+          <div
+            key={icon.id}
             className="falling-icon"
             style={icon.style}
           >
@@ -279,17 +360,17 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
 
         {/* Main Content Area */}
         <div className="dept-main-content">
-          <div 
+          <div
             className="content-glass-card"
-            style={{ 
-                '--dept-bg': department.video ? 'none' : `url(${department.bg})`,
-                // If video, we might want a slight transparent dark bg instead of image repetition
-                backgroundColor: department.video ? 'rgba(15, 23, 42, 0.7)' : undefined 
+            style={{
+              '--dept-bg': department.video ? 'none' : `url(${department.bg})`,
+              // If video, we might want a slight transparent dark bg instead of image repetition
+              backgroundColor: department.video ? 'rgba(15, 23, 42, 0.7)' : undefined
             } as React.CSSProperties}
           >
             {menuItems.map((item) => (
-              <div 
-                key={item.id} 
+              <div
+                key={item.id}
                 className={`dept-content-section ${activeTab === item.id ? 'desktop-active' : 'desktop-hidden'}`}
               >
                 {renderSectionContent(item.id)}

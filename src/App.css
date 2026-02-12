@@ -1046,36 +1046,60 @@
 .info-badge {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 6px 14px;
-  border-radius: 20px;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  animation: fadeIn 1.2s ease-out;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  gap: 12px;
+  /* Increased gap */
+  background: rgba(255, 255, 255, 0.15);
+  /* Slightly more visible bg */
+  padding: 10px 24px;
+  /* Larger padding */
+  border-radius: 30px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  /* Stronger border */
+  animation: fadeIn 1.2s ease-out, pulse-glow 3s infinite;
+  /* Added glow animation */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .info-icon-circle {
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  /* Larger icon circle */
+  height: 28px;
   background: #3b82f6;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
 }
 
 .click-more-info {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.9rem;
-  font-weight: 500;
+  color: #ffffff;
+  font-size: 1.3rem;
+  /* Larger font */
+  font-weight: 700;
+  /* Bolder */
   text-transform: none;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.5px;
   margin: 0;
   font-family: 'Outfit', sans-serif;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  /* Text shadow for contrast */
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 rgba(59, 130, 246, 0);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(59, 130, 246, 0.3);
+    border-color: rgba(255, 255, 255, 0.7);
+  }
 }
 
 .start-btn {
@@ -1303,4 +1327,31 @@
   height: 100%;
   object-fit: cover;
   z-index: -1;
+}
+
+/* MBA Horizontal Scroll on Mobile */
+@media (max-width: 600px) {
+  .mba-mobile-scroll {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 20px;
+    gap: 16px;
+    grid-template-columns: none !important;
+    /* Override grid */
+    scrollbar-width: none;
+    /* Hide scrollbar Firefox */
+  }
+
+  .mba-mobile-scroll::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar Chrome/Safari */
+  }
+
+  .mba-mobile-scroll>.entry-wrapper {
+    min-width: 85vw;
+    /* Show almost full width */
+    scroll-snap-align: center;
+    flex-shrink: 0;
+  }
 }

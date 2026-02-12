@@ -7,7 +7,7 @@ import Sports from './Pages/Sports';
 import Transport from './Pages/Transport';
 import About from './Pages/About';
 import Hostel from './Pages/Hostel';
-import BikePage from './Pages/BikePage'; 
+import BikePage from './Pages/BikePage';
 import ThankYou from './Pages/ThankYou';
 import ScrollToTop from './components/ScrollToTop';
 import ClickSpark from './components/ClickSpark';
@@ -19,7 +19,7 @@ function App() {
   return (
     <>
       {/* <InactivityHandler timeout={90000} warningDuration={10000} /> */}
-      <InactivityHandler timeout={15000} warningDuration={5000} />
+      <InactivityHandler timeout={60000} warningDuration={10000} />
       <ClickSpark
         sparkColor='#fff'
         sparkSize={10}

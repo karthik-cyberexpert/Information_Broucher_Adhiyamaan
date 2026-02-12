@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import './ThankYou.css';
 
 const developers = [
@@ -9,58 +8,57 @@ const developers = [
     image: "/images/a1.png"
   },
   {
-    name: "ABINAYA",
+    name: "ABINAYA B",
     details: "I MCA (2025 batch)",
-    image: "/images/a2.png"
+    image: "/images/thak you page/abinaya.jpeg"
   },
   {
-    name: "SUMMAIYA",
+    name: "SUMMAIYA L",
     details: "I MCA (2025 batch)",
-    image: "/images/a3.png"
+    image: "/images/thak you page/summiaya.jpeg"
   },
   {
     name: "MERLIN",
     details: "I MCA (2025 batch)",
-    image: "/images/a4.png"
+    image: "/images/thak you page/merlin.jpeg"
   },
   {
     name: "FATHIMA",
     details: "I MCA (2025 batch)",
-    image: "/images/a5.png"
+    image: "/images/thak you page/fathima.jpeg"
   },
   {
     name: "DHARSHITHA",
     details: "II CSE-Cyber Security (2024 batch)",
-    image: "/images/a6.png"
+    image: "/images/thak you page/dharshitha.jpg.jpeg"
   },
   {
     name: "POOJA SREE",
     details: "II CSE-Cyber Security (2024 batch)",
-    image: "/images/a7.png"
+    image: "/images/thak you page/pooja sree .jpg.jpeg"
   }
 ];
 
 const ThankYou: React.FC = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigate('/');
-    }, 10000); // 10 seconds timeout
-
-    return () => clearTimeout(timer);
-  }, [navigate]);
+  // Removed auto-redirect so the page stays displayed "at the end"
+  // Removed navigation logic entirely as per request to remove button
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     navigate('/');
+  //   }, 10000); // 10 seconds timeout
+  //   return () => clearTimeout(timer);
+  // }, [navigate]);
 
   return (
     <div className="thank-you-page">
       <div className="thank-you-bg"></div>
-      
+
       <div className="thank-you-content">
-        <h1 className="thank-you-title">Thank You for Visiting!</h1>
-        <p className="thank-you-subtitle">We hope you found the information helpful.</p>
-        
+        <h1 className="thank-you-title">Project Developers</h1>
+        <p className="thank-you-subtitle">Designed & Developed by</p>
+
         <div className="developers-section">
-          <h2 className="developers-title">Developed By</h2>
+          {/* <h2 className="developers-title">Developed By</h2> */}
           <div className="developers-grid">
             {developers.map((dev, index) => (
               <div key={index} className="developer-card">
@@ -76,9 +74,10 @@ const ThankYou: React.FC = () => {
           </div>
         </div>
 
-        <div className="redirect-hint">
+        {/* <div className="redirect-hint">
           Redirecting to home in a few moments...
-        </div>
+        </div> */}
+        {/* Removed Return Home Button */}
       </div>
     </div>
   );

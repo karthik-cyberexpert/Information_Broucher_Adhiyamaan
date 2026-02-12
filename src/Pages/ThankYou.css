@@ -35,20 +35,26 @@
 }
 
 .thank-you-title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin-bottom: 5px;
-  background: linear-gradient(to right, #ffffff, #38bdf8);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+  color: #7dd3fc;
+  /* Light blue */
+  text-shadow: none;
+  background: none;
+  -webkit-text-fill-color: initial;
+  text-transform: capitalize;
   animation: fadeInDown 0.8s ease-out;
 }
 
 .thank-you-subtitle {
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 30px;
+  font-size: 1rem;
+  color: #94a3b8;
+  margin-bottom: 40px;
+  font-weight: 400;
+  text-transform: none;
+  background: none;
+  -webkit-text-fill-color: initial;
   animation: fadeIn 1s ease-out 0.2s both;
 }
 
@@ -81,30 +87,31 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
+  gap: 20px;
   padding: 10px;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
 .developer-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 15px;
-  width: 200px;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: #0f172a;
+  /* Very dark blue/slate */
+  border: 1px solid #1e293b;
+  border-radius: 16px;
+  padding: 25px 15px;
+  width: 220px;
+  /* Fixed width */
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .developer-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(56, 189, 248, 0.4);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  transform: translateY(-5px);
+  border-color: #38bdf8;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
 }
 
 .dev-image-container {
@@ -112,16 +119,18 @@
   height: 90px;
   border-radius: 50%;
   overflow: hidden;
-  margin-bottom: 12px;
-  border: 2px solid rgba(56, 189, 248, 0.3);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
+  margin-bottom: 15px;
+  border: 3px solid #fff;
+  background: #fff;
 }
 
 .developer-card:hover .dev-image-container {
   border-color: #38bdf8;
-  transform: rotate(5deg);
+  transform: rotate(0deg);
+  /* Remove rotation */
 }
+
+/* ... keep intervening selectors unchanged in block, but simpler to target specifically ... */
 
 .dev-image {
   width: 100%;
@@ -134,16 +143,19 @@
 }
 
 .dev-name {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  margin-bottom: 4px;
-  color: #ffffff;
+  margin-bottom: 5px;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .dev-details {
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.2;
+  font-size: 0.7rem;
+  color: #94a3b8;
+  line-height: 1.3;
+  font-weight: 400;
 }
 
 .redirect-hint {
@@ -159,6 +171,7 @@
     opacity: 0;
     transform: translateY(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -170,6 +183,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -177,14 +191,27 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes pulse {
-  0% { opacity: 0.4; }
-  50% { opacity: 0.8; }
-  100% { opacity: 0.4; }
+  0% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
 }
 
 /* Responsive adjustments */
@@ -192,6 +219,7 @@
   .thank-you-title {
     font-size: 2.5rem;
   }
+
   .developer-card {
     width: 100%;
     max-width: 280px;
