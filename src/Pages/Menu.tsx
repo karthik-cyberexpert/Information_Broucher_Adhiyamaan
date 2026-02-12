@@ -339,7 +339,7 @@ const Menu = () => {
               zIndex: 100,
               position: 'relative'
             }}>
-              <button className="home-btn" onClick={() => navigate('/')} style={{
+              <button className="home-btn" onClick={() => navigate('/thank-you')} style={{
                 padding: '1.5rem 6rem',
                 background: 'rgba(255, 255, 255, 0.15)',
                 border: '1px solid rgba(255, 255, 255, 0.3)',

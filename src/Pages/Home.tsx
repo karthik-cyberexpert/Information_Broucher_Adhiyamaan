@@ -53,7 +53,7 @@ const Home = () => {
              <div className="info-icon-circle">
                <Info size={14} />
              </div>
-             <p className="click-more-info">To explore more details and insights</p>
+             <p className="click-more-info">To know more about the college</p>
            </div>
            <button className="start-btn" onClick={handleClick}>
              CLICK HERE
