@@ -63,6 +63,7 @@ const MagneticCard = ({ children, className }: any) => {
 };
 
 // --- Hexagon Component ---
+/*
 const HexagonCard = ({ icon, title, desc, delay }: any) => {
   return (
     <motion.div
@@ -78,12 +79,12 @@ const HexagonCard = ({ icon, title, desc, delay }: any) => {
     </motion.div>
   );
 };
+*/
 
 export default function About() {
   const navigate = useNavigate();
   const { scrollYProgress } = useScroll();
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 50]);
 
   const stats = [
     { num: "40+", label: "Years of Excellence", icon: <Award size={24} /> },

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Bed, Utensils, MapPin, ChevronRight, LayoutGrid } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -83,7 +83,7 @@ const Hostel = () => {
               <button
                 key={cat.id}
                 className={`cat-btn ${activeCategory === cat.id ? 'active' : ''}`}
-                onClick={() => setActiveCategory(cat.id)}
+                onClick={() => setActiveCategory(cat.id as keyof typeof hostelData)}
               >
                 <cat.icon size={20} />
                 <span>{cat.label}</span>

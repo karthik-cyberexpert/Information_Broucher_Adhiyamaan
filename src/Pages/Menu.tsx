@@ -1,21 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Lottie from 'lottie-react';
-// @ts-ignore
 import TransparentGif from '../components/TransparentGif';
 import DepartmentPage from '../DepartmentPage';
 import '../App.css';
 import '../components/Menu.css'; // Ensure we have the specific CSS
 import droneAnimation from '../assets/drone_fly.json';
 
-interface TorchState {
-  active: boolean;
-  rect: DOMRect | null;
-  title: string;
-  bg: string;
-  onComplete: (() => void) | null;
-  isExiting: boolean; // For the zoom/fade phase
-}
 
 // --- DATA DEFINITIONS ---
 
@@ -23,11 +14,11 @@ const navItems = [
   { title: 'B.E.', id: 'be', bg: '/images/bebaack.jpg' },
   { title: 'B.Tech.', id: 'btech', bg: '/images/tech_bg.png' },
   { title: 'B.Arch.', id: 'barch', bg: '/images/civilback.jpg' },
-  { title: 'M.B.A.', id: 'mba', bg: '/images/mba.jpg' },
-  { title: 'M.C.A.', id: 'mca', bg: '/images/mca.jpg' },
-  { title: 'ABOUT', id: 'about', className: 'nav-item-large', bg: '/images/aboutcollege.jpg' },
   { title: 'M.E.', id: 'me', bg: '/images/me.jpg' },
-  { title: 'Ph.D.', id: 'phd', bg: '/images/college.jpeg' },
+  { title: 'M.B.A.', id: 'mba', bg: '/images/mba.jpg' },
+  { title: 'ABOUT', id: 'about', className: 'nav-item-large', bg: '/images/about3.jpeg' },
+  { title: 'Ph.D.', id: 'phd', bg: '/images/phd.jpg' },
+  { title: 'M.C.A.', id: 'mca', bg: '/images/mca.jpg' },
   { title: 'Placement', id: 'placement', bg: '/images/placement.jpg' },
   { title: 'Sports', id: 'sports', bg: '/images/sports.jpg' },
   { title: 'Hostel', id: 'hostel', bg: '/images/hostel.jpg' },
@@ -59,7 +50,7 @@ const meCourses = [
   { name: 'M.E. Communication System Engineering', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
   { name: 'M.E. Computer Science Engineering', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
   { name: 'M.E. Engineering Design', icon: '📐', bg: '/images/me.jpg', video: '/media/mech.mp4' },
-  { name: 'M.E. Power System Engineering', icon: '⚡', bg: '/images/be/eee1.jpg.jpeg', video: '/media/elect.mp4' },
+  { name: 'M.E. Power Engineering', icon: '⚡', bg: '/images/me_power.jpg', video: '/media/elect.mp4' },
   { name: 'M.E. Structural Engineering', icon: '🏗️', bg: '/images/civilback.jpg', video: '/media/civil.mp4' },
 ];
 
@@ -179,90 +170,32 @@ const Menu = () => {
     : null;
 
 
-  // Torch Animation State
-  const [torchState, setTorchState] = useState<TorchState>({
-    active: false,
-    rect: null,
-    title: '',
-    bg: '',
-    onComplete: null,
-    isExiting: false
-  });
-
-  // Torch Animation Data State
-  const [torchAnimationData, setTorchAnimationData] = useState<any>(null);
-
-  // Fetch Torch Animation JSON
-  useEffect(() => {
-    fetch('/assets/torch.json')
-      .then(response => response.json())
-      .then(data => setTorchAnimationData(data))
-      .catch(error => console.error("Error loading torch animation:", error));
-  }, []);
 
 
-  // Start Torch Animation Sequence
-  const startTorchAnimation = (
-    e: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
-    title: string,
-    bg: string,
-    action: () => void
-  ) => {
-    const button = e.currentTarget;
-    const rect = button.getBoundingClientRect();
 
-    // Init Torch State
-    setTorchState({
-      active: true,
-      rect,
-      title,
-      bg,
-      onComplete: action,
-      isExiting: false
-    });
+  const handleNavClick = (id: string) => {
+    // Check if it's a page navigation
+    if (['placement', 'scholarship', 'sports', 'transport', 'about', 'hostel'].includes(id)) {
+      navigate(`/${id}`);
+      return;
+    }
 
-    // Phase 1: Torch Focus (1 second)
-    // Then Phase 2: Zoom and Fade
-    setTimeout(() => {
-      setTorchState(prev => ({ ...prev, isExiting: true }));
+    window.scrollTo(0, 0);
 
-      // Wait for exit animation to finish (e.g., 0.5s or 0.8s), then navigate
-      setTimeout(() => {
-        // Reset state
-        setTorchState({ active: false, rect: null, title: '', bg: '', onComplete: null, isExiting: false });
-        // Execute Navigation
-        action();
-      }, 800);
-    }, 1000);
-  };
-
-  const handleNavClick = (id: string, e: React.MouseEvent<HTMLButtonElement>, item: typeof navItems[0]) => {
-    const action = () => {
-      // Check if it's a page navigation
-      if (['placement', 'scholarship', 'sports', 'transport', 'about', 'hostel'].includes(id)) {
-        navigate(`/${id}`);
-        return;
-      }
-
-      window.scrollTo(0, 0);
-
-      // Handle Sub-menus/Single Departments via URL params
-      if (id === 'be' || id === 'btech' || id === 'me' || id === 'phd') {
-        setSearchParams({ category: id });
-      }
-      // Handle Single Departments direct navigation
-      else if (id === 'barch') {
-        setSearchParams({ dept: bArchData.name });
-      }
-      else if (id === 'mba') {
-        setSearchParams({ category: 'mba' });
-      }
-      else if (id === 'mca') {
-        setSearchParams({ dept: mcaData.name });
-      }
-    };
-
-    startTorchAnimation(e, item.title, item.bg, action);
+    // Handle Sub-menus/Single Departments via URL params
+    if (id === 'be' || id === 'btech' || id === 'me' || id === 'phd') {
+      setSearchParams({ category: id });
+    }
+    // Handle Single Departments direct navigation
+    else if (id === 'barch') {
+      setSearchParams({ dept: bArchData.name });
+    }
+    else if (id === 'mba') {
+      setSearchParams({ category: 'mba' });
+    }
+    else if (id === 'mca') {
+      setSearchParams({ dept: mcaData.name });
+    }
   };
 
   const handleBackToNav = () => {
@@ -271,17 +204,13 @@ const Menu = () => {
   };
 
   const handleCourseClick = (
-    e: React.MouseEvent<HTMLDivElement>,
     course: { name: string, icon: string, bg: string, video?: string }
   ) => {
-    const action = () => {
-      // Keep category if it exists, add dept
-      const newParams: any = { dept: course.name };
-      if (currentCategory) newParams.category = currentCategory;
-      setSearchParams(newParams);
-      window.scrollTo(0, 0);
-    };
-    startTorchAnimation(e, course.name, course.bg, action);
+    // Keep category if it exists, add dept
+    const newParams: any = { dept: course.name };
+    if (currentCategory) newParams.category = currentCategory;
+    setSearchParams(newParams);
+    window.scrollTo(0, 0);
   };
 
   const handleBackFromDept = () => {
@@ -383,7 +312,7 @@ const Menu = () => {
                 >
                   <button
                     className={`nav-item ${item.className || ''}`}
-                    onClick={(e) => handleNavClick(item.id, e, item)}
+                    onClick={() => handleNavClick(item.id)}
                     style={{
                       width: '100%',
                       height: '100%',
@@ -447,7 +376,7 @@ const Menu = () => {
                 >
                   <div
                     className="be-item"
-                    onClick={(e) => handleCourseClick(e, course)}
+                    onClick={() => handleCourseClick(course)}
                     style={{
                       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
                       backgroundSize: 'cover',
@@ -481,7 +410,7 @@ const Menu = () => {
                 >
                   <div
                     className="be-item"
-                    onClick={(e) => handleCourseClick(e, course)}
+                    onClick={() => handleCourseClick(course)}
                     style={{
                       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
                       backgroundSize: 'cover',
@@ -515,7 +444,7 @@ const Menu = () => {
                 >
                   <div
                     className="be-item"
-                    onClick={(e) => handleCourseClick(e, course)}
+                    onClick={() => handleCourseClick(course)}
                     style={{
                       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
                       backgroundSize: 'cover',
@@ -550,7 +479,7 @@ const Menu = () => {
                 >
                   <div
                     className="be-item"
-                    onClick={(e) => handleCourseClick(e, course)}
+                    onClick={() => handleCourseClick(course)}
                     style={{
                       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
                       backgroundSize: 'cover',
@@ -586,7 +515,7 @@ const Menu = () => {
                 >
                   <div
                     className="be-item"
-                    onClick={(e) => handleCourseClick(e, course)}
+                    onClick={() => handleCourseClick(course)}
                     style={{
                       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
                       backgroundSize: 'cover',
@@ -611,71 +540,6 @@ const Menu = () => {
 
       </main>
 
-      {/* Torch Animation Overlay */}
-      {torchState.active && torchState.rect && (
-        <div className="torch-interaction-layer">
-          {/* Dark Overlay for non-focused items */}
-          <div className="dim-overlay" />
-
-          {/* Focused Item Clone (High Z-Index) */}
-          <div
-            className={`focused-clone ${torchState.isExiting ? 'zoom-exit' : ''}`}
-            style={{
-              position: 'fixed',
-              left: torchState.rect.left,
-              top: torchState.rect.top,
-              width: torchState.rect.width,
-              height: torchState.rect.height,
-              backgroundImage: torchState.bg.includes('gradient') ? torchState.bg : `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url(${torchState.bg})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              borderRadius: '16px', // Match .nav-item / .be-item
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              color: 'white',
-              fontWeight: 800,
-              fontSize: torchState.rect.height > 100 ? '1.5rem' : '1.2rem', // Approximation
-              zIndex: 10001,
-              boxShadow: '0 0 30px rgba(255, 255, 255, 0.3)', // Glow
-              textTransform: 'uppercase',
-              textShadow: '0 2px 4px rgba(0,0,0,0.8)'
-            }}
-          >
-            {/* Simplified content - just text for nav items, icon+text for courses */}
-            {/* Since we don't have the exact mapped item here easily without passing more data, 
-                    we can just render the title we passed. 
-                    For course items, we might miss the icon if we don't pass it.
-                    Let's just use the title for now, it's the main thing.
-                 */}
-            {torchState.title}
-          </div>
-
-          {/* Torch Lottie Animation */}
-          {torchAnimationData && (
-            <div
-              className="torch-lottie-container"
-              style={{
-                position: 'fixed',
-                left: torchState.rect.left + torchState.rect.width / 2 - 150, // Center torch (assume 300px width)
-                top: torchState.rect.top - 100, // Adjust vertically
-                width: 300,
-                height: 300,
-                zIndex: 10002,
-                pointerEvents: 'none',
-                opacity: torchState.isExiting ? 0 : 1, // Fade out torch when exiting
-                transition: 'opacity 0.2s'
-              }}
-            >
-              <Lottie
-                animationData={torchAnimationData}
-                loop={true}
-                autoPlay={true}
-              />
-            </div>
-          )}
-        </div>
-      )}
     </>
   );
 };

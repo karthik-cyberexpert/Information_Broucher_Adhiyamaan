@@ -1,12 +1,9 @@
-// @ts-ignore
 import { useNavigate } from "react-router-dom";
 import { Home } from "lucide-react";
 import { motion } from "framer-motion";
 import "../components/Menu.css";
-import "./placement.css";
-// @ts-ignore
+import "./Placement.css";
 import PlacementLineChart from "../components/PlacementLineChart";
-// @ts-ignore
 import PlacementSlider from "../components/PlacementSlider";
 
 /* LOGO LISTS (ADD / REMOVE FREELY) */
@@ -77,14 +74,14 @@ export default function Placement() {
       </div>
 
       <div className="me-nav-controls">
-        <motion.button 
-          className="me-nav-btn menu-nav-btn" 
+        <motion.button
+          className="me-nav-btn menu-nav-btn"
           onClick={() => navigate("/menu")}
           whileHover={{ scale: 1.2, rotate: 15 }}
           whileTap={{ scale: 0.9 }}
           initial={{ opacity: 0, y: 50 }}
-          animate={{ 
-            opacity: 1, 
+          animate={{
+            opacity: 1,
             y: 0,
             boxShadow: [
               "0 4px 20px rgba(0,0,0,0.25)",
