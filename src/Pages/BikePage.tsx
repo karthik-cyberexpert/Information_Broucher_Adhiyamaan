@@ -12,6 +12,7 @@ const BikePage = () => {
   const navigate = useNavigate();
   const [showWelcome, setShowWelcome] = useState(false);
   const [isExploding, setIsExploding] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -41,11 +42,28 @@ const BikePage = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setFormData({ name: '', email: '', phone: '' });
-    handleClose();
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('/api/enquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Failed to save details');
+      }
+      console.log('Form submitted successfully:', data);
+      setFormData({ name: '', email: '', phone: '' });
+      handleClose();
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('Failed to save your details. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -98,7 +116,9 @@ const BikePage = () => {
                             className="form-input"
                         />
                         </div>
-                        <button type="submit" className="submit-btn">Submit</button>
+                        <button type="submit" className="submit-btn" disabled={isSubmitting}>
+                          {isSubmitting ? 'Submitting...' : 'Submit'}
+                        </button>
                     </form>
                     </div>
                 )}

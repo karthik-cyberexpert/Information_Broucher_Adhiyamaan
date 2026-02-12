@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ThankYou.css';
 
 const developers = [
   {
     name: "KARTHIKEYAN S",
     details: "II CSE-Cyber Security (2024 batch)",
-    image: "/images/a1.png"
+    image: "/images/thak you page/Karthik.jpg"
   },
   {
     name: "ABINAYA B",
@@ -40,14 +41,14 @@ const developers = [
 ];
 
 const ThankYou: React.FC = () => {
-  // Removed auto-redirect so the page stays displayed "at the end"
-  // Removed navigation logic entirely as per request to remove button
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     navigate('/');
-  //   }, 10000); // 10 seconds timeout
-  //   return () => clearTimeout(timer);
-  // }, [navigate]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate('/');
+    }, 30000); // 30 seconds
+    return () => clearTimeout(timer);
+  }, [navigate]);
 
   return (
     <div className="thank-you-page">
