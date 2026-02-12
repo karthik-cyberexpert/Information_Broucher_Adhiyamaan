@@ -574,11 +574,10 @@ const Menu = () => {
           </div>
         )}
 
-        {/* MBA Grid */}
         {isMBADetails && (
           <div className="be-container">
             <h2 className="be-title">MBA Programs</h2>
-            <div className="be-grid mba-mobile-scroll">
+            <div className="mba-list">
               {mbaCourses.map((course, index) => (
                 <div
                   key={index}

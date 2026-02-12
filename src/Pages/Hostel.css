@@ -281,27 +281,41 @@
 }
 
 @media (max-width: 850px) {
+  /* Allow the whole page to scroll vertically */
+  .hostel-tri-layout {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
   .tri-grid-container {
     display: flex;
     flex-direction: column;
     height: auto;
-    min-height: 100vh;
-    overflow-y: auto;
-    padding-bottom: 80px;
+    min-height: unset;
+    overflow: visible;
+    padding-bottom: 90px;
     /* Space for dock */
   }
 
-  /* Stack Panels */
+  /* Categories become a horizontal scrollable row */
   .panel-left {
     width: 100%;
     flex-direction: row;
-    gap: 20px;
-    padding: 20px;
+    gap: 10px;
+    padding: 15px;
     overflow-x: auto;
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     height: auto;
     flex-shrink: 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .panel-left::-webkit-scrollbar {
+    display: none;
   }
 
   .brand-header {
@@ -311,45 +325,14 @@
   .category-nav {
     flex-direction: row;
     min-width: max-content;
-    /* Ensure items don't squash */
+    gap: 10px;
   }
 
   .cat-btn {
     width: auto;
     white-space: nowrap;
-  }
-
-  .panel-center {
-    width: 100%;
-    height: auto;
-    border-right: none;
-    overflow: visible;
-    /* Let items list handle scroll */
-    padding: 20px;
-  }
-
-  /* Horizontal Scroll for Items */
-  .items-list {
-    flex-direction: row;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 15px;
-    padding-bottom: 10px;
-    scrollbar-width: none;
-  }
-
-  .items-list::-webkit-scrollbar {
-    display: none;
-  }
-
-  .item-card {
-    min-width: 85vw;
-    scroll-snap-align: center;
-  }
-
-  .panel-right {
-    display: none;
-    /* Hide preview on mobile as items take full focus */
+    padding: 12px 16px;
+    font-size: 0.9rem;
   }
 
   .brand-header h2,
@@ -358,7 +341,106 @@
     /* Show text on mobile since horiz scroll */
   }
 
+  /* Center panel (items list) */
+  .panel-center {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    overflow: visible;
+    padding: 20px 15px;
+  }
+
+  .center-header {
+    margin-bottom: 15px;
+  }
+
+  .center-header h3 {
+    font-size: 1.4rem;
+  }
+
+  /* Horizontal scroll for items with snap */
+  .items-list {
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 15px;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .items-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .item-card {
+    min-width: 80vw;
+    scroll-snap-align: center;
+    flex-shrink: 0;
+  }
+
+  /* Show preview panel on mobile with constrained height */
+  .panel-right {
+    display: flex;
+    width: 100%;
+    height: 300px;
+    padding: 15px;
+  }
+
+  .preview-container {
+    border-radius: 16px;
+  }
+
+  .preview-overlay-info {
+    padding: 20px;
+  }
+
+  .preview-overlay-info h2 {
+    font-size: 1.6rem;
+  }
+
   .location-badge {
     display: none;
+  }
+
+  /* Header adjustments */
+  .hostel-main-header {
+    height: 60px;
+    padding-top: 5px;
+  }
+
+  .header-glass-pill {
+    padding: 8px 24px;
+    gap: 10px;
+  }
+
+  .header-glass-pill h1 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+  .item-card {
+    min-width: 85vw;
+  }
+
+  .panel-right {
+    height: 250px;
+    padding: 10px;
+  }
+
+  .preview-overlay-info h2 {
+    font-size: 1.3rem;
+  }
+
+  .cat-btn {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+
+  .header-glass-pill h1 {
+    font-size: 1rem;
+    letter-spacing: 1px;
   }
 }

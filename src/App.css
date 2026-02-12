@@ -1329,29 +1329,31 @@
   z-index: -1;
 }
 
-/* MBA Horizontal Scroll on Mobile */
+/* MBA Vertical List Layout */
+.mba-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 40px auto;
+}
+
+.mba-list > .entry-wrapper {
+  width: 100%;
+}
+
+.mba-list .be-item {
+  min-height: 160px;
+  width: 100%;
+}
+
 @media (max-width: 600px) {
-  .mba-mobile-scroll {
-    display: flex !important;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 20px;
+  .mba-list {
     gap: 16px;
-    grid-template-columns: none !important;
-    /* Override grid */
-    scrollbar-width: none;
-    /* Hide scrollbar Firefox */
   }
 
-  .mba-mobile-scroll::-webkit-scrollbar {
-    display: none;
-    /* Hide scrollbar Chrome/Safari */
-  }
-
-  .mba-mobile-scroll>.entry-wrapper {
-    min-width: 85vw;
-    /* Show almost full width */
-    scroll-snap-align: center;
-    flex-shrink: 0;
+  .mba-list .be-item {
+    min-height: 120px;
   }
 }
