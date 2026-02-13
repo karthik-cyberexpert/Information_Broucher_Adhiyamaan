@@ -46,7 +46,7 @@ const ThankYou: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate('/');
-    }, 10000); // 10 seconds
+    }, 8000); // 8 seconds
     return () => clearTimeout(timer);
   }, [navigate]);
 

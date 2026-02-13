@@ -76,7 +76,7 @@ export default function Placement() {
       <div className="me-nav-controls">
         <motion.button
           className="me-nav-btn menu-nav-btn"
-          onClick={() => navigate("/menu")}
+          onClick={() => navigate("/")}
           whileHover={{ scale: 1.2, rotate: 15 }}
           whileTap={{ scale: 0.9 }}
           initial={{ opacity: 0, y: 50 }}

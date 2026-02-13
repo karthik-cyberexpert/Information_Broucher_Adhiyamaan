@@ -19,7 +19,7 @@ function App() {
   return (
     <>
       {/* <InactivityHandler timeout={90000} warningDuration={10000} /> */}
-      <InactivityHandler timeout={60000} warningDuration={10000} />
+      <InactivityHandler timeout={90000} warningDuration={10000} />
       <ClickSpark
         sparkColor='#fff'
         sparkSize={10}

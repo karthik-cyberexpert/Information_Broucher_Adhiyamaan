@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './DepartmentPage.css';
+import { getDepartmentContent } from './data/departments';
 
 interface DepartmentPageProps {
   department: {
@@ -52,48 +53,14 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
 
 
   // Static Data for Supervisor/Approval Images
-  const supervisorData: Record<string, { supervisor?: string; approval?: string }> = {
-    'Mechanical Engineering': {
-      supervisor: '/images/phd/mechinical supervisor .jpeg',
-      approval: '/images/phd/mechanical approval copy.jpeg',
-    },
-    'Ph.D. Mechanical Engineering': {
-      supervisor: '/images/phd/mechinical supervisor .jpeg',
-      approval: '/images/phd/mechanical approval copy.jpeg',
-    },
-    'Electronics & Communication': {
-      supervisor: '/images/phd/ece supervisor.jpeg',
-      approval: '/images/phd/ece approval.jpeg',
-    },
-    'Ph.D. ECE': {
-      supervisor: '/images/phd/ece supervisor.jpeg',
-      approval: '/images/phd/ece approval.jpeg',
-    },
-    'Computer Science & Engineering': {
-      supervisor: '/images/phd/computer secondary.jpeg',
-      approval: '/images/phd/computer approval.jpeg',
-    },
-    'Ph.D. Computer Science': {
-      supervisor: '/images/phd/computer secondary.jpeg',
-      approval: '/images/phd/computer approval.jpeg',
-    },
-  };
-
-  // Dynamic Menu Items based on Department
-  // Treat Mechanical and ECE (BE) as PhD for layout purposes to show Supervisor/Approval
   const isPhD = department.name.startsWith('Ph.D.');
-  const forcePhDLayout =
-    department.name === 'Mechanical Engineering' ||
-    department.name === 'Electronics & Communication' ||
-    department.name === 'Computer Science & Engineering';
 
-  const shouldUsePhDLayout = isPhD || forcePhDLayout;
-
-  const menuItems = shouldUsePhDLayout
+  const menuItems = isPhD
     ? [
       { id: 'About', label: 'About' },
-      { id: 'SecondarySupervisor', label: 'Secondary Supervisor' },
       { id: 'ApprovalCopy', label: 'Approval Copy' },
+      { id: 'SecondarySupervisor', label: 'Secondary Supervisor' },
+      { id: 'Contact', label: 'Contact' },
     ]
     : [
       { id: 'About', label: 'About' },
@@ -104,160 +71,110 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
 
   // Helper to render specific content based on ID
   const renderSectionContent = (id: string) => {
-    const images = supervisorData[department.name] || {};
+    const content = getDepartmentContent(department.name);
+    const images = content.phd || {};
 
     switch (id) {
       case 'About':
         return (
           <>
             <h3>About {department.name}</h3>
-            <p>
-              The Department of {department.name} is dedicated to providing world-class education
-              and research opportunities. Our curriculum is designed to foster innovation,
-              critical thinking, and practical skills that prepare students for leadership roles
-              in their respective fields.
-            </p>
-            <p>
-              Established with a vision to excel, the department boasts state-of-the-art laboratories,
-              experienced faculty, and a vibrant student community. We focus on holistic development,
-              encouraging both academic excellence and co-curricular participation.
-            </p>
+            {content.about}
           </>
         );
       case 'Infrastructure':
+        const infraItems = content.infrastructure?.items || [];
         return (
           <>
             <h3>Infrastructure</h3>
-            <div className="infra-scroll-window">
-              <div className="infra-scroll-track">
-                {/* Original Items */}
-                <div className="infra-grid">
-                  <div className="infra-card full-width">
-                    <div className="infra-content-left">
-                      <span className="infra-icon">🖥️</span>
-                      <h4>Modern Labs</h4>
-                      <p>Equipped with the latest hardware and software tools.</p>
-                    </div>
-                    <div className="infra-image-right">
-                      <img src="/images/computerback.jpg" alt="Labs" />
-                    </div>
+            {content.infrastructure?.description && <p>{content.infrastructure.description}</p>}
+            {infraItems.length > 0 ? (
+              <div className="infra-scroll-window">
+                <div className="infra-scroll-track">
+                  <div className="infra-grid">
+                    {infraItems.map((item, idx) => (
+                      <div key={idx} className="infra-card full-width">
+                        <div className="infra-content-left">
+                          <span className="infra-icon">{item.icon}</span>
+                          <h4>{item.title}</h4>
+                          <p>{item.description}</p>
+                        </div>
+                        <div className="infra-image-right">
+                          <img src={item.image} alt={item.title} />
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <div className="infra-card full-width">
-                    <div className="infra-content-left">
-                      <span className="infra-icon">📚</span>
-                      <h4>Department Library</h4>
-                      <p>Extensive collection of books, journals, and digital resources.</p>
-                    </div>
-                    <div className="infra-image-right">
-                      <img src="/images/aboutcollege.jpg" alt="Library" />
-                    </div>
-                  </div>
-                  <div className="infra-card full-width">
-                    <div className="infra-content-left">
-                      <span className="infra-icon">📡</span>
-                      <h4>Smart Classrooms</h4>
-                      <p>Wi-Fi enabled rooms with advanced teaching aids.</p>
-                    </div>
-                    <div className="infra-image-right">
-                      <img src="/images/civilback.jpg" alt="Classrooms" />
-                    </div>
-                  </div>
-                  <div className="infra-card full-width">
-                    <div className="infra-content-left">
-                      <span className="infra-icon">🔬</span>
-                      <h4>R&D Center</h4>
-                      <p>Dedicated space for research and innovation projects.</p>
-                    </div>
-                    <div className="infra-image-right">
-                      <img src="/images/me.jpg" alt="R&D" />
-                    </div>
-                  </div>
-                </div>
-                {/* Duplicate Items for Loop */}
-                <div className="infra-grid">
-                  <div className="infra-card full-width">
-                    <div className="infra-content-left">
-                      <span className="infra-icon">🖥️</span>
-                      <h4>Modern Labs</h4>
-                      <p>Equipped with the latest hardware and software tools.</p>
-                    </div>
-                    <div className="infra-image-right">
-                      <img src="/images/computerback.jpg" alt="Labs" />
-                    </div>
-                  </div>
-                  <div className="infra-card full-width">
-                    <div className="infra-content-left">
-                      <span className="infra-icon">📚</span>
-                      <h4>Department Library</h4>
-                      <p>Extensive collection of books, journals, and digital resources.</p>
-                    </div>
-                    <div className="infra-image-right">
-                      <img src="/images/aboutcollege.jpg" alt="Library" />
-                    </div>
-                  </div>
-                  <div className="infra-card full-width">
-                    <div className="infra-content-left">
-                      <span className="infra-icon">📡</span>
-                      <h4>Smart Classrooms</h4>
-                      <p>Wi-Fi enabled rooms with advanced teaching aids.</p>
-                    </div>
-                    <div className="infra-image-right">
-                      <img src="/images/civilback.jpg" alt="Classrooms" />
-                    </div>
-                  </div>
-                  <div className="infra-card full-width">
-                    <div className="infra-content-left">
-                      <span className="infra-icon">🔬</span>
-                      <h4>R&D Center</h4>
-                      <p>Dedicated space for research and innovation projects.</p>
-                    </div>
-                    <div className="infra-image-right">
-                      <img src="/images/me.jpg" alt="R&D" />
-                    </div>
+                  <div className="infra-grid">
+                    {infraItems.map((item, idx) => (
+                      <div key={`loop-${idx}`} className="infra-card full-width">
+                        <div className="infra-content-left">
+                          <span className="infra-icon">{item.icon}</span>
+                          <h4>{item.title}</h4>
+                          <p>{item.description}</p>
+                        </div>
+                        <div className="infra-image-right">
+                          <img src={item.image} alt={item.title} />
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <p>Infrastructure details are being updated for this department.</p>
+            )}
           </>
         );
       case 'Career':
         return (
           <>
             <h3>Career Opportunities</h3>
-            <p>
-              Graduates from the {department.name} department have excellent placement records.
-              Our students are recruited by top-tier companies and research organizations globally.
-            </p>
-            <div className="infra-scroll-window" style={{ height: '300px' }}>
-              <div className="infra-scroll-track">
-                {/* Original List */}
-                <ul className="career-list">
-                  <li>Software Development & Engineering</li>
-                  <li>Research & Data Analysis</li>
-                  <li>System Architecture</li>
-                  <li>Project Management</li>
-                  <li>Consultancy & Advisory Roles</li>
-                </ul>
-                {/* Duplicate List */}
-                <ul className="career-list">
-                  <li>Software Development & Engineering</li>
-                  <li>Research & Data Analysis</li>
-                  <li>System Architecture</li>
-                  <li>Project Management</li>
-                  <li>Consultancy & Advisory Roles</li>
-                </ul>
+            {content.career?.description && <p>{content.career.description}</p>}
+            {content.career?.roles && content.career.roles.length > 0 ? (
+              <>
+                <h4>Career Roles</h4>
+                <div className="infra-scroll-window" style={{ height: '300px' }}>
+                  <div className="infra-scroll-track">
+                    <ul className="career-list">
+                      {content.career.roles.map((role, idx) => (
+                        <li key={idx}>{role}</li>
+                      ))}
+                    </ul>
+                    <ul className="career-list">
+                      {content.career.roles.map((role, idx) => (
+                        <li key={`loop-${idx}`}>{role}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <p>Career opportunity details are being updated for this department.</p>
+            )}
+            {content.career?.globalRelevance && (
+              <div className="global-relevance">
+                <h4>Global Relevance</h4>
+                <p>{content.career.globalRelevance}</p>
               </div>
-            </div>
+            )}
           </>
         );
       case 'Contact':
+        const contact = content.contact;
         return (
           <>
             <h3>Contact Us</h3>
             <div className="contact-info">
-              <p><strong>📍 Location:</strong> Main Block, Adhiyamaan College of Engineering</p>
-              <p><strong>📧 Email:</strong> hod.{department.name.toLowerCase().split(' ')[0]}@adhiyamaan.ac.in</p>
-              <p><strong>📞 Phone:</strong> +91 4344 261001</p>
+              {contact?.hod && (
+                <div className="hod-details" style={{ marginBottom: '1rem' }}>
+                  <p><strong>👤 Head of Department:</strong> {contact.hod}</p>
+                  {contact.designation && <p style={{ marginLeft: '1.5rem', opacity: 0.9 }}><em>{contact.designation}</em></p>}
+                </div>
+              )}
+              <p><strong>📍 Location:</strong> {contact?.location || 'Main Block, Adhiyamaan College of Engineering'}</p>
+              <p><strong>📧 Email:</strong> {contact?.email || `hod.${department.name.toLowerCase().split(' ')[0]}@adhiyamaan.ac.in`}</p>
+              <p><strong>📞 Phone:</strong> {contact?.phone || '+91 4344 261001'}</p>
             </div>
           </>
         );

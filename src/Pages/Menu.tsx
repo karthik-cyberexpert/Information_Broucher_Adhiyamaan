@@ -506,7 +506,7 @@ const Menu = () => {
         {isMBADetails && (
           <div className="be-container">
             <h2 className="be-title">MBA Programs</h2>
-            <div className="mba-list">
+            <div className="be-grid">
               {mbaCourses.map((course, index) => (
                 <div
                   key={index}

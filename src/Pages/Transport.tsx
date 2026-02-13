@@ -449,7 +449,7 @@ const Transport = () => {
             {/* Navigation Dock */}
             <NavigationDock
                 onBack={() => navigate(-1)}
-                onHome={() => navigate('/menu')}
+                onHome={() => navigate('/thank-you')}
                 onForward={() => navigate(1)}
             />
 

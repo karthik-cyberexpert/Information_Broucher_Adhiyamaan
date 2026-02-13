@@ -1324,32 +1324,3 @@
   object-fit: cover;
   z-index: -1;
 }
-
-/* MBA Vertical List Layout */
-.mba-list {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto 40px auto;
-}
-
-.mba-list>.entry-wrapper {
-  width: 100%;
-}
-
-.mba-list .be-item {
-  min-height: 130px;
-  width: 100%;
-}
-
-@media (max-width: 600px) {
-  .mba-list {
-    gap: 16px;
-  }
-
-  .mba-list .be-item {
-    min-height: 120px;
-  }
-}

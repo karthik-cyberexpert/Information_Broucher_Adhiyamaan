@@ -26,9 +26,9 @@ const RightSideNav = () => {
     const goBack = () => {
         const path = location.pathname;
 
-        // 1. If Bike Page -> Go to Home
+        // 1. If Bike Page -> Go to Thank You
         if (path === '/bike-animation') {
-            navigate('/');
+            navigate('/thank-you');
             return;
         }
 
@@ -49,8 +49,8 @@ const RightSideNav = () => {
                 // If in a sub-menu (e.g. BE course list) -> Go to Menu Root
                 setSearchParams({});
             } else {
-                // If in Menu Root -> Go to Home
-                navigate('/');
+                // If in Menu Root -> Go to Thank You
+                navigate('/thank-you');
             }
             return;
         }

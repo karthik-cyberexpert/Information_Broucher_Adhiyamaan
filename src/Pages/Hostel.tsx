@@ -160,7 +160,7 @@ const Hostel = () => {
 
       <NavigationDock
         onBack={() => navigate(-1)}
-        onHome={() => navigate('/menu')}
+        onHome={() => navigate('/thank-you')}
         onForward={() => navigate(1)}
       />
     </div>

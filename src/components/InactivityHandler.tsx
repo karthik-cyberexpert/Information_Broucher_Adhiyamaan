@@ -7,9 +7,9 @@ interface InactivityHandlerProps {
   warningDuration?: number; // Duration to show warning in ms (default 10000)
 }
 
-const InactivityHandler: React.FC<InactivityHandlerProps> = ({ 
-  timeout = 60000, 
-  warningDuration = 10000 
+const InactivityHandler: React.FC<InactivityHandlerProps> = ({
+  timeout = 60000,
+  warningDuration = 10000
 }) => {
   const [timeLeft, setTimeLeft] = useState<number>(timeout / 1000);
   const [showWarning, setShowWarning] = useState(false);
@@ -29,6 +29,7 @@ const InactivityHandler: React.FC<InactivityHandlerProps> = ({
     // Don't track on home page or thank you page
     if (location.pathname === '/' || location.pathname === '/thank-you') {
       setShowWarning(false);
+      lastActivityRef.current = Date.now();
       return;
     }
 
