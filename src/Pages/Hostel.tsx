@@ -58,7 +58,7 @@ const Hostel = () => {
       {/* Background Layer */}
       <div className="hostel-bg-layer">
         <video autoPlay loop muted playsInline className="tri-video-bg">
-          <source src="/media/hostel.mp4.mp4" type="video/mp4" />
+          <source src="/media/hostel.mp4" type="video/mp4" />
         </video>
         <div className="tri-overlay" />
       </div>
@@ -160,7 +160,7 @@ const Hostel = () => {
 
       <NavigationDock
         onBack={() => navigate(-1)}
-        onHome={() => navigate('/thank-you')}
+        onHome={() => navigate('/')}
         onForward={() => navigate(1)}
       />
     </div>

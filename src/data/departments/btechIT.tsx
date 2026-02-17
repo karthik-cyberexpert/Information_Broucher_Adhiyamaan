@@ -23,7 +23,7 @@ const btechIT: DepartmentContent = {
     },
     contact: {
         location: "IT Block, ACE",
-        email: "hod.it@adhiyamaan.ac.in",
+        email: "hod_it@adhiyamaan.ac.in",
         phone: "+91 4344 261141"
     }
 };

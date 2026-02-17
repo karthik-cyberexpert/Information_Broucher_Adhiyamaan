@@ -39,8 +39,8 @@ const InactivityHandler: React.FC<InactivityHandlerProps> = ({
       const timeRemaining = timeout - timeSinceLastActivity;
 
       if (timeRemaining <= 0) {
-        // Timeout reached - Go to Thank You page first
-        navigate('/thank-you');
+        // Timeout reached - Go to Home page first
+        navigate('/');
         resetTimer();
       } else if (timeRemaining <= warningDuration) {
         // Show warning

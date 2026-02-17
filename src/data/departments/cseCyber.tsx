@@ -67,7 +67,7 @@ The department aims to create technically competent, ethically responsible, and 
         hod: "Dr. M. Lilly Florence",
         designation: "Professor and Head",
         location: "1st floor, Near Aero Seminar Hall, Department of Computer Science and Engineering (Cybersecurity), Adhiyamaan College of Engineering, Dr. M.G.R Nagar, Hosur – 635130, Krishnagiri District, Tamil Nadu, India",
-        email: "lillyflorence.cse@adhiyamaan.in",
+        email: "hod_cse-cs@adhiyamaan.ac.in",
         phone: "+91 9487819149"
     }
 };

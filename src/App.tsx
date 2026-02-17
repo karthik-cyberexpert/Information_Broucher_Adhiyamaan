@@ -18,7 +18,6 @@ import './App.css';
 function App() {
   return (
     <>
-      {/* <InactivityHandler timeout={90000} warningDuration={10000} /> */}
       <InactivityHandler timeout={90000} warningDuration={10000} />
       <ClickSpark
         sparkColor='#fff'

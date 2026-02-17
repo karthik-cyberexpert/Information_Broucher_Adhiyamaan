@@ -4,22 +4,32 @@ const cse: DepartmentContent = {
     about: (
         <>
             <p>
-                The Computer Science & Engineering department is at the forefront of digital transformation.
+                The B.E. – CSE programme focuses on building strong foundations in computer science principles combined with practical exposure to modern technologies. The curriculum covers programming, data structures, algorithms, databases, operating systems, computer networks, artificial intelligence, machine learning, cloud computing, and cybersecurity.
             </p>
             <p>
-                We focus on algorithms, software engineering, cloud computing, and human-computer interaction
-                to solve complex real-world problems.
+                Affiliated to Anna University and approved by AICTE, the department emphasizes industry-integrated learning, innovation, ethical computing practices, and global technical competence. The programme is designed to prepare students to solve real-world problems using cutting-edge technologies.
+            </p>
+            <p>
+                With experienced faculty members, modern computing laboratories, and an active coding culture, the department encourages students to innovate, develop scalable solutions, and become future-ready software engineers, data scientists, researchers, and technology leaders.
             </p>
         </>
     ),
     career: {
-        description: "CSE graduates are highly sought after by global tech giants and startups alike.",
+        description: "Graduates of the Computer Science & Engineering programme are prepared for diverse roles across the IT industry, product-based companies, startups, research organizations, and emerging technology sectors. The curriculum equips students with strong problem-solving skills, programming expertise, and practical industry knowledge.",
         roles: [
+            "Software Developer/ Software Engineer",
             "Full Stack Developer",
-            "Data Scientist",
-            "Systems Architect",
-            "Software Engineer",
-            "UI/UX Designer"
+            "Frontend Developer",
+            "Backend Developer",
+            "Data Scientist/ Data Analyst",
+            "AI Engineer/ Machine Learning Engineer",
+            "Cybersecurity Analyst",
+            "Cloud Engineer",
+            "DevOps Engineer",
+            "Database Administrator",
+            "System Engineer/ Network Engineer",
+            "Mobile App Developer/ Web Developer",
+            "Research Scientist"
         ]
     },
     infrastructure: {

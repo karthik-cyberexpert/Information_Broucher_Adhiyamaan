@@ -17,14 +17,16 @@ const ece: DepartmentContent = {
     career: {
         description: "Graduates of the ECE programme are prepared for diverse roles across core electronics, IT, and interdisciplinary domains. The curriculum equips students with industry-ready skills and global perspectives.",
         roles: [
-            "Communication Systems Engineer",
-            "IoT Specialist / Developer",
-            "VLSI Design Engineer",
-            "Embedded Systems Engineer",
-            "Electronics Design Engineer",
-            "AI & Machine Learning Specialist",
-            "Research Scientist",
-            "Network and Communication Engineer"
+            "Embedded Systems Engineer (₹5–12 LPA)",
+            "VLSI Engineer (₹7–20 LPA)",
+            "Telecom / Communication Engineer (₹6–15 LPA)",
+            "RF (Radio Frequency) Engineer (₹6–14 LPA)",
+            "IoT (Internet of Things) Engineer (₹6–15 LPA)",
+            "Network Engineer (₹6–9 LPA)",
+            "Test / QA Engineer (₹5–8 LPA)",
+            "PCB Design Engineer (₹3–7 LPA)",
+            "Systems / Hardware Engineer (₹6–10 LPA)",
+            "Technical / Project Manager (₹15 LPA)"
         ],
         globalRelevance: "ECE graduates find opportunities in multinational corporations, research laboratories, and prestigious universities worldwide for higher studies and innovation-driven careers."
     },
@@ -54,6 +56,16 @@ const ece: DepartmentContent = {
                 title: 'Digital Signal Processing Lab',
                 description: 'High-end workstations with MATLAB and DSP kits for signal analysis.',
                 icon: '💻'
+            },
+            {
+                title: 'Academic & Teaching Infrastructure',
+                description: 'Smart classrooms with projectors / digital boards with High-speed internet and Wi-Fi connectivity',
+                icon: '💻'
+            },
+            {
+                title: 'Student Support Infrastructure',
+                description: 'Project laboratories and Technical club room',
+                icon: '💻'
             }
         ]
     },
@@ -61,8 +73,8 @@ const ece: DepartmentContent = {
         hod: "Dr.S.Sumathi",
         designation: "Professor and Head",
         location: "Department of Electronics and Communication Engineering, Adhiyamaan College of Engineering, Dr. M.G.R Nagar, Hosur – 635130, Krishnagiri District, Tamil Nadu, India",
-        email: "hod.ece@adhiyamaan.ac.in",
-        phone: "Mobile: 9487819151, Office No: 04344261005"
+        email: "hod_ece@adhiyamaan.ac.in",
+        phone: "9487819151"
     },
     phd: {
         supervisor: '/images/phd/ece supervisor.jpeg',

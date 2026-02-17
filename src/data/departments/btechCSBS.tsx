@@ -16,7 +16,7 @@ const btechCSBS: DepartmentContent = {
             {
                 title: 'Innovation Lab',
                 description: 'Collaborative space for business and tech integration projects.',
-                icon: '💼',
+                icon: '🖥️',
                 image: '/images/btech/csbsbg.jpg'
             }
         ]

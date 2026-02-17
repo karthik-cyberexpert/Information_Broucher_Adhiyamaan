@@ -24,7 +24,7 @@ const meCSE: DepartmentContent = {
     contact: {
         location: "CSE Block, ACE",
         email: "hod.cse@adhiyamaan.ac.in",
-        phone: "+91 4344 261064"
+        phone: "+91 4344 261061"
     }
 };
 
