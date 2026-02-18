@@ -8,8 +8,8 @@ import welcomeAnimation from '../assets/Welcome Animation.json';
 
 // We'll duplicate this CSS import or ensure App.css is global
 import { Info } from 'lucide-react';
-import '../App.css'; 
-import LightRays from '../components/LightRays'; 
+import '../App.css';
+import LightRays from '../components/LightRays';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -18,46 +18,37 @@ const Home = () => {
   // Form state removed as it moved to BikePage, 
   // but if we need it for welcome animation context we can restart it there.
 
-  const handleClick = () => { 
+  const handleClick = () => {
     navigate('/bike-animation');
   };
 
   return (
     <div className="landing-page">
-      <video 
-        className="video-background" 
-        autoPlay 
-        loop 
-        muted 
+      <video
+        className="video-background"
+        autoPlay
+        loop
+        muted
         playsInline
       >
         <source src="/media/promo.mp4" type="video/mp4" />
       </video>
       <div className="video-overlay"></div>
 
-      <header className="header">
-        <div className="logo-container">
-          <TransparentGif 
-            src="/images/logo33.gif" 
-            width={300} 
-            height={90} 
-            className="college-logo"
-            style={{ borderRadius: '16px' }}
-          />
-        </div>
-      </header>
+
+
 
       <div className="main-content">
         <div className="click-here-container">
-           <div className="info-badge">
-             <div className="info-icon-circle">
-               <Info size={14} />
-             </div>
-             <p className="click-more-info">To know more about the college</p>
-           </div>
-           <button className="start-btn" onClick={handleClick}>
-             CLICK HERE
-           </button>
+          <div className="info-badge">
+            <div className="info-icon-circle">
+              <Info size={14} />
+            </div>
+            <p className="click-more-info">To know more about the college</p>
+          </div>
+          <button className="start-btn" onClick={handleClick}>
+            CLICK HERE
+          </button>
         </div>
       </div>
 
@@ -84,8 +75,8 @@ const Home = () => {
               />
             </div>
             <div style={{ position: 'relative', zIndex: 10, width: '100%', height: '100%' }}>
-              <Lottie 
-                animationData={welcomeAnimation} 
+              <Lottie
+                animationData={welcomeAnimation}
                 loop={true}
                 className="welcome-animation"
                 style={{ width: '100%', height: '100%' }}

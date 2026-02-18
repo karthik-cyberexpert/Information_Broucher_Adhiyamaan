@@ -4,7 +4,7 @@ const mca: DepartmentContent = {
     about: (
         <>
             <p>
-                The Master of Computer Applications (MCA) Department is dedicated to fostering excellence in advanced computing education, research, and innovation. With a strong focus on building technical expertise and problem-solving skills, the department equips students with in-depth knowledge of programming, software development, data management, artificial intelligence, cybersecurity, and emerging technologies. Our curriculum blends theoretical foundations with hands-on practical experience through projects, internships, workshops, and industry collaborations. Guided by experienced faculty members, students are encouraged to develop analytical thinking, creativity, and leadership qualities that prepare them for dynamic careers in the IT industry, entrepreneurship, and research. The MCA Department is committed to nurturing competent professionals who contribute effectively to technological advancement and societal development.
+                The Department of Computer Applications offers an MCA program affiliated with Anna University, and from this academic year, it has introduced a specialization in Artificial Intelligence and Data Science (AI–DS). Established in 1995–1996, the department provides quality education supported by modern computer laboratories, high-speed internet, and Wi-Fi-enabled smart classrooms. Accredited by the National Board of Accreditation (NBA), the program emphasizes innovative teaching and industry-oriented training in areas such as Machine Learning, Deep Learning, Big Data Analytics, Natural Language Processing, Computer Vision, Cloud Computing, and Cyber Security, integrating theoretical knowledge with practical exposure to meet global industry standards.
             </p>
         </>
     ),
@@ -26,21 +26,21 @@ const mca: DepartmentContent = {
     infrastructure: {
         items: [
             {
-                title: 'Students working in the computer lab.',
-                description: 'Modern development environments and databases for application building.',
+                title: 'Computer Lab:',
+                description: 'Students engaged in practical computer lab training with faculty guidance, enhancing their technical skills through hands-on learning.',
                 icon: '💻',
                 image: '/images/mca/infrastructure/1.jpeg'
             },
 
             {
-                title: 'Hands-on practical session in progress',
-                description: 'Modern development environments and databases for application building.',
+                title: 'Server Room Demonstration',
+                description: 'Students observing a live demonstration of the server rack and learning about IT infrastructure management.',
                 icon: '💻',
                 image: '/images/mca/infrastructure/2.jpeg'
             },
             {
-                title: 'Lab session with faculty supervision',
-                description: 'Modern development environments and databases for application building.',
+                title: 'Technical Guidance Session:',
+                description: 'Faculty guiding students through a hands-on computer-based activity during a lab session.',
                 icon: '💻',
                 image: '/images/mca/infrastructure/3.jpeg'
             },
@@ -51,8 +51,8 @@ const mca: DepartmentContent = {
                 image: '/images/mca/infrastructure/4.jpeg'
             },
             {
-                title: 'Smart classroom lecture by faculty.',
-                description: 'Modern development environments and databases for application building.',
+                title: 'Group Lab Activity',
+                description: 'Students participating in a practical computer lab session with step-by-step instructor guidance.',
                 icon: '💻',
                 image: '/images/mca/infrastructure/6.jpeg'
             },
@@ -63,29 +63,17 @@ const mca: DepartmentContent = {
                 image: '/images/mca/infrastructure/7.jpeg'
             },
             {
-                title: 'Digital teaching with active participation',
-                description: 'Modern development environments and databases for application building.',
+                title: 'Smart Classroom:',
+                description: 'A faculty member delivering an interactive lecture using smart board technology, creating a modern and engaging learning environment.',
                 icon: '💻',
                 image: '/images/mca/infrastructure/9.jpeg'
             },
             {
-                title: 'Faculty guiding students individually.',
-                description: 'Modern development environments and databases for application building.',
+                title: 'Student Support',
+                description: 'Faculty providing personalized guidance to a student during a laptop-based academic activity, promoting mentorship and focused learning',
                 icon: '💻',
                 image: '/images/mca/infrastructure/10.jpeg'
             },
-            {
-                title: 'Mentorship and support for student learning.',
-                description: 'Modern development environments and databases for application building.',
-                icon: '💻',
-                image: '/images/mca/infrastructure/11.jpeg'
-            },
-            {
-                title: 'Technical training session in the lab',
-                description: 'Modern development environments and databases for application building.',
-                icon: '💻',
-                image: '/images/mca/infrastructure/mca1.jpg'
-            }
         ]
     },
     contact: {

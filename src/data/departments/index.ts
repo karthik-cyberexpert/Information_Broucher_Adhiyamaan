@@ -24,11 +24,12 @@ import phd from './phd';
 import phdECE from './phdECE';
 import phdMechanical from './phdMechanical';
 import phdComputer from './phdComputer';
+import phdPhysics from './phdPhysics';
 import defaultContent from './default';
 import type { DepartmentContent } from './types';
 
 export const departmentData: Record<string, DepartmentContent> = {
-    'M.E. Communication System Engineering': meCommSystem,
+    'ME -Communication System': meCommSystem,
     'Aeronautical Engineering': aeronautical,
     'Biomedical Engineering': biomedical,
     'Civil Engineering': civil,
@@ -43,10 +44,10 @@ export const departmentData: Record<string, DepartmentContent> = {
     'Chemical Engineering': btechChemical,
     'Computer Science and Business Systems': btechCSBS,
     'Information Technology': btechIT,
-    'M.E. Computer Science Engineering': meCSE,
-    'M.E. Engineering Design': meEnggDesign,
-    'M.E. Power Engineering': mePower,
-    'M.E. Structural Engineering': meStructural,
+    'ME -Computer Science': meCSE,
+    'ME -Engineering Design': meEnggDesign,
+    'ME -Power System': mePower,
+    'ME -Structural': meStructural,
     'Bachelor of Architecture': bArch,
     'Master of Business Administration': mba,
     'MBA Full Time': mba,
@@ -57,7 +58,7 @@ export const departmentData: Record<string, DepartmentContent> = {
     'Ph.D. ECE': phdECE,
     'Ph.D. Mechanical Engineering': phdMechanical,
     'Ph.D. Chemistry': phd,
-    'Ph.D. Physics': phd,
+    'Ph.D. Physics': phdPhysics,
 };
 
 export const getDepartmentContent = (name: string): DepartmentContent => {

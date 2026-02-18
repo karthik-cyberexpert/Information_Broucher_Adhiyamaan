@@ -11,7 +11,7 @@ import droneAnimation from '../assets/drone_fly.json';
 // --- DATA DEFINITIONS ---
 
 const navItems = [
-  { title: 'B.E.', id: 'be', bg: '/images/bebaack.jpg' },
+  { title: 'B.E.', id: 'be', bg: '/images/be/be.jpg' },
   { title: 'B.Tech.', id: 'btech', bg: '/images/tech_bg.png' },
   { title: 'B.Arch.', id: 'barch', bg: '/images/civilback.jpg' },
   { title: 'M.E.', id: 'me', bg: '/images/me.jpg' },
@@ -28,7 +28,7 @@ const navItems = [
 
 const beCourses = [
   { name: 'Aeronautical Engineering', icon: '✈️', bg: '/images/aeroback.jpg' },
-  { name: 'Biomedical Engineering', icon: '🧬', bg: '/images/bioback.jpg', video: '/media/bio.mp4' },
+  { name: 'Biomedical Engineering', icon: '🧬', bg: '/images/be/biomedical-bg.jpg.jpeg', video: '/media/bio.mp4' },
   { name: 'Civil Engineering', icon: '🏗️', bg: '/images/civilback.jpg', video: '/media/civil.mp4' },
   { name: 'Computer Science & Engineering', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
   { name: 'CSE (Cyber Security)', icon: '🔐', bg: '/images/computerback.jpg', video: '/media/cyber.mp4' },
@@ -47,11 +47,11 @@ const bTechCourses = [
 ];
 
 const meCourses = [
-  { name: 'M.E. Communication System Engineering', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
-  { name: 'M.E. Computer Science Engineering', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
-  { name: 'M.E. Engineering Design', icon: '📐', bg: '/images/me.jpg', video: '/media/mech.mp4' },
-  { name: 'M.E. Power Engineering', icon: '⚡', bg: '/images/me_power.jpg', video: '/media/elect.mp4' },
-  { name: 'M.E. Structural Engineering', icon: '🏗️', bg: '/images/civilback.jpg', video: '/media/civil.mp4' },
+  { name: 'ME -Communication System', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
+  { name: 'ME -Computer Science', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
+  { name: 'ME -Engineering Design', icon: '📐', bg: '/images/me.jpg', video: '/media/mech.mp4' },
+  { name: 'ME -Power System', icon: '⚡', bg: '/images/me_power.jpg', video: '/media/elect.mp4' },
+  { name: 'ME -Structural', icon: '🏗️', bg: '/images/civilback.jpg', video: '/media/civil.mp4' },
 ];
 
 const phdCourses = [

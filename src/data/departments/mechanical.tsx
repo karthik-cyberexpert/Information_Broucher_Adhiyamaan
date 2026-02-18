@@ -13,44 +13,46 @@ const mechanical: DepartmentContent = {
     career: {
         description: "Mechanical engineers drive innovation in automotive, aerospace, energy, and manufacturing sectors through design, analysis, and fabrication.",
         roles: [
-            "Design Engineer",
-            "Production Manager",
-            "Quality Engineer",
-            "R&D Specialist",
-            "Manufacturing Engineer",
-            "Automotive Systems Engineer",
-            "Product Development Engineer"
+            "Robotics & Automation - ₹3 – 6 LPA",
+            "Artificial Intelligence in Manufacturing - ₹5 – 10 LPA",
+            "Electric Vehicles (EV) - ₹4 – 8 LPA",
+            "Renewable Energy - ₹3 – 7 LPA",
+            "Mechatronics - ₹3 – 6 LPA",
+            "Industry 4.0 Technologies - ₹5 – 9 LPA",
+            "3D Printing & Additive Manufacturing - ₹3 – 6 LPA",
+
+
         ]
     },
     infrastructure: {
         items: [
             {
                 title: 'MACHINE SHOP',
-                description: 'Equipped with lathes, milling machines, and drilling machines for hands-on fabrication.',
+                description: 'A Machine Shop is a practical workshop where metal and other materials are shaped, cut, drilled, and finished using various machine tools.',
                 icon: '⚙️',
                 image: '/images/be/mechinical/MACHINE SHOP.jpg'
             },
             {
                 title: 'METROLOGY LAB',
-                description: 'Precision measurement tools and instruments for quality control and calibration.',
+                description: 'A Metrology Lab is a laboratory where students learn the science of measurement and precision inspection.',
                 icon: '📐',
                 image: '/images/be/mechinical/METROLOGY LAB.jpg'
             },
             {
                 title: 'CAD LABORATORY',
-                description: 'Advanced computing facilities for 2D and 3D modeling using modern engineering software.',
+                description: 'A CAD Lab is a specialized computer laboratory where students use design software to create, modify, analyze, and optimize engineering drawings and 3D models.',
                 icon: '🖥️',
                 image: '/images/be/mechinical/CAD LAB.jpg'
             },
             {
                 title: 'CAM LABORATORY',
-                description: 'Computer-Aided Manufacturing facilities for automated production processes.',
+                description: 'A CAM Lab is a specialized laboratory where students learn how to convert digital designs into real physical products using CNC machines and CAM software.',
                 icon: '🤖',
                 image: '/images/be/mechinical/CAM LAB.jpg'
             },
             {
                 title: 'THERMAL LAB',
-                description: 'Equipment for testing internal combustion engines and studying heat transfer principles.',
+                description: 'A Thermal Engineering Lab is a practical laboratory where students study and perform experiments related to heat, energy conversion, thermodynamics',
                 icon: '🔥',
                 image: '/images/be/mechinical/THERMAL LAB.jpg'
             }

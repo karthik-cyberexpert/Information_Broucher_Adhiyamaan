@@ -668,3 +668,56 @@
     padding: 20px;
   }
 }
+
+/* Custom PhD Content (Tables, etc.) */
+.custom-phd-content {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.phd-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.phd-table th,
+.phd-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.phd-table th {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.phd-table tr:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.phd-table td {
+  color: #cbd5e1;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.phd-table strong {
+  color: #f1f5f9;
+}
+
+@media (max-width: 768px) {
+  .phd-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}

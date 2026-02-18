@@ -24,13 +24,14 @@ export interface DepartmentContent {
     };
     contact?: {
         hod?: string;
+        "HoD In-Charge"?: string;
         designation?: string;
         location?: string;
         email?: string;
         phone?: string;
     };
     phd?: {
-        supervisor?: string;
-        approval?: string;
+        supervisor?: React.ReactNode;
+        approval?: React.ReactNode;
     };
 }

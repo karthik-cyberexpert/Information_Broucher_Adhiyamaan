@@ -3,22 +3,19 @@ import type { DepartmentContent } from './types';
 const phdMechanical: DepartmentContent = {
     about: (
         <>
-            <p>Ph.D. programs in Mechanical Engineering at ACE focus on core and interdisciplinary research areas including Manufacturing, Thermal Sciences, Material Science, and Robotics.</p>
-            <p>Our research scholars work on industry-relevant problems with access to advanced computation and testing facilities.</p>
+            <p>Department of Mechanical Engineering is recognized as a research center by Anna University, Chennai. Research scholars are pursuing Ph.D and several got awarded. Department of Mechanical Engineering has well equipped laboratory facilities with state-of-the-art facilities for the undergraduate course and post graduate course along with Research and Development in the institute.</p>
         </>
     ),
-    career: {
-        description: "Doctoral research leads to high-level academic and industrial research positions.",
-        roles: ["Principal Scientist", "Post-Doctoral Fellow", "University Professor", "Innovation Head", "Research Lead"]
-    },
     contact: {
-        location: "Mechanical Engineering Block, ACE",
-        email: "hod.mech@adhiyamaan.ac.in",
-        phone: "+91 4344 261091"
+        hod: "Dr.J.Arivudainambi",
+        designation: "Professor and Head",
+        location: "Mechanical Engineering Block, Adhiyamaan College of Engineering, Dr. M.G.R Nagar, Hosur – 635130, Krishnagiri District, Tamil Nadu, India",
+        email: "hod_mech@adhiyamaan.ac.in",
+        phone: "+91 9894445988"
     },
     phd: {
-        supervisor: '/images/phd/mechinical supervisor .jpeg',
-        approval: '/images/phd/mechanical approval copy.jpeg'
+        supervisor: '/images/phd/mechanical/supervisor.png',
+        approval: '/images/phd/mechanical/approval copy.jpg'
     }
 };
 

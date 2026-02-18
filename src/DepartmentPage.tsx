@@ -59,7 +59,7 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
     ? [
       { id: 'About', label: 'About' },
       { id: 'ApprovalCopy', label: 'Approval Copy' },
-      { id: 'SecondarySupervisor', label: 'Secondary Supervisor' },
+      { id: 'Supervisor', label: 'Supervisor' },
       { id: 'Contact', label: 'Contact' },
     ]
     : [
@@ -78,7 +78,7 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
       case 'About':
         return (
           <>
-            <h3>About {department.name}</h3>
+            <h3>About</h3>
             {content.about}
           </>
         );
@@ -166,9 +166,11 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
           <>
             <h3>Contact Us</h3>
             <div className="contact-info">
-              {contact?.hod && (
+              {(contact?.hod || contact?.["HoD In-Charge"]) && (
                 <div className="hod-details" style={{ marginBottom: '1rem' }}>
-                  <p><strong>👤 Head of Department:</strong> {contact.hod}</p>
+                  <p>
+                    <strong>👤 {contact["HoD In-Charge"] ? "HoD In-Charge" : "Head of Department"}:</strong> {contact["HoD In-Charge"] || contact.hod}
+                  </p>
                   {contact.designation && <p style={{ marginLeft: '1.5rem', opacity: 0.9 }}><em>{contact.designation}</em></p>}
                 </div>
               )}
@@ -178,19 +180,40 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
             </div>
           </>
         );
-      case 'SecondarySupervisor':
+      case 'Supervisor':
         return (
           <>
-            <h3>Secondary Supervisor</h3>
+            <h3>Supervisor</h3>
             <div className="dept-section-placeholder">
               {images.supervisor ? (
-                <img
-                  src={images.supervisor}
-                  alt={`${department.name} Supervisor`}
-                  style={{ maxWidth: '100%', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}
-                />
+                typeof images.supervisor === 'string' ? (
+                  images.supervisor.toLowerCase().endsWith('.pdf') ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <embed
+                        src={images.supervisor}
+                        type="application/pdf"
+                        width="100%"
+                        height="600px"
+                        style={{ borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}
+                      />
+                      <a href={images.supervisor} target="_blank" rel="noopener noreferrer" className="dept-back-btn" style={{ textAlign: 'center', width: 'fit-content' }}>
+                        📄 Open PDF in New Tab
+                      </a>
+                    </div>
+                  ) : (
+                    <img
+                      src={images.supervisor}
+                      alt={`${department.name} Supervisor`}
+                      style={{ maxWidth: '100%', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}
+                    />
+                  )
+                ) : (
+                  <div className="custom-phd-content">
+                    {images.supervisor}
+                  </div>
+                )
               ) : (
-                <p>Details about the Secondary Supervisor will be available here.</p>
+                <p>Details about the Supervisor will be available here.</p>
               )}
             </div>
           </>
@@ -201,11 +224,32 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
             <h3>Approval Copy</h3>
             <div className="dept-section-placeholder">
               {images.approval ? (
-                <img
-                  src={images.approval}
-                  alt={`${department.name} Approval Copy`}
-                  style={{ maxWidth: '100%', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}
-                />
+                typeof images.approval === 'string' ? (
+                  images.approval.toLowerCase().endsWith('.pdf') ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <embed
+                        src={images.approval}
+                        type="application/pdf"
+                        width="100%"
+                        height="600px"
+                        style={{ borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}
+                      />
+                      <a href={images.approval} target="_blank" rel="noopener noreferrer" className="dept-back-btn" style={{ textAlign: 'center', width: 'fit-content' }}>
+                        📄 Open PDF in New Tab
+                      </a>
+                    </div>
+                  ) : (
+                    <img
+                      src={images.approval}
+                      alt={`${department.name} Approval Copy`}
+                      style={{ maxWidth: '100%', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}
+                    />
+                  )
+                ) : (
+                  <div className="custom-phd-content">
+                    {images.approval}
+                  </div>
+                )
               ) : (
                 <p>The Approval Copy documents will be displayed here.</p>
               )}
@@ -257,7 +301,7 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
         <button className="dept-back-btn" onClick={onBack}>
           ← Back
         </button>
-        <h1 className="dept-title">Department of {department.name}</h1>
+        <h1 className="dept-title">{department.name.startsWith('M.E.') || department.name.startsWith('ME ') || department.name.startsWith('Ph.D.') ? department.name : `Department of ${department.name}`}</h1>
       </div>
 
       <div className="dept-layout">
