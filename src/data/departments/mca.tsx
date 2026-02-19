@@ -4,7 +4,8 @@ const mca: DepartmentContent = {
     about: (
         <>
             <p>
-                The Department of Computer Applications offers an MCA program affiliated with Anna University, and from this academic year, it has introduced a specialization in Artificial Intelligence and Data Science (AI–DS). Established in 1995–1996, the department provides quality education supported by modern computer laboratories, high-speed internet, and Wi-Fi-enabled smart classrooms. Accredited by the National Board of Accreditation (NBA), the program emphasizes innovative teaching and industry-oriented training in areas such as Machine Learning, Deep Learning, Big Data Analytics, Natural Language Processing, Computer Vision, Cloud Computing, and Cyber Security, integrating theoretical knowledge with practical exposure to meet global industry standards.
+                The Department of Computer Applications, established in 1995–1996, offers a prestigious MCA program affiliated to Anna University, with an approved intake of 60 students. Accredited by the **National Board of Accreditation (NBA)**, the department is committed to delivering quality, industry-oriented education supported by state-of-the-art computer laboratories, high-speed internet, and Wi-Fi-enabled smart classrooms. From the current academic year, the program has introduced a specialization in **Artificial Intelligence and Data Science (AI–DS)**, focusing on emerging technologies such as Machine Learning, Deep Learning, Big Data Analytics, Natural Language Processing, Computer Vision, Cloud Computing, and Cyber Security. With experienced faculty, innovative teaching methodologies, strong industry collaboration, and excellent placement training, the department strives to develop globally competent, self-disciplined computer professionals equipped with both strong theoretical foundations and practical expertise to meet international industry standards.
+
             </p>
         </>
     ),

@@ -53,7 +53,7 @@ export const departmentData: Record<string, DepartmentContent> = {
     'MBA Full Time': mba,
     'MBA Part Time': mba,
     'MBA Logistics and Supply Chain Management': mba,
-    'Master of Computer Applications': mca,
+    'Computer Applications': mca,
     'Ph.D. Computer Science': phdComputer,
     'Ph.D. ECE': phdECE,
     'Ph.D. Mechanical Engineering': phdMechanical,

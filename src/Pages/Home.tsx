@@ -10,6 +10,7 @@ import welcomeAnimation from '../assets/Welcome Animation.json';
 import { Info } from 'lucide-react';
 import '../App.css';
 import LightRays from '../components/LightRays';
+import { motion } from 'framer-motion';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -21,6 +22,40 @@ const Home = () => {
   const handleClick = () => {
     navigate('/bike-animation');
   };
+
+  // Animation Variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+        delayChildren: 0.5
+      }
+    }
+  };
+
+  const letterVariants = {
+    hidden: {
+      opacity: 0,
+      y: 50,
+      filter: "blur(10px)",
+      scale: 1.5
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      scale: 1,
+      transition: {
+        type: "spring" as const,
+        damping: 12,
+        stiffness: 100
+      }
+    }
+  };
+
+  const text = "Adhiyamaan College of Engineering Welcomes You";
 
   return (
     <div className="landing-page">
@@ -39,6 +74,45 @@ const Home = () => {
 
 
       <div className="main-content">
+        <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginBottom: '2rem', padding: '0 20px' }}>
+          <motion.h1
+            className="welcome-message"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: '0.4rem',
+              // Creative Styles for "Merging" with Video
+              color: 'rgba(255, 255, 255, 0.95)',
+              mixBlendMode: 'overlay', // This blends it with the video
+              textShadow: '0 4px 30px rgba(0,0,0,0.5)', // Adds depth ensuring legibility
+              backdropFilter: 'blur(2px)', // Subtle blur to background
+            }}
+          >
+            {text.split(" ").map((word, wordIndex) => (
+              <div key={wordIndex} style={{ display: 'inline-block' }}>
+                {word.split("").map((char, charIndex) => (
+                  <motion.span
+                    key={`${wordIndex}-${charIndex}`}
+                    variants={letterVariants}
+                    style={{
+                      display: 'inline-block',
+                      background: 'linear-gradient(to bottom, #ffffff, #a5b4fc)', // Subtle gradient
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </div>
+            ))}
+          </motion.h1>
+        </div>
         <div className="click-here-container">
           <div className="info-badge">
             <div className="info-icon-circle">

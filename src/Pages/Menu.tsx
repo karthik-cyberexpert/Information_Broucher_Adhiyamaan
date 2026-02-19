@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Lottie from 'lottie-react';
-import TransparentGif from '../components/TransparentGif';
+import { motion } from 'framer-motion';
+import ClickSpark from '../components/ClickSpark';
+// import TransparentGif from '../components/TransparentGif';
 import DepartmentPage from '../DepartmentPage';
 import '../App.css';
 import '../components/Menu.css'; // Ensure we have the specific CSS
@@ -11,8 +13,8 @@ import droneAnimation from '../assets/drone_fly.json';
 // --- DATA DEFINITIONS ---
 
 const navItems = [
-  { title: 'B.E.', id: 'be', bg: '/images/be/be.jpg' },
-  { title: 'B.Tech.', id: 'btech', bg: '/images/tech_bg.png' },
+  { title: 'B.E.', id: 'be', bg: '/images/becourse.jpg' },
+  { title: 'B.Tech.', id: 'btech', bg: '/images/btech.jpg' },
   { title: 'B.Arch.', id: 'barch', bg: '/images/civilback.jpg' },
   { title: 'M.E.', id: 'me', bg: '/images/me.jpg' },
   { title: 'M.B.A.', id: 'mba', bg: '/images/mba.jpg' },
@@ -23,7 +25,7 @@ const navItems = [
   { title: 'Sports', id: 'sports', bg: '/images/sports.jpg' },
   { title: 'Hostel', id: 'hostel', bg: '/images/hostel.jpg' },
   { title: 'Transport', id: 'transport', bg: '/images/transport.jpg' },
-  { title: 'Scholarship', id: 'scholarship', bg: '/images/scholarship.jpg' },
+  { title: 'Scholarship', id: 'scholarship', bg: '/images/scholarship.jpeg' },
 ];
 
 const beCourses = [
@@ -70,7 +72,7 @@ const mbaCourses = [
 
 const bArchData = { name: 'Bachelor of Architecture', icon: '🏛️', bg: '/images/civilback.jpg', video: '/media/be arch.mp4' };
 const mbaData = { name: 'Master of Business Administration', icon: '📊', bg: '/images/mba.jpg', video: '/media/mba.mp4' };
-const mcaData = { name: 'Master of Computer Applications', icon: '💻', bg: '/images/mca.jpg', video: '/media/mca.mp4?v=2' };
+const mcaData = { name: 'Computer Applications', icon: '💻', bg: '/images/mca.jpg', video: '/media/mca.mp4?v=2' };
 
 // Combine all courses for easy lookup by name
 const allCourses = [
@@ -224,6 +226,12 @@ const Menu = () => {
     window.scrollTo(0, 0);
   };
 
+  const handleDelayedAction = (action: () => void) => {
+    setTimeout(() => {
+      action();
+    }, 350);
+  };
+
   // View States
   const isDepartmentView = !!selectedDepartment;
   const isMainNav = !currentCategory && !isDepartmentView;
@@ -247,12 +255,17 @@ const Menu = () => {
       {/* Header */}
       <header className="header">
         <div className="logo-container">
-          <TransparentGif
-            src="/images/logo33.gif"
-            width={300}
-            height={90}
+          <img
+            src="/images/adhiyamaanlogo.jpeg"
+            alt="Adhiyamaan College Logo"
             className="college-logo"
-            style={{ borderRadius: '16px', backgroundColor: 'rgba(255, 255, 255, 0.75)', height: '50px', width: '200px' }}
+            style={{
+              width: 'auto',
+              height: '60px',
+              borderRadius: '8px',
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              padding: '5px'
+            }}
           />
         </div>
 
@@ -310,21 +323,25 @@ const Menu = () => {
                   className={`entry-wrapper ${item.className || ''}`}
                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
-                  <button
-                    className={`nav-item ${item.className || ''}`}
-                    onClick={() => handleNavClick(item.id)}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${item.bg})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      color: 'white',
-                      textShadow: '0 2px 4px rgba(0,0,0,0.8)'
-                    }}
-                  >
-                    {item.title}
-                  </button>
+                  <ClickSpark sparkColor="#ffd700" sparkCount={12} sparkRadius={25}>
+                    <motion.button
+                      className={`nav-item ${item.className || ''}`}
+                      onClick={() => handleDelayedAction(() => handleNavClick(item.id))}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${item.bg})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        color: 'white',
+                        textShadow: '0 2px 4px rgba(0,0,0,0.8)'
+                      }}
+                    >
+                      {item.title}
+                    </motion.button>
+                  </ClickSpark>
                   {/* Drone Animation Container */}
                   <DroneAnimation />
                 </div>
@@ -339,26 +356,33 @@ const Menu = () => {
               zIndex: 100,
               position: 'relative'
             }}>
-              <button className="home-btn" onClick={() => navigate('/thank-you')} style={{
-                padding: '1.5rem 6rem',
-                background: 'rgba(255, 255, 255, 0.15)',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                borderRadius: '50px',
-                color: 'white',
-                cursor: 'pointer',
-                backdropFilter: 'blur(12px)',
-                fontSize: '1.6rem',
-                fontWeight: 'bold',
-                transition: 'all 0.3s ease',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
-                textTransform: 'uppercase',
-                letterSpacing: '1px'
-              }}>
-                🏠 Return Home
-              </button>
+              <ClickSpark sparkColor="#ffffff" sparkCount={10} sparkRadius={20}>
+                <motion.button
+                  className="home-btn"
+                  onClick={() => handleDelayedAction(() => navigate('/thank-you'))}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{
+                    padding: '1.5rem 6rem',
+                    background: 'rgba(255, 255, 255, 0.15)',
+                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                    borderRadius: '50px',
+                    color: 'white',
+                    cursor: 'pointer',
+                    backdropFilter: 'blur(12px)',
+                    fontSize: '1.6rem',
+                    fontWeight: 'bold',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                  }}
+                >
+                  🏠 Return Home
+                </motion.button>
+              </ClickSpark>
             </div>
           </div>
         )}
@@ -374,26 +398,37 @@ const Menu = () => {
                   className="entry-wrapper"
                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
-                  <div
-                    className="be-item"
-                    onClick={() => handleCourseClick(course)}
-                    style={{
-                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center'
-                    }}
-                  >
-                    <span className="be-icon">{course.icon}</span>
-                    <span className="be-name">{course.name}</span>
-                  </div>
+                  <ClickSpark sparkColor="#ffd700" sparkCount={8} sparkRadius={30}>
+                    <motion.div
+                      className="be-item"
+                      onClick={() => handleDelayedAction(() => handleCourseClick(course))}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{
+                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center'
+                      }}
+                    >
+                      <span className="be-icon">{course.icon}</span>
+                      <span className="be-name">{course.name}</span>
+                    </motion.div>
+                  </ClickSpark>
                   {/* Drone Animation Container for Sub-Menu */}
                   <SubMenuDroneAnimation />
                 </div>
               ))}
             </div>
-            <button className="menu-back-btn" onClick={handleBackToNav}>
-              MENU
-            </button>
+            <ClickSpark sparkColor="#ffffff" sparkCount={8}>
+              <motion.button
+                className="menu-back-btn"
+                onClick={() => handleDelayedAction(handleBackToNav)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                MENU
+              </motion.button>
+            </ClickSpark>
           </div>
         )}
 
@@ -408,26 +443,37 @@ const Menu = () => {
                   className="entry-wrapper"
                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
-                  <div
-                    className="be-item"
-                    onClick={() => handleCourseClick(course)}
-                    style={{
-                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center'
-                    }}
-                  >
-                    <span className="be-icon">{course.icon}</span>
-                    <span className="be-name">{course.name}</span>
-                  </div>
+                  <ClickSpark sparkColor="#ffd700" sparkCount={8} sparkRadius={30}>
+                    <motion.div
+                      className="be-item"
+                      onClick={() => handleDelayedAction(() => handleCourseClick(course))}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{
+                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center'
+                      }}
+                    >
+                      <span className="be-icon">{course.icon}</span>
+                      <span className="be-name">{course.name}</span>
+                    </motion.div>
+                  </ClickSpark>
                   {/* Drone Animation Container for Sub-Menu */}
                   <SubMenuDroneAnimation />
                 </div>
               ))}
             </div>
-            <button className="menu-back-btn" onClick={handleBackToNav}>
-              MENU
-            </button>
+            <ClickSpark sparkColor="#ffffff" sparkCount={8}>
+              <motion.button
+                className="menu-back-btn"
+                onClick={() => handleDelayedAction(handleBackToNav)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                MENU
+              </motion.button>
+            </ClickSpark>
           </div>
         )}
 
@@ -442,27 +488,38 @@ const Menu = () => {
                   className="entry-wrapper"
                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
-                  <div
-                    className="be-item"
-                    onClick={() => handleCourseClick(course)}
-                    style={{
-                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center'
-                    }}
-                  >
-                    <span className="be-icon">{course.icon}</span>
-                    <span className="be-name">{course.name}</span>
-                  </div>
+                  <ClickSpark sparkColor="#ffd700" sparkCount={8} sparkRadius={30}>
+                    <motion.div
+                      className="be-item"
+                      onClick={() => handleDelayedAction(() => handleCourseClick(course))}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{
+                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center'
+                      }}
+                    >
+                      <span className="be-icon">{course.icon}</span>
+                      <span className="be-name">{course.name}</span>
+                    </motion.div>
+                  </ClickSpark>
                   {/* Drone Animation Container for Sub-Menu */}
 
                   <SubMenuDroneAnimation />
                 </div>
               ))}
             </div>
-            <button className="menu-back-btn" onClick={handleBackToNav}>
-              MENU
-            </button>
+            <ClickSpark sparkColor="#ffffff" sparkCount={8}>
+              <motion.button
+                className="menu-back-btn"
+                onClick={() => handleDelayedAction(handleBackToNav)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                MENU
+              </motion.button>
+            </ClickSpark>
           </div>
         )}
 
@@ -477,29 +534,40 @@ const Menu = () => {
                   className="entry-wrapper"
                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
-                  <div
-                    className="be-item"
-                    onClick={() => handleCourseClick(course)}
-                    style={{
-                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      color: 'white',
-                      textShadow: '0 2px 4px rgba(0,0,0,0.5)'
-                    }}
-                  >
-                    <span className="be-icon">{course.icon}</span>
-                    <span className="be-name">{course.name}</span>
-                  </div>
+                  <ClickSpark sparkColor="#ffd700" sparkCount={8} sparkRadius={30}>
+                    <motion.div
+                      className="be-item"
+                      onClick={() => handleDelayedAction(() => handleCourseClick(course))}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{
+                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        color: 'white',
+                        textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+                      }}
+                    >
+                      <span className="be-icon">{course.icon}</span>
+                      <span className="be-name">{course.name}</span>
+                    </motion.div>
+                  </ClickSpark>
                   {/* Drone Animation Container for Sub-Menu */}
 
                   <SubMenuDroneAnimation />
                 </div>
               ))}
             </div>
-            <button className="menu-back-btn" onClick={handleBackToNav}>
-              MENU
-            </button>
+            <ClickSpark sparkColor="#ffffff" sparkCount={8}>
+              <motion.button
+                className="menu-back-btn"
+                onClick={() => handleDelayedAction(handleBackToNav)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                MENU
+              </motion.button>
+            </ClickSpark>
           </div>
         )}
 
@@ -513,28 +581,39 @@ const Menu = () => {
                   className="entry-wrapper"
                   style={{ '--entry-delay': `${index * 0.1}s` } as React.CSSProperties}
                 >
-                  <div
-                    className="be-item"
-                    onClick={() => handleCourseClick(course)}
-                    style={{
-                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      color: 'white',
-                      textShadow: '0 2px 4px rgba(0,0,0,0.5)'
-                    }}
-                  >
-                    <span className="be-icon">{course.icon}</span>
-                    <span className="be-name">{course.name}</span>
-                  </div>
+                  <ClickSpark sparkColor="#ffd700" sparkCount={8} sparkRadius={30}>
+                    <motion.div
+                      className="be-item"
+                      onClick={() => handleDelayedAction(() => handleCourseClick(course))}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{
+                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${course.bg})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        color: 'white',
+                        textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+                      }}
+                    >
+                      <span className="be-icon">{course.icon}</span>
+                      <span className="be-name">{course.name}</span>
+                    </motion.div>
+                  </ClickSpark>
                   {/* Drone Animation Container for Sub-Menu */}
                   <SubMenuDroneAnimation />
                 </div>
               ))}
             </div>
-            <button className="menu-back-btn" onClick={handleBackToNav}>
-              MENU
-            </button>
+            <ClickSpark sparkColor="#ffffff" sparkCount={8}>
+              <motion.button
+                className="menu-back-btn"
+                onClick={() => handleDelayedAction(handleBackToNav)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                MENU
+              </motion.button>
+            </ClickSpark>
           </div>
         )}
 
