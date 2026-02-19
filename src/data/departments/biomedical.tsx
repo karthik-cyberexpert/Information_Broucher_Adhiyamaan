@@ -17,11 +17,11 @@ const biomedical: DepartmentContent = {
     career: {
         description: "Graduates find opportunities in medical device manufacturing, hospitals, and clinical research.",
         roles: [
-            "•	Hospitals & Healthcare Institutions (6-12 LPA)",
-            "•	Medical Device & Equipment Manufacturing	(4-8 LPA)",
-            "•	Pharmaceutical & Biotechnology Companies(6-8 LPA)",
-            "•	Healthcare IT & Software Industry(4-10 LPA)",
-            "•	Sales, Marketing & Training (Medical Devices) (6-10 LPA)"
+            "Hospitals & Healthcare Institutions (6-12 LPA)",
+            "Medical Device & Equipment Manufacturing	(4-8 LPA)",
+            "Pharmaceutical & Biotechnology Companies(6-8 LPA)",
+            "Healthcare IT & Software Industry(4-10 LPA)",
+            "Sales, Marketing & Training (Medical Devices) (6-10 LPA)"
         ]
     },
     infrastructure: {
