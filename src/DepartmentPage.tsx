@@ -53,7 +53,7 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
 
 
   // Static Data for Supervisor/Approval Images
-  const isPhD = department.name.startsWith('Ph.D.');
+  const isPhD = department.name.startsWith('Ph.d.');
 
   const menuItems = isPhD
     ? [
@@ -301,7 +301,7 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
         <button className="dept-back-btn" onClick={onBack}>
           ← Back
         </button>
-        <h1 className="dept-title">{department.name.startsWith('M.E.') || department.name.startsWith('ME ') || department.name.startsWith('Ph.D.') ? department.name : `Department of ${department.name}`}</h1>
+        <h1 className="dept-title">{department.name.startsWith('M.E.') || department.name.startsWith('ME ') || department.name.startsWith('Ph.d.') ? department.name : `Department of ${department.name}`}</h1>
       </div>
 
       <div className="dept-layout">

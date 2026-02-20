@@ -6,6 +6,10 @@ const phdMechanical: DepartmentContent = {
             <p>Department of Mechanical Engineering is recognized as a research center by Anna University, Chennai. Research scholars are pursuing Ph.D and several got awarded. Department of Mechanical Engineering has well equipped laboratory facilities with state-of-the-art facilities for the undergraduate course and post graduate course along with Research and Development in the institute.</p>
         </>
     ),
+    career: {
+        description: "Ph.D. in Mechanical Engineering opens doors to advanced research and leadership roles.",
+        roles: ["Principal Scientist", "Post-Doctoral Fellow", "University Professor", "Research Lead", "Innovation Head"]
+    },
     contact: {
         hod: "Dr.J.Arivudainambi",
         designation: "Professor and Head",

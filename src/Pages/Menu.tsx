@@ -19,7 +19,7 @@ const navItems = [
   { title: 'M.E.', id: 'me', bg: '/images/me.jpg' },
   { title: 'M.B.A.', id: 'mba', bg: '/images/mba.jpg' },
   { title: 'ABOUT', id: 'about', className: 'nav-item-large', bg: '/images/about3.jpeg' },
-  { title: 'Ph.D.', id: 'phd', bg: '/images/phd.jpg' },
+  { title: 'Ph.d.', id: 'phd', bg: '/images/phd.jpg' },
   { title: 'M.C.A.', id: 'mca', bg: '/images/mca.jpg' },
   { title: 'Placement', id: 'placement', bg: '/images/placement.jpg' },
   { title: 'Sports', id: 'sports', bg: '/images/sports.jpg' },
@@ -57,11 +57,11 @@ const meCourses = [
 ];
 
 const phdCourses = [
-  { name: 'Ph.D. Computer Science', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
-  { name: 'Ph.D. ECE', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
-  { name: 'Ph.D. Mechanical Engineering', icon: '⚙️', bg: '/images/me.jpg', video: '/media/mech.mp4' },
-  { name: 'Ph.D. Chemistry', icon: '🧪', bg: '/images/btech/CE_bg.jpg' },
-  { name: 'Ph.D. Physics', icon: '⚛️', bg: '/images/phd%20physics.jpg' },
+  { name: 'Ph.d. Computer Science', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
+  { name: 'Ph.d. ECE', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
+  { name: 'Ph.d. Mechanical Engineering', icon: '⚙️', bg: '/images/me.jpg', video: '/media/mech.mp4' },
+  { name: 'Ph.d. Chemistry', icon: '🧪', bg: '/images/btech/CE_bg.jpg' },
+  { name: 'Ph.d. Physics', icon: '⚛️', bg: '/images/phd%20physics.jpg' },
 ];
 
 const mbaCourses = [
@@ -348,8 +348,7 @@ const Menu = () => {
               ))}
             </div>
             <div style={{
-              display: 'flex',
-              justifyContent: 'center',
+              textAlign: 'center',
               width: '100%',
               marginTop: '40px',
               paddingBottom: '40px',
@@ -363,7 +362,7 @@ const Menu = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   style={{
-                    padding: '1.5rem 6rem',
+                    padding: '1.5rem 4rem',
                     background: 'rgba(255, 255, 255, 0.15)',
                     border: '1px solid rgba(255, 255, 255, 0.3)',
                     borderRadius: '50px',
@@ -372,8 +371,9 @@ const Menu = () => {
                     backdropFilter: 'blur(12px)',
                     fontSize: '1.6rem',
                     fontWeight: 'bold',
-                    display: 'flex',
+                    display: 'inline-flex',
                     alignItems: 'center',
+                    justifyContent: 'center',
                     gap: '12px',
                     boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
                     textTransform: 'uppercase',
@@ -526,7 +526,7 @@ const Menu = () => {
         {/* Ph.D Grid */}
         {isPhDDetails && (
           <div className="be-container">
-            <h2 className="be-title">Ph.D. Programs</h2>
+            <h2 className="be-title">Ph.d. Programs</h2>
             <div className="btech-grid">
               {phdCourses.map((course, index) => (
                 <div

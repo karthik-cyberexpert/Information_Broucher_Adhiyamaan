@@ -54,11 +54,11 @@ export const departmentData: Record<string, DepartmentContent> = {
     'MBA Part Time': mba,
     'MBA Logistics and Supply Chain Management': mba,
     'Computer Applications': mca,
-    'Ph.D. Computer Science': phdComputer,
-    'Ph.D. ECE': phdECE,
-    'Ph.D. Mechanical Engineering': phdMechanical,
-    'Ph.D. Chemistry': phd,
-    'Ph.D. Physics': phdPhysics,
+    'Ph.d. Computer Science': phdComputer,
+    'Ph.d. ECE': phdECE,
+    'Ph.d. Mechanical Engineering': phdMechanical,
+    'Ph.d. Chemistry': phd,
+    'Ph.d. Physics': phdPhysics,
 };
 
 export const getDepartmentContent = (name: string): DepartmentContent => {

@@ -4,9 +4,9 @@ const civil: DepartmentContent = {
     about: (
         <>
             <p>
-               The Department of Civil Engineering was established in the academic year 1993–1994 . The department has demonstrated strong capabilities through ongoing sponsored and curiosity driven research projects, consultancy services, and patented innovations.
-The strength of the department lies in its learning oriented pedagogical practices, delivered by experienced and dedicated faculty members with expertise across diverse domains of Civil Engineering. State of the art laboratory facilities and advanced software tools including GIS, structural engineering, and image processing applications are extensively utilized to enhance students’ professional and technical competencies.
-The department’s core competence is reflected in research programs sponsored by prestigious organizations such as the Department of Science and Technology, Department of Space, Ministry of Human Resource Development, and Ministry of Earth Sciences, Government of India
+                The Department of Civil Engineering was established in the academic year 1993–1994 . The department has demonstrated strong capabilities through ongoing sponsored and curiosity driven research projects, consultancy services, and patented innovations.
+                The strength of the department lies in its learning oriented pedagogical practices, delivered by experienced and dedicated faculty members with expertise across diverse domains of Civil Engineering. State of the art laboratory facilities and advanced software tools including GIS, structural engineering, and image processing applications are extensively utilized to enhance students’ professional and technical competencies.
+                The department’s core competence is reflected in research programs sponsored by prestigious organizations such as the Department of Science and Technology, Department of Space, Ministry of Human Resource Development, and Ministry of Earth Sciences, Government of India
 
             </p>
         </>
@@ -30,37 +30,37 @@ The department’s core competence is reflected in research programs sponsored b
                 title: 'Surveying Practical Session',
                 description: 'Students are learning land surveying techniques using modern instruments for accurate field measurements.',
                 icon: '🏗️',
-                image: '/images/be/civil/DSC_1576.jpg'
+                image: '/images/be/civil/DSC_1576.JPG'
             },
             {
                 title: 'Structural Testing Demonstration',
                 description: 'Faculty guiding students in conducting advanced structural load and material testing experiments in the lab.',
                 icon: '🏗️',
-                image: '/images/be/civil/DSC_1627.jpg'
+                image: '/images/be/civil/DSC_1627.JPG'
             },
             {
                 title: 'Strength of Materials Laboratory',
                 description: 'Well-equipped lab with testing machines to study the mechanical properties and behavior of construction materials.',
                 icon: '🏗️',
-                image: '/images/be/civil/DSC_3167.jpg'
+                image: '/images/be/civil/DSC_3617.JPG'
             },
             {
                 title: 'Environmental Engineering Laboratory',
                 description: 'Laboratory setup with spectrophotometer and equipment for chemical testing and material characterization',
                 icon: '🏗️',
-                image: '/images/be/civil/DSC_3625.jpg'
+                image: '/images/be/civil/DSC_3625.JPG'
             },
             {
                 title: 'Geotechnical Engineering Laboratory',
                 description: 'Facilities for soil testing and foundation analysis to understand the engineering properties of soil.',
                 icon: '🏗️',
-                image: '/images/be/civil/DSC_3628.jpg'
+                image: '/images/be/civil/DSC_3628.JPG'
             }
         ]
     },
     contact: {
-        hod : "Dr.K.Srinivasa", 
-        designation : "Professor and Head",
+        hod: "Dr.K.Srinivasa",
+        designation: "Professor and Head",
         location: "Department of Civil Engineering, Civil Block, Adhiyamaan College of Engineering, Dr.M.G.R Nagar, Hosur-635130, Krishnagiri District, Tamil Nadu, India.",
         email: "hod_civil@adhiyamaan.ac.in",
         phone: "+91 8072125325"
