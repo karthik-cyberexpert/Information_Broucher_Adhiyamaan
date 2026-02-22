@@ -1,0 +1,207 @@
+.dashboard-container {
+  min-height: 100vh;
+  background-color: #f4f7f6;
+  font-family: 'Outfit', sans-serif;
+  color: #2d3436;
+}
+
+.dashboard-nav {
+  background: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.nav-brand span {
+  color: #4834d4;
+}
+
+.logout-btn {
+  padding: 0.6rem 1.2rem;
+  background: transparent;
+  border: 1.5px solid #dcdde1;
+  border-radius: 8px;
+  color: #2d3436;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #f1f2f6;
+  border-color: #2d3436;
+}
+
+.dashboard-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.header-text h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #1e272e;
+}
+
+.header-text p {
+  color: #7f8c8d;
+}
+
+.search-bar {
+  display: flex;
+  gap: 0.5rem;
+  background: #fff;
+  padding: 0.3rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border: 1px solid #e1e8ed;
+}
+
+.search-bar input {
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 8px;
+  width: 300px;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.search-bar button {
+  padding: 0.7rem 1.5rem;
+  background: #4834d4;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.search-bar button:hover {
+  background: #3c2bb4;
+}
+
+.table-wrapper {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  overflow: hidden;
+  border: 1px solid #e1e8ed;
+}
+
+.enquiries-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.enquiries-table th {
+  background: #f8fafc;
+  padding: 1.2rem;
+  font-weight: 600;
+  color: #64748b;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.enquiries-table td {
+  padding: 1.2rem;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.enquiries-table tr:last-child td {
+  border-bottom: none;
+}
+
+.enquiries-table tr:hover td {
+  background: #f8fafc;
+}
+
+.name-cell {
+  font-weight: 600;
+  color: #1e272e;
+}
+
+.actions-col {
+  text-align: center;
+}
+
+.actions-cell {
+  display: flex;
+  justify-content: center;
+}
+
+.delete-btn {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 71, 87, 0.1);
+  color: #ff4757;
+  border: 1px solid rgba(255, 71, 87, 0.2);
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: #ff4757;
+  color: #fff;
+}
+
+.loading-state, .empty-state {
+  padding: 4rem;
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+.dashboard-error {
+  background: #fff1f2;
+  color: #be123c;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #be123c;
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding: 1rem;
+  }
+  
+  .content-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-bar input {
+    width: 100%;
+  }
+  
+  .enquiries-table {
+    display: block;
+    overflow-x: auto;
+  }
+}

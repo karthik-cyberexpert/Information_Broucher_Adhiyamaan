@@ -9,6 +9,8 @@ import About from './Pages/About';
 import Hostel from './Pages/Hostel';
 import BikePage from './Pages/BikePage';
 import ThankYou from './Pages/ThankYou';
+import AdminLogin from './Pages/AdminLogin';
+import AdminDashboard from './Pages/AdminDashboard';
 import ScrollToTop from './components/ScrollToTop';
 import ClickSpark from './components/ClickSpark';
 import InactivityHandler from './components/InactivityHandler';
@@ -39,6 +41,11 @@ function App() {
           <Route path="/hostel" element={<Hostel />} />
           <Route path="/bike-animation" element={<BikePage />} />
           <Route path="/thank-you" element={<ThankYou />} />
+          
+          {/* Admin Routes */}
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>
       </ClickSpark>
     </>

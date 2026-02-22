@@ -53,6 +53,31 @@ pool.on('connection', (connection) => {
   connection.query('USE information_brochure');
 });
 
+// Admin Credentials (stored in server file as requested)
+const ADMIN_CREDENTIALS = {
+  username: 'admin',
+  password: 'ace_admin_2024' // You can change this
+};
+
+// Simple Authentication Middleware
+const authenticateAdmin = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || authHeader !== `Basic ${Buffer.from(`${ADMIN_CREDENTIALS.username}:${ADMIN_CREDENTIALS.password}`).toString('base64')}`) {
+    return res.status(401).json({ success: false, message: 'Unauthorized' });
+  }
+  next();
+};
+
+// POST /api/admin/login - Simple login check
+app.post('/api/admin/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+    res.json({ success: true, message: 'Login successful' });
+  } else {
+    res.status(401).json({ success: false, message: 'Invalid credentials' });
+  }
+});
+
 // POST /api/enquiries - Store a new enquiry
 app.post('/api/enquiries', async (req, res) => {
   try {
@@ -87,12 +112,22 @@ app.post('/api/enquiries', async (req, res) => {
   }
 });
 
-// GET /api/enquiries - Retrieve all enquiries
-app.get('/api/enquiries', async (req, res) => {
+// GET /api/admin/enquiries - Retrieve all enquiries with optional filtering
+app.get('/api/admin/enquiries', authenticateAdmin, async (req, res) => {
   try {
-    const [rows] = await pool.query(
-      'SELECT * FROM enquiries ORDER BY created_at DESC'
-    );
+    const { search } = req.query;
+    let query = 'SELECT * FROM enquiries';
+    let params = [];
+
+    if (search) {
+      query += ' WHERE name LIKE ? OR email LIKE ? OR phone LIKE ?';
+      const searchParam = `%${search}%`;
+      params = [searchParam, searchParam, searchParam];
+    }
+
+    query += ' ORDER BY created_at DESC';
+
+    const [rows] = await pool.query(query, params);
 
     res.json({
       success: true,
@@ -104,6 +139,25 @@ app.get('/api/enquiries', async (req, res) => {
     res.status(500).json({ 
       success: false, 
       message: 'Failed to fetch enquiries' 
+    });
+  }
+});
+
+// DELETE /api/admin/enquiries/:id - Delete an enquiry
+app.delete('/api/admin/enquiries/:id', authenticateAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    await pool.query('DELETE FROM enquiries WHERE id = ?', [id]);
+    
+    res.json({
+      success: true,
+      message: 'Enquiry deleted successfully'
+    });
+  } catch (error) {
+    console.error('❌ Error deleting enquiry:', error.message);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to delete enquiry' 
     });
   }
 });
