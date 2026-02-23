@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const images = [
-  "/images/placement/p1.jpeg",
-  "/images/placement/p2.jpeg",
-  "/images/placement/p3.jpeg",
-  "/images/placement/p4.jpeg",
-  "/images/placement/p5.jpeg",
-  "/images/placement/p6.jpeg",
-  "/images/placement/p7.jpeg",
-  "/images/placement/p8.jpeg"
+  "/images/placement/1_1_.jpeg",
+  "/images/placement/1_2_.jpeg",
+  "/images/placement/1_3_.jpeg",
+  "/images/placement/1_4_.jpeg",
+  "/images/placement/1_5_.jpeg",
+  "/images/placement/1_6_.jpeg",
+  "/images/placement/1_7_.jpeg"
 ];
 
 export default function PlacementSlider() {

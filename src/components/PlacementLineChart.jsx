@@ -2,12 +2,10 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const data = [
-  { year: '2020', value: 82 },
-  { year: '2021', value: 86 },
-  { year: '2022', value: 90 },
-  { year: '2023', value: 94 },
-  { year: '2024', value: 96 },
-  { year: '2025', value: 98 },
+  { year: '2022', value: 80 },
+  { year: '2023', value: 76 },
+  { year: '2024', value: 74 },
+  { year: '2025', value: 84 },
 ];
 
 export default function PlacementLineChart() {
@@ -20,7 +18,7 @@ export default function PlacementLineChart() {
 
   // Scales
   const x = (i) => padding + (i * (width - 2 * padding)) / (data.length - 1);
-  const y = (v) => height - padding - ((v - 80) * (height - 2 * padding)) / 20;
+  const y = (v) => height - padding - ((v - 70) * (height - 2 * padding)) / 30;
 
   // Path Generation
   const linePoints = data.map((d, i) => `${x(i)},${y(d.value)}`).join(' ');
@@ -46,7 +44,7 @@ export default function PlacementLineChart() {
         </defs>
 
         {/* Grid Lines */}
-        {[80, 85, 90, 95, 100].map((v, i) => (
+        {[70, 75, 80, 85, 90, 95, 100].map((v, i) => (
           <line
             key={i}
             x1={padding}

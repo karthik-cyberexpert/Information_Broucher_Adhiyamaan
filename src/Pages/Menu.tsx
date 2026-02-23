@@ -65,9 +65,9 @@ const phdCourses = [
 ];
 
 const mbaCourses = [
-  { name: 'MBA Part Time', icon: '⌛', bg: '/images/mba/mba%20parttime.jpg', video: '/media/mba.mp4' },
-  { name: 'MBA Full Time', icon: '🎓', bg: '/images/mba/mba%20fulltime.jpg', video: '/media/mba.mp4' },
-  { name: 'MBA Logistics and Supply Chain Management', icon: '📦', bg: '/images/mba/mba%20logistic.jpg', video: '/media/mba.mp4' },
+  { name: 'MBA Part Time', icon: '⌛', bg: '/images/mba%20parttime.jpg', video: '/media/mba.mp4' },
+  { name: 'MBA Regular', icon: '🎓', bg: '/images/mbaregular.jpg', video: '/media/mba.mp4' },
+  { name: 'MBA Logistics and Supply Chain Management', icon: '📦', bg: '/images/mbalscm.jpg', video: '/media/mba.mp4' },
 ];
 
 const bArchData = { name: 'Bachelor of Architecture', icon: '🏛️', bg: '/images/civilback.jpg', video: '/media/be arch.mp4' };
@@ -332,9 +332,7 @@ const Menu = () => {
                       style={{
                         width: '100%',
                         height: '100%',
-                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${item.bg})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
+                        background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${item.bg}) center/cover no-repeat`,
                         color: 'white',
                         textShadow: '0 2px 4px rgba(0,0,0,0.8)'
                       }}

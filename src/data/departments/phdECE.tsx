@@ -31,11 +31,6 @@ const phdECE: DepartmentContent = {
     phd: {
         supervisor: (
             <div className="custom-phd-content">
-                <img
-                    src="/images/phd/ece supervisor.jpeg"
-                    alt="ECE PhD Supervisor"
-                    style={{ maxWidth: '100%', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', marginBottom: '20px' }}
-                />
                 <table className="phd-table">
                     <thead>
                         <tr>
@@ -98,7 +93,7 @@ const phdECE: DepartmentContent = {
                 </table>
             </div>
         ),
-        approval: '/images/phd/ece approval.jpg'
+        approval: '/images/phd/ece%20approval.jpg'
     }
 };
 

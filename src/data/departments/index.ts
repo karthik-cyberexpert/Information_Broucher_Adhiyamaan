@@ -18,7 +18,9 @@ import meEnggDesign from './meEnggDesign';
 import mePower from './mePower';
 import meStructural from './meStructural';
 import bArch from './bArch';
-import mba from './mba';
+import mbaRegular from './mbaRegular';
+import mbaPartTime from './mbaPartTime';
+import mbaLSCM from './mbaLSCM';
 import mca from './mca';
 import phd from './phd';
 import phdECE from './phdECE';
@@ -49,10 +51,11 @@ export const departmentData: Record<string, DepartmentContent> = {
     'ME -Power System': mePower,
     'ME -Structural': meStructural,
     'Bachelor of Architecture': bArch,
-    'Master of Business Administration': mba,
-    'MBA Full Time': mba,
-    'MBA Part Time': mba,
-    'MBA Logistics and Supply Chain Management': mba,
+    'Master of Business Administration': mbaRegular,
+    'MBA Full Time': mbaRegular,
+    'MBA Regular': mbaRegular,
+    'MBA Part Time': mbaPartTime,
+    'MBA Logistics and Supply Chain Management': mbaLSCM,
     'Computer Applications': mca,
     'Ph.D. Computer Science': phdComputer,
     'Ph.D. ECE': phdECE,

@@ -11,7 +11,7 @@ const row1Logos = [
   "p1.jpeg", "p2.jpeg", "p3.jpeg", "p4.jpeg", "p5.jpeg",
   "p6.png", "p7.jpeg", "p8.jpeg", "p9.jpeg", "p10.jpeg",
   "p11.jpeg", "p12.jpeg", "p13.jpeg", "p14.jpeg",
-  "p15.jpeg", "p16.jpeg"
+  "p15.jpeg", "p16.jpeg", "panacea.jpeg"
 ];
 
 const row2Logos = [

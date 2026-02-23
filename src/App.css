@@ -1015,19 +1015,17 @@
 /* ==================== B.TECH GRID STYLES ==================== */
 .btech-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  /* 2 Columns by default */
+  grid-template-columns: repeat(3, 1fr);
+  /* 3 Columns to match B.E. */
   gap: 24px;
   width: 100%;
   margin-bottom: 40px;
 }
 
 /* Specific styling for the 5th item (Information Technology) on Desktop */
-.btech-grid>.be-item:nth-child(5) {
-  grid-column: 1 / span 2;
-  /* Span full width of the 2 columns */
-  width: 60%;
-  /* Restricted width as requested */
+.btech-grid>.entry-wrapper:nth-child(5) {
+  grid-column: 2;
+  /* Position in the middle column of row 2 */
   justify-self: center;
   /* Center horizontally */
 }
@@ -1233,7 +1231,7 @@
   }
 
   /* Reset 5th item properties for mobile */
-  .btech-grid>.be-item:nth-child(5) {
+  .btech-grid>.entry-wrapper:nth-child(5) {
     grid-column: auto !important;
     width: 100% !important;
     justify-self: stretch !important;

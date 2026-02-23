@@ -1,50 +1,19 @@
 import { useState, useEffect } from 'react';
-import { Bed, Utensils, MapPin, ChevronRight, LayoutGrid } from 'lucide-react';
+import { Bed, MapPin, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import NavigationDock from '../components/NavigationDock';
+import { hostelData } from '../data/hostelData';
 import './Hostel.css';
 
-// DATA STRUCTURE
-const hostelData = {
-  living: {
-    id: 'living',
-    label: 'Living Spaces',
-    icon: Bed,
-    items: [
-      { id: 'single', name: 'Single Room', desc: 'Private accommodation with dedicated study area.', img: '/images/hostel/h4.jpg' },
-      { id: 'double', name: 'Double Sharing', desc: 'Spacious room for two with separate wardrobes.', img: '/images/hostel/h4.jpg' }, // Using same img if unique not available
-      { id: 'triple', name: 'Triple Sharing', desc: 'Economic choice with ample ventilation.', img: '/images/hostel/h4.jpg' }
-    ]
-  },
-  dining: {
-    id: 'dining',
-    label: 'Dining & Mess',
-    icon: Utensils,
-    items: [
-      { id: 'breakfast', name: 'Breakfast Menu', desc: 'Idli, Dosa, Pongal, Vada with Chutney/Sambar.', img: '/images/hostel/h5.jpg' },
-      { id: 'lunch', name: 'Lunch Spread', desc: 'Rice, Sambar, Rasam, Poriyal, Curd, Pickle.', img: '/images/hostel/h5.jpg' },
-      { id: 'dinner', name: 'Dinner Special', desc: 'Chapati, Kurma, Variety Rice, Milk.', img: '/images/hostel/h5.jpg' }
-    ]
-  },
-  facilities: {
-    id: 'facilities',
-    label: 'Facilities',
-    icon: LayoutGrid,
-    items: [
-      { id: 'wifi', name: 'High Speed Wi-Fi', desc: '24/7 Connectivity across the campus.', img: '/images/hostel/h1.jpg' },
-      { id: 'library', name: 'Study Hall', desc: 'Peaceful environment for academic focus.', img: '/images/hostel/h6.jpg' },
-      { id: 'gym', name: 'Fitness Center', desc: 'Basic gym equipment for daily workouts.', img: '/images/hostel/h6.jpg' } // Placeholder img
-    ]
-  }
-};
+// DATA STRUCTURE removed (moved to ../data/hostelData.ts)
 
 const Hostel = () => {
   const navigate = useNavigate();
 
   // State
-  const [activeCategory, setActiveCategory] = useState<keyof typeof hostelData>('living');
-  const [activeItem, setActiveItem] = useState(hostelData['living'].items[0]);
+  const [activeCategory, setActiveCategory] = useState<keyof typeof hostelData>('boys');
+  const [activeItem, setActiveItem] = useState(hostelData['boys'].items[0]);
 
   // Update active item when category changes
   useEffect(() => {
