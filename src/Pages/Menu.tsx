@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import Lottie from 'lottie-react';
+import Lottie, { type LottieRefCurrentProps } from 'lottie-react';
 import { motion } from 'framer-motion';
 import ClickSpark from '../components/ClickSpark';
 // import TransparentGif from '../components/TransparentGif';
@@ -89,8 +89,7 @@ const allCourses = [
 
 // Helper Component for Drone Animation (2s duration)
 const DroneAnimation = () => {
-  // @ts-ignore
-  const lottieRef = useRef<any>(null);
+  const lottieRef = useRef<LottieRefCurrentProps>(null);
 
   useEffect(() => {
     // Original: ~6.5s (391 frames / 60 fps)
@@ -125,8 +124,7 @@ const DroneAnimation = () => {
 
 // Sub-Menu Drone Animation (Smaller & Adjusted)
 const SubMenuDroneAnimation = () => {
-  // @ts-ignore
-  const lottieRef = useRef<any>(null);
+  const lottieRef = useRef<LottieRefCurrentProps>(null);
 
   useEffect(() => {
     if (lottieRef.current) {
@@ -209,7 +207,7 @@ const Menu = () => {
     course: { name: string, icon: string, bg: string, video?: string }
   ) => {
     // Keep category if it exists, add dept
-    const newParams: any = { dept: course.name };
+    const newParams: Record<string, string> = { dept: course.name };
     if (currentCategory) newParams.category = currentCategory;
     setSearchParams(newParams);
     window.scrollTo(0, 0);

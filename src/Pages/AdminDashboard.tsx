@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AdminDashboard.css';
 
@@ -17,7 +17,7 @@ const AdminDashboard = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const fetchEnquiries = async (searchTerm: string = '') => {
+  const fetchEnquiries = useCallback(async (searchTerm: string = '') => {
     setLoading(true);
     const auth = localStorage.getItem('adminAuth');
     if (!auth) {
@@ -44,16 +44,16 @@ const AdminDashboard = () => {
       } else {
         setError('Failed to fetch enquiries');
       }
-    } catch (err) {
+    } catch {
       setError('Connection error');
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
 
   useEffect(() => {
     fetchEnquiries();
-  }, [navigate]);
+  }, [fetchEnquiries]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -81,7 +81,7 @@ const AdminDashboard = () => {
       } else {
         alert('Failed to delete enquiry');
       }
-    } catch (err) {
+    } catch {
       alert('Error connecting to server');
     }
   };
@@ -106,11 +106,11 @@ const AdminDashboard = () => {
             <h1>Enquiries</h1>
             <p>Manage and view details submitted by visitors</p>
           </div>
-          
+
           <form className="search-bar" onSubmit={handleSearchSubmit}>
-            <input 
-              type="text" 
-              placeholder="Search by name, email or phone..." 
+            <input
+              type="text"
+              placeholder="Search by name, email or phone..."
               value={search}
               onChange={handleSearchChange}
             />
@@ -146,8 +146,8 @@ const AdminDashboard = () => {
                     <td>{enquiry.phone}</td>
                     <td>{new Date(enquiry.created_at).toLocaleString()}</td>
                     <td className="actions-cell">
-                      <button 
-                        className="delete-btn" 
+                      <button
+                        className="delete-btn"
                         onClick={() => handleDelete(enquiry.id)}
                         title="Delete Enquiry"
                       >

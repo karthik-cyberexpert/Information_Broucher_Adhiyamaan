@@ -60,26 +60,26 @@
 .route-card {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     color: #fff;
     font-family: 'Inter', sans-serif;
     font-size: 0.85rem;
-    font-weight: 500;
-    background: rgba(255, 255, 255, 0.3);
-    /* Brighter glass for better visibility */
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.2));
     backdrop-filter: blur(12px);
-    padding: 8px 12px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    /* Sharper border */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    padding: 10px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     width: 175px;
     height: 44px;
-    justify-content: space-between;
-    cursor: default;
+    cursor: pointer;
     margin: 0;
     flex-shrink: 0;
-    /* Removed CSS transition to avoid conflict with Framer Motion */
+    text-align: center;
+    transition: box-shadow 0.3s ease;
 }
 
 /* Center cards overrides: Flexible to fit */
@@ -456,7 +456,10 @@
 .no-scrollbar::-webkit-scrollbar {
     display: none;
 }
+
 .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }

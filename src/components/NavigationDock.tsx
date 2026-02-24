@@ -10,7 +10,7 @@ interface NavigationDockProps {
 const NavigationDock: React.FC<NavigationDockProps> = ({ onBack, onHome, onForward }) => {
   return (
     <div style={{
-      position: 'absolute',
+      position: 'fixed',
       bottom: '20px',
       left: '50%',
       transform: 'translateX(-50%)',
@@ -22,9 +22,9 @@ const NavigationDock: React.FC<NavigationDockProps> = ({ onBack, onHome, onForwa
       borderRadius: '20px',
       border: '1px solid rgba(255, 255, 255, 0.2)',
       boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
-      zIndex: 100
+      zIndex: 1000
     }}>
-      <button 
+      <button
         onClick={onBack}
         style={{
           background: 'none',
@@ -42,7 +42,7 @@ const NavigationDock: React.FC<NavigationDockProps> = ({ onBack, onHome, onForwa
         <ArrowLeft size={24} />
       </button>
 
-      <button 
+      <button
         onClick={onHome}
         style={{
           background: 'none',
@@ -60,7 +60,7 @@ const NavigationDock: React.FC<NavigationDockProps> = ({ onBack, onHome, onForwa
         <Home size={24} />
       </button>
 
-      <button 
+      <button
         onClick={onForward}
         style={{
           background: 'none',

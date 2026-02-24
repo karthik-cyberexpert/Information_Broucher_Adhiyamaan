@@ -1,130 +1,134 @@
 import { useState, useEffect } from 'react';
-import { Bed, MapPin, ChevronRight } from 'lucide-react';
+import { Bed, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import NavigationDock from '../components/NavigationDock';
 import { hostelData } from '../data/hostelData';
 import './Hostel.css';
 
-// DATA STRUCTURE removed (moved to ../data/hostelData.ts)
-
 const Hostel = () => {
   const navigate = useNavigate();
 
-  // State
   const [activeCategory, setActiveCategory] = useState<keyof typeof hostelData>('boys');
-  const [activeItem, setActiveItem] = useState(hostelData['boys'].items[0]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // Update active item when category changes
+  const currentItems = hostelData[activeCategory].items;
+  const activeItem = currentItems[activeIndex];
+
+  // Reset to first item when category changes
   useEffect(() => {
-    setActiveItem(hostelData[activeCategory].items[0]);
+    setActiveIndex(0);
   }, [activeCategory]);
 
-  const currentCategoryData = hostelData[activeCategory];
+  // Auto-cycle images every 4s
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % currentItems.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [activeCategory, currentItems.length]);
 
   return (
-    <div className="hostel-tri-layout">
-      {/* Background Layer */}
-      <div className="hostel-bg-layer">
-        <video autoPlay loop muted playsInline className="tri-video-bg">
+    <div className="hostel-page">
+      {/* Video Background */}
+      <div className="hostel-bg">
+        <video autoPlay loop muted playsInline className="hostel-video">
           <source src="/media/hostel.mp4" type="video/mp4" />
         </video>
-        <div className="tri-overlay" />
+        <div className="hostel-overlay" />
       </div>
 
-      {/* Top Center Header */}
-      <header className="hostel-main-header">
-        <div className="header-glass-pill">
-          <Bed className="brand-icon" size={28} />
+      {/* Header */}
+      <header className="hostel-header">
+        <div className="hostel-header-pill">
+          <Bed size={26} />
           <h1>ACE HOSTEL</h1>
         </div>
       </header>
 
-      {/* Main Content Grid */}
-      <div className="tri-grid-container">
+      {/* Category Tabs */}
+      <div className="hostel-tabs">
+        {Object.values(hostelData).map((cat) => (
+          <button
+            key={cat.id}
+            className={`hostel-tab ${activeCategory === cat.id ? 'active' : ''}`}
+            onClick={() => setActiveCategory(cat.id as keyof typeof hostelData)}
+          >
+            <cat.icon size={18} />
+            <span>{cat.label}</span>
+            {activeCategory === cat.id && (
+              <motion.div layoutId="tab-indicator" className="tab-indicator" />
+            )}
+          </button>
+        ))}
+      </div>
 
-        {/* 1. LEFT PANEL: CATEGORIES */}
-        <div className="panel-left">
-          {/* Header moved out */}
+      {/* Hero Showcase */}
+      <div className="hostel-showcase">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeItem.id}
+            className="showcase-image-wrapper"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          >
+            <img src={activeItem.img} alt={activeItem.name} className="showcase-image" />
 
-          <nav className="category-nav">
-            {Object.values(hostelData).map((cat) => (
-              <button
-                key={cat.id}
-                className={`cat-btn ${activeCategory === cat.id ? 'active' : ''}`}
-                onClick={() => setActiveCategory(cat.id as keyof typeof hostelData)}
+            {/* Gradient overlay with text */}
+            <div className="showcase-info">
+              <motion.h2
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
               >
-                <cat.icon size={20} />
-                <span>{cat.label}</span>
-                {activeCategory === cat.id && <ChevronRight className="arrow-indicator" size={16} />}
-              </button>
-            ))}
-          </nav>
+                {activeItem.name}
+              </motion.h2>
+              <motion.p
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.35, duration: 0.5 }}
+              >
+                {activeItem.desc}
+              </motion.p>
+            </div>
 
-          <div className="location-badge">
-            <MapPin size={16} />
-            <span>Adhiyamaan Campus</span>
-          </div>
-        </div>
-
-        {/* 2. CENTER PANEL: ITEMS LIST */}
-        <div className="panel-center">
-          <div className="center-header">
-            <h3>{currentCategoryData.label}</h3>
-            <p>Select an option to view details</p>
-          </div>
-
-          <div className="items-list">
-            <AnimatePresence mode='popLayout'>
-              {currentCategoryData.items.map((item) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className={`item-card ${activeItem.id === item.id ? 'active' : ''}`}
-                  onClick={() => setActiveItem(item)}
-                >
-                  <div className="item-card-content">
-                    <h4>{item.name}</h4>
-                    <p>{item.desc}</p>
-                  </div>
-                  {activeItem.id === item.id && (
-                    <motion.div layoutId="card-highlight" className="card-highlight-border" />
-                  )}
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {/* 3. RIGHT PANEL: PREVIEW */}
-        <div className="panel-right">
-          <AnimatePresence mode="wait">
+            {/* Progress bar */}
             <motion.div
-              key={activeItem.id}
-              className="preview-container"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              <img src={activeItem.img} alt={activeItem.name} className="preview-image" />
+              className="showcase-progress"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 4, ease: 'linear' }}
+              key={`progress-${activeItem.id}`}
+            />
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
-              <div className="preview-overlay-info">
-                <motion.h2
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  {activeItem.name}
-                </motion.h2>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
+      {/* Thumbnail Strip */}
+      <div className="hostel-thumbnails">
+        {currentItems.map((item, idx) => (
+          <motion.button
+            key={item.id}
+            className={`thumb-btn ${idx === activeIndex ? 'active' : ''}`}
+            onClick={() => setActiveIndex(idx)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <img src={item.img} alt={item.name} />
+            <span className="thumb-label">{item.name}</span>
+            {idx === activeIndex && (
+              <motion.div layoutId="thumb-ring" className="thumb-ring" />
+            )}
+          </motion.button>
+        ))}
+      </div>
 
+      {/* Location Footer */}
+      <div className="hostel-location">
+        <MapPin size={14} />
+        <span>Adhiyamaan Campus, Hosur</span>
       </div>
 
       <NavigationDock

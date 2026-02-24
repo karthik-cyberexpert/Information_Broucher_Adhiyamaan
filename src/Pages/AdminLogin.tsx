@@ -30,7 +30,7 @@ const AdminLogin = () => {
       } else {
         setError(data.message || 'Invalid username or password');
       }
-    } catch (err) {
+    } catch {
       setError('Connection failed. Please check if the server is running.');
     } finally {
       setIsLoading(false);
@@ -42,9 +42,9 @@ const AdminLogin = () => {
       <div className="login-glass-card">
         <h1 className="login-title">Admin Login</h1>
         <p className="login-subtitle">Information Brochure System</p>
-        
+
         {error && <div className="login-error">{error}</div>}
-        
+
         <form onSubmit={handleLogin} className="login-form">
           <div className="form-group">
             <label htmlFor="username">Username</label>
@@ -57,7 +57,7 @@ const AdminLogin = () => {
               placeholder="Enter your username"
             />
           </div>
-          
+
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
@@ -69,7 +69,7 @@ const AdminLogin = () => {
               placeholder="Enter your password"
             />
           </div>
-          
+
           <button type="submit" className="login-btn" disabled={isLoading}>
             {isLoading ? 'Authenticating...' : 'Login to Dashboard'}
           </button>

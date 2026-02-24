@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import './DepartmentPage.css';
 import { getDepartmentContent } from './data/departments';
 
@@ -14,7 +14,6 @@ interface DepartmentPageProps {
 
 const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) => {
   const [activeTab, setActiveTab] = useState('About');
-  const [fallingIcons, setFallingIcons] = useState<Array<{ id: number, icon: string, style: React.CSSProperties }>>([]);
 
   // ... (keep getDeptIcons and useEffect exactly as is - no change needed there)
 
@@ -35,20 +34,26 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
     return ['🎓', '📚', '🏫', '📝', '✨', '🌟']; // Default
   };
 
-  useEffect(() => {
+  const fallingIcons = useMemo(() => {
     const icons = getDeptIcons(department.name);
-    const newIcons = Array.from({ length: 20 }).map((_, i) => ({
+    // Simple seed-based pseudo-random generator to satisfy react-hooks/purity
+    let seed = department.name.length;
+    const rng = () => {
+      seed = (seed * 16807) % 2147483647;
+      return (seed - 1) / 2147483646;
+    };
+
+    return Array.from({ length: 20 }).map((_, i) => ({
       id: i,
       icon: icons[i % icons.length],
       style: {
-        left: `${Math.random() * 100}%`,
-        animationDelay: `${Math.random() * 0.5}s`, // Start quickly
-        animationDuration: `${2 + Math.random() * 2}s`, // 2-4s throw
-        fontSize: `${3 + Math.random() * 2}rem`, // Bigger icons (3-5rem)
+        left: `${rng() * 100}%`,
+        animationDelay: `${rng() * 0.5}s`,
+        animationDuration: `${2 + rng() * 2}s`,
+        fontSize: `${3 + rng() * 2}rem`,
         zIndex: 20
       } as React.CSSProperties
     }));
-    setFallingIcons(newIcons);
   }, [department.name]);
 
 
@@ -82,7 +87,7 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
             {content.about}
           </>
         );
-      case 'Infrastructure':
+      case 'Infrastructure': {
         const infraItems = content.infrastructure?.items || [];
         return (
           <>
@@ -126,6 +131,7 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
             )}
           </>
         );
+      }
       case 'Career':
         return (
           <>
@@ -160,7 +166,7 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
             )}
           </>
         );
-      case 'Contact':
+      case 'Contact': {
         const contact = content.contact;
         return (
           <>
@@ -180,6 +186,7 @@ const DepartmentPage: React.FC<DepartmentPageProps> = ({ department, onBack }) =
             </div>
           </>
         );
+      }
       case 'Supervisor':
         return (
           <>

@@ -59,7 +59,8 @@
 .top-section {
     display: flex;
     gap: 3%;
-    width: 97%
+    width: 97%;
+    align-items: stretch;
 }
 
 /* CARD */
@@ -79,6 +80,9 @@
     text-align: center;
     color: #fff;
     overflow: hidden;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
 }
 
 .top-box:nth-child(2) {
@@ -92,9 +96,8 @@
    IMAGE
    ===================== */
 .mosaic-wrapper {
-    height: 300px;
-    width: 600px;
-    margin-left: 60px;
+    width: 100%;
+    flex: 1;
     overflow: hidden;
     border-radius: 8px;
 }

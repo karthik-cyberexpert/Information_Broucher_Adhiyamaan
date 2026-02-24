@@ -195,3 +195,30 @@ body::-webkit-scrollbar {
         height: 300px;
     }
 }
+
+/* SECTION WRAPPER */
+.game-section-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* INDEPENDENT LEAD BALLS */
+.lead-ball {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    border: 3px solid #fff;
+    z-index: 10;
+}
+
+.lead-ball.blue {
+    background: radial-gradient(circle at 30% 30%, #38bdf8, #0369a1);
+}
+
+.lead-ball.orange {
+    background: radial-gradient(circle at 30% 30%, #fbbf24, #d97706);
+}

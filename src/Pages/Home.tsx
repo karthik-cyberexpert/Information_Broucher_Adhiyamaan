@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Lottie from 'lottie-react';
-// @ts-ignore
-import TransparentGif from '../components/TransparentGif';
-// @ts-ignore - JSON import for Lottie
 import welcomeAnimation from '../assets/Welcome Animation.json';
 
 // We'll duplicate this CSS import or ensure App.css is global

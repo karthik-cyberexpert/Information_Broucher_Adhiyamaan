@@ -77,31 +77,15 @@ const RouteList = ({ routes, section, globalProgress }: { routes: string[], sect
                             ease: "linear"
                         }}
                         whileHover={{
-                            scale: 1.05,
-                            borderColor: 'rgba(255, 255, 255, 0.8)',
-                            background: 'rgba(255, 255, 255, 0.45)'
+                            scale: 1.08,
+                            borderColor: 'rgba(255, 255, 255, 0.9)',
+                            background: 'rgba(59, 130, 246, 0.4)',
+                            boxShadow: '0 4px 20px rgba(59, 130, 246, 0.3)'
                         }}
+                        whileTap={{ scale: 0.95 }}
+                        style={{ cursor: 'pointer' }}
                     >
-                        {section === 'left' && (
-                            <>
-                                <span className="route-text" style={{ textAlign: 'right' }}>{route}</span>
-                                <div className="route-dot" />
-                            </>
-                        )}
-
-                        {section === 'center' && (
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
-                                <div className="route-dot" style={{ background: '#10b981', boxShadow: '0 0 8px #10b981' }} />
-                                <span className="route-text" style={{ textAlign: 'center', fontSize: '0.8rem' }}>{route}</span>
-                            </div>
-                        )}
-
-                        {section === 'right' && (
-                            <>
-                                <div className="route-dot" />
-                                <span className="route-text" style={{ textAlign: 'left' }}>{route}</span>
-                            </>
-                        )}
+                        <span className="route-text" style={{ textAlign: 'center', width: '100%' }}>{route}</span>
                     </motion.div>
                 );
             })}
