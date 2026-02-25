@@ -260,6 +260,13 @@
   margin-top: 20px;
 }
 
+@media (max-width: 768px) {
+  .stats-3d-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
 .stat-card-3d {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
@@ -297,6 +304,18 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   margin-top: 30px;
+}
+
+@media (max-width: 1024px) {
+  .overview-interactive-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .overview-interactive-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .feature-card-glass {
@@ -514,6 +533,12 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
+}
+
+@media (max-width: 640px) {
+  .criteria-3d-list {
+    grid-template-columns: 1fr;
+  }
 }
 
 .criteria-item-glass {

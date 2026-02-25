@@ -736,6 +736,43 @@
   }
 }
 
+/* Menu Contact Info Responsiveness */
+.menu-contact-info {
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  z-index: 100;
+}
+
+@media (max-width: 768px) {
+  .menu-contact-info {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .menu-contact-info div {
+    padding: 0.6rem 1.2rem !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-contact-info {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .menu-contact-info div {
+    width: 90%;
+    justify-content: center;
+  }
+}
+
 /* ==================== B.E COURSES STYLES ==================== */
 
 .be-container {
@@ -766,6 +803,24 @@
   gap: 24px;
   width: 100%;
   margin-bottom: 40px;
+}
+
+@media (max-width: 1024px) {
+  .be-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .be-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .be-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
 }
 
 .be-item {

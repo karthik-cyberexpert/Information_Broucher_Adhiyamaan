@@ -31,14 +31,15 @@
    HEADING
    ===================== */
 .heading {
-    font-size: 60px;
+    font-size: clamp(2rem, 10vw, 3.5rem);
     font-weight: 700;
     text-align: center;
     color: #eff1f4;
-    margin: 0 auto 20px;
+    margin: 50px auto 20px;
     opacity: 0;
     transform: translateY(20px);
     animation: textReveal 0.8s ease-out forwards;
+    line-height: 1.1;
 }
 
 .heading::after {
@@ -234,19 +235,36 @@
 @media (max-width: 768px) {
     .top-section {
         flex-direction: column;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .top-box {
+        width: 100%;
+        min-height: 300px;
     }
 
     .mosaic-wrapper {
-        height: 220px;
+        height: 200px;
         width: 100%;
         margin-left: 0;
+    }
+
+    .heading {
+        margin-top: 30px;
     }
 
     /* Mobile scroll fix */
     .placement-page {
         height: auto !important;
         min-height: 100vh;
-        overflow: visible !important;
-        padding-bottom: 100px;
+        overflow-y: auto !important;
+        padding: 40px 15px 100px;
+    }
+
+    .logo-box {
+        width: 120px;
+        height: 50px;
+        padding: 8px;
     }
 }

@@ -36,10 +36,11 @@ body::-webkit-scrollbar {
 /* TITLE */
 .sports-title {
     text-align: center;
-    font-size: 36px;
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
     color: #ffffff;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     text-shadow: 0 0 15px rgba(56, 189, 248, 0.8);
+    font-weight: 800;
 }
 
 /* LAYOUT */
@@ -171,28 +172,34 @@ body::-webkit-scrollbar {
 
 /* ==================== MOBILE RESPONSIVE ==================== */
 @media (max-width: 900px) {
-    body {
-        overflow: auto !important;
-    }
-
     .sports-page {
-        height: auto !important;
+        height: auto;
         min-height: 100vh;
-        overflow: visible !important;
-        padding: 20px;
+        overflow-y: auto;
+        padding: 80px 20px 40px;
     }
 
     .sports-layout {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        grid-template-columns: 1fr;
         height: auto;
+        gap: 20px;
     }
 
     .glass-box {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        padding: 25px;
     }
 
     .gallery-box {
-        height: 300px;
+        height: 250px;
+        order: -1;
+        /* Show gallery at the top or between sections? Let's stick to natural flow for now but maybe gallery between? No, layout currently is L - Gall - R. */
+    }
+
+    .sports-title {
+        margin-top: 20px;
     }
 }
 

@@ -46,7 +46,7 @@ const meCommSystem: DepartmentContent = {
     contact: {
         hod: "Dr.S.Sumathi",
         designation: "Professor and Head",
-        location: "M.E.-Communication System Engineering, Adhiyamaan College of Engineering, Dr. M.G.R Nagar, Hosur – 635130, Krishnagiri District, Tamil Nadu, India",
+        location: "M.E. - Communication Systems, Adhiyamaan College of Engineering, Dr. M.G.R Nagar, Hosur – 635130, Krishnagiri District, Tamil Nadu, India",
         email: "hod_ece@adhiyamaan.ac.in",
         phone: " 9487819151"
     }

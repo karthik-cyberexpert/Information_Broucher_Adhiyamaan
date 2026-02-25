@@ -1,6 +1,6 @@
 import React from 'react';
 import { Bus, MapPin } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import NavigationDock from '../components/NavigationDock';
 import './Transport.css';
@@ -27,11 +27,58 @@ const transportImages = [
     "/images/transport/t3.jpg"
 ];
 
+// Route Details Data
+const routeDetails: Record<string, { time: string, driver: string, phone: string, stops: string[], image?: string }> = {
+    // Left Section
+    "Ayyur": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Ayyur", "Intermediate Point", "ACE"], image: "/images/transport/ayyur.jpg" },
+    "Haleseebam": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Haleseebam", "Intermediate Point", "ACE"], image: "/images/transport/haleesibam.jpg" },
+    "Kagadasam": { time: "7:10 AM", driver: "TBD", phone: "9442855079", stops: ["Kagadasam", "Intermediate Point", "ACE"], image: "/images/transport/kadagasam.jpg" },
+    "Local Staff Bus": { time: "8:15 AM", driver: "TBD", phone: "9442855079", stops: ["Main Gate", "Admin", "ACE"], image: "/images/transport/local staff bus.jpg" },
+    "Kaknoor": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Kaknoor", "Intermediate Point", "ACE"], image: "/images/transport/kakanoor.jpg" },
+    "Jawalagiri": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Jawalagiri", "Intermediate Point", "ACE"], image: "/images/transport/jawalagiri.jpg" },
+    "Mathur": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Mathur", "Intermediate Point", "ACE"], image: "/images/transport/mathur.jpg" },
+    "Seekanapalli": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Seekanapalli", "Intermediate Point", "ACE"], image: "/images/transport/seekanapalli.jpg" },
+
+    // Center Section
+    "Alsanatham": { time: "7:00 AM", driver: "TBD", phone: "9442855079", stops: ["Alsanatham", "Intermediate Point", "ACE"], image: "/images/transport/alsanatham.jpg" },
+    "Mathigiri": { time: "7:30 AM", driver: "TBD", phone: "9442855079", stops: ["Mathigiri", "Intermediate Point", "ACE"], image: "/images/transport/mathigiri.jpg" },
+    "Athipalli": { time: "6:50 AM", driver: "TBD", phone: "9442855079", stops: ["Athipalli", "Intermediate Point", "ACE"], image: "/images/transport/athipalli.jpg" },
+    "Kariyamangalam": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Kariyamangalam", "Intermediate Point", "ACE"], image: "/images/transport/kariyamangalam.jpg" },
+    "Bargur": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Bargur", "Intermediate Point", "ACE"], image: "/images/transport/Bargur.jpg" },
+    "Tirupathur": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Tirupathur", "Intermediate Point", "ACE"], image: "/images/transport/thirupathur.jpg" },
+    "Anchetty": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Anchetty", "Intermediate Point", "ACE"], image: "/images/transport/anchetty.jpg" },
+    "Hosur": { time: "8:00 AM", driver: "TBD", phone: "9442855079", stops: ["Bus Stand", "Raman Nagar", "ACE"], image: "/images/transport/15.jpg" },
+    "Thally": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Thally", "Intermediate Point", "ACE"], image: "/images/transport/17.jpg" },
+
+    // Right Section
+    "Poonapalli": { time: "7:40 AM", driver: "TBD", phone: "9442855079", stops: ["Poonapalli", "Intermediate Point", "ACE"], image: "/images/transport/poonapalli.jpg" },
+    "Rayakottai": { time: "6:45 AM", driver: "TBD", phone: "9442855079", stops: ["Rayakottai", "Intermediate Point", "ACE"], image: "/images/transport/rayakottai.jpg" },
+    "Mudampatti": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Mudampatti", "Intermediate Point", "ACE"], image: "/images/transport/mudampatti.jpg" },
+    "Kelamangalam & Gowthalam": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Kelamangalam", "Gowthalam", "ACE"], image: "/images/transport/kelamangalam.jpg" },
+    "Berigai": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Berigai", "Intermediate Point", "ACE"], image: "/images/transport/bergai.jpg" },
+    "Krishnagiri": { time: "6:30 AM", driver: "TBD", phone: "9442855079", stops: ["Krishnagiri", "Intermediate Point", "ACE"], image: "/images/transport/krishnagiri.jpg" },
+    "Basthi": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Basthi", "Intermediate Point", "ACE"], image: "/images/transport/basthi.jpg" },
+    "Ashok Leyland": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Ashok Leyland", "Intermediate Point", "ACE"], image: "/images/transport/ashoke leyland.jpg" },
+};
+
+// Default detail for routes not specifically defined
+const getDefaultDetail = (name: string): { time: string, driver: string, phone: string, stops: string[], image?: string } => ({
+    time: "7:15 AM",
+    driver: "TBD",
+    phone: "9442855079",
+    stops: [name, "Intermediate Point", "ACE"]
+});
+
 // Animation Constants
 const ANIMATION_DURATION = 20;
 
 // Sub-component defined outside to prevent re-mounting glitches during animation
-const RouteList = ({ routes, section, globalProgress }: { routes: string[], section: 'left' | 'center' | 'right', globalProgress: number }) => {
+const RouteList = ({ routes, section, globalProgress, onRouteClick }: {
+    routes: string[],
+    section: 'left' | 'center' | 'right',
+    globalProgress: number,
+    onRouteClick: (route: string) => void
+}) => {
     return (
         <div style={{
             display: 'flex',
@@ -65,7 +112,7 @@ const RouteList = ({ routes, section, globalProgress }: { routes: string[], sect
                 return (
                     <motion.div
                         key={route}
-                        className={`route-card ${section}`}
+                        className={`route-card ${section} ${globalProgress >= 1 ? 'clickable' : ''}`}
                         initial={{ opacity: 0 }}
                         animate={{
                             opacity: isVisible ? 1 : 0,
@@ -76,14 +123,15 @@ const RouteList = ({ routes, section, globalProgress }: { routes: string[], sect
                             delay: 0.2,
                             ease: "linear"
                         }}
-                        whileHover={{
+                        whileHover={globalProgress >= 1 ? {
                             scale: 1.08,
                             borderColor: 'rgba(255, 255, 255, 0.9)',
                             background: 'rgba(59, 130, 246, 0.4)',
                             boxShadow: '0 4px 20px rgba(59, 130, 246, 0.3)'
-                        }}
-                        whileTap={{ scale: 0.95 }}
-                        style={{ cursor: 'pointer' }}
+                        } : {}}
+                        whileTap={globalProgress >= 1 ? { scale: 0.95 } : {}}
+                        style={{ cursor: globalProgress >= 1 ? 'pointer' : 'default' }}
+                        onClick={() => globalProgress >= 1 && onRouteClick(route)}
                     >
                         <span className="route-text" style={{ textAlign: 'center', width: '100%' }}>{route}</span>
                     </motion.div>
@@ -96,56 +144,44 @@ const RouteList = ({ routes, section, globalProgress }: { routes: string[], sect
 const Transport = () => {
     const navigate = useNavigate();
     const [currentImage, setCurrentImage] = React.useState(0);
+    const [selectedRoute, setSelectedRoute] = React.useState<string | null>(null);
 
     React.useEffect(() => {
         const timer = setInterval(() => {
             setCurrentImage((prev) => (prev + 1) % transportImages.length);
-        }, 3000); // Back to a slightly slower interval without the flip
+        }, 3000);
         return () => clearInterval(timer);
     }, []);
 
-
-    // Helper to get bus position based on progress (0 -> 1)
-    // Path: Top-Left -> Bottom-Left -> Bottom-Right -> Top-Right
-    // Segments: 
-    // 1. Vertical Down (0 - 0.33)
-    // 2. Horizontal Right (0.33 - 0.66)
-    // 3. Vertical Up (0.66 - 1.0)
     const getBusState = (progress: number) => {
-        // Coordinates in % (relative to container)
-        const LEFT_X = 7.5; // Exactly Center of Left Col (15% / 2)
-        const RIGHT_X = 92.5; // Exactly Center of Right Col (100 - 15% / 2)
-        const TOP_Y = 14;    // Matches center of side cards
-        const BOTTOM_Y = 88; // Aligns with the standardized 18px padding
+        const LEFT_X = 7.5;
+        const RIGHT_X = 92.5;
+        const TOP_Y = 14;
+        const BOTTOM_Y = 88;
 
         let x = 0;
         let y = 0;
         let rotation = 0;
 
         if (progress < 0.33) {
-            // Segment 1: Moving Down
-            const localP = progress / 0.33; // 0 to 1
+            const localP = progress / 0.33;
             x = LEFT_X;
             y = TOP_Y + (localP * (BOTTOM_Y - TOP_Y));
-            rotation = 180; // Facing Down
+            rotation = 180;
         } else if (progress < 0.66) {
-            // Segment 2: Moving Right
-            const localP = (progress - 0.33) / 0.33; // 0 to 1
+            const localP = (progress - 0.33) / 0.33;
             x = LEFT_X + (localP * (RIGHT_X - LEFT_X));
             y = BOTTOM_Y;
             rotation = 90;
         } else {
-            // Segment 3: Moving Up
-            const localP = (progress - 0.66) / 0.34; // 0 to 1
+            const localP = (progress - 0.66) / 0.34;
             x = RIGHT_X;
             y = BOTTOM_Y - (localP * (BOTTOM_Y - TOP_Y));
-            rotation = 0; // Facing Up
+            rotation = 0;
         }
         return { x, y, rotation };
     };
 
-
-    // Global Animation Loop
     const [progress, setProgress] = React.useState(0);
 
     React.useEffect(() => {
@@ -165,7 +201,6 @@ const Transport = () => {
         return () => cancelAnimationFrame(animationFrame);
     }, []);
 
-    // State for Mobile View
     const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 768);
 
     React.useEffect(() => {
@@ -175,6 +210,8 @@ const Transport = () => {
     }, []);
 
     const busState = getBusState(progress);
+
+    const details = selectedRoute ? (routeDetails[selectedRoute] || getDefaultDetail(selectedRoute)) : null;
 
     return (
         <div className={`transport-page ${isMobile ? 'no-scrollbar' : ''}`} style={isMobile ? { overflowY: 'scroll', height: 'auto', minHeight: '100vh' } : {}}>
@@ -198,9 +235,9 @@ const Transport = () => {
                         position: 'absolute',
                         left: `${busState.x}%`,
                         top: `${busState.y}%`,
-                        width: '60px', /* Adjusted size for the PNG bus */
+                        width: '60px',
                         height: 'auto',
-                        zIndex: 100, /* Above route cards */
+                        zIndex: 100,
                         transform: `translate(-50%, -50%) rotate(${busState.rotation}deg)`,
                         filter: 'drop-shadow(0 0 10px rgba(0,0,0,0.5))',
                         pointerEvents: 'none',
@@ -208,13 +245,12 @@ const Transport = () => {
                 />
             )}
 
-            {/* Dark Overlay matching Home page */}
+            {/* Dark Overlay */}
             <div className="transport-overlay" style={isMobile ? { position: 'fixed' } : {}}></div>
 
-            {/* Desktop Layout (Hidden on Mobile) */}
+            {/* Desktop Layout */}
             {!isMobile && (
                 <div className="transport-grid desktop-only">
-                    {/* Top Edge - Header */}
                     <div className="edge-top">
                         <h1 className="transport-title">
                             <Bus size={40} color="#3b82f6" style={{ filter: 'drop-shadow(0 0 10px #3b82f6)' }} />
@@ -222,56 +258,100 @@ const Transport = () => {
                         </h1>
                     </div>
 
-                    {/* Left Edge - Route List 1 */}
                     <div className="edge-left">
-                        <RouteList routes={routesLeft} section="left" globalProgress={progress} />
+                        <RouteList routes={routesLeft} section="left" globalProgress={progress} onRouteClick={setSelectedRoute} />
                     </div>
 
-                    {/* Center Content - Split into Top (Visual) and Bottom (Routes) */}
                     <div className="center-stage">
-                        {/* Top: Image Visual */}
                         <div className="center-visual-top">
-                            <motion.div
-                                className="center-visual-container"
-                                initial={{ scale: 0.5, opacity: 0 }}
-                                animate={{
-                                    scale: 1,
-                                    opacity: 1
-                                }}
-                                transition={{ duration: 1.2, ease: "easeOut" }}
-                            >
-                                <div className="glass-disc" style={{
-                                    padding: 0,
-                                    overflow: 'hidden'
-                                }}>
-                                    <img
-                                        src={transportImages[currentImage]}
-                                        alt="Transport"
-                                        style={{
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'cover',
-                                            borderRadius: '20px'
-                                        }}
-                                    />
+                            <AnimatePresence mode="wait">
+                                {!selectedRoute ? (
+                                    <motion.div
+                                        key="visual-slider"
+                                        className="center-visual-container"
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                        transition={{ duration: 0.5 }}
+                                    >
+                                        <div className="glass-disc">
+                                            <img src={transportImages[currentImage]} alt="Transport" className="center-image" />
+                                        </div>
+                                    </motion.div>
+                                ) : (
+                                    <motion.div
+                                        key="route-details"
+                                        className="center-details-container"
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: -20 }}
+                                        transition={{ duration: 0.5 }}
+                                    >
+                                        <div className="details-glass-card">
+                                            {details?.image ? (
+                                                <div
+                                                    className="full-route-image-container"
+                                                    onClick={() => setSelectedRoute(null)}
+                                                    style={{ cursor: 'pointer' }}
+                                                >
+                                                    <img src={details.image} alt={selectedRoute} className="full-route-image" />
+                                                    <div className="image-exit-hint">Click image to go back</div>
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    <div className="details-header">
+                                                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                                            <Bus size={32} color="#3b82f6" />
+                                                            <h2>{selectedRoute}</h2>
+                                                        </div>
+                                                        <button className="back-to-images" onClick={() => setSelectedRoute(null)}>Back</button>
+                                                    </div>
 
+                                                    <div className="details-grid">
+                                                        <div className="detail-box">
+                                                            <span className="detail-label">Departure</span>
+                                                            <span className="detail-value">{details?.time}</span>
+                                                        </div>
+                                                        <div className="detail-box">
+                                                            <span className="detail-label">Driver</span>
+                                                            <span className="detail-value">{details?.driver}</span>
+                                                        </div>
+                                                        <div className="detail-box">
+                                                            <span className="detail-label">Contact</span>
+                                                            <span className="detail-value">{details?.phone}</span>
+                                                        </div>
+                                                    </div>
 
-                                </div>
-                            </motion.div>
+                                                    <div className="details-content-row">
+                                                        <div className="details-stops">
+                                                            <span className="detail-label">Route Map</span>
+                                                            <div className="stops-timeline">
+                                                                {details?.stops.map((stop, idx) => (
+                                                                    <div key={idx} className="timeline-item">
+                                                                        <div className="timeline-dot"></div>
+                                                                        <span className="timeline-text">{stop}</span>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            )}
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
 
-                        {/* Bottom: Routes Center */}
                         <div className="edge-center-bottom">
-                            <RouteList routes={routesCenter} section="center" globalProgress={progress} />
+                            <RouteList routes={routesCenter} section="center" globalProgress={progress} onRouteClick={setSelectedRoute} />
                         </div>
                     </div>
 
-                    {/* Right Edge - Route List 2 */}
                     <div className="edge-right">
-                        <RouteList routes={routesRight} section="right" globalProgress={progress} />
+                        <RouteList routes={routesRight} section="right" globalProgress={progress} onRouteClick={setSelectedRoute} />
                     </div>
 
-                    {/* Bottom Edge - Footer */}
                     <div className="edge-bottom">
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                             <MapPin size={18} />
@@ -284,171 +364,164 @@ const Transport = () => {
                 </div>
             )}
 
+            {/* Mobile Layout */}
             {isMobile && (
                 <div className="transport-mobile-layout">
-                    {/* 1. Header & Image Card */}
-                    <div style={{ padding: '20px', textAlign: 'center', zIndex: 10 }}>
-                        <h1 className="transport-title-mobile">
+                    <div style={{ padding: '80px 20px 20px', textAlign: 'center', zIndex: 10 }}>
+                        <h1 className="transport-title-mobile" style={{ color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', fontSize: '1.8rem' }}>
                             <Bus size={32} color="#3b82f6" /> ACE Transport
                         </h1>
-                        <div className="mobile-image-card" style={{
-                            marginTop: '20px',
-                            borderRadius: '20px',
-                            overflow: 'hidden',
-                            height: '250px',
-                            boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
-                            position: 'relative'
-                        }}>
-                            <img
-                                src={transportImages[currentImage]}
-                                alt="Transport Mobile"
-                                style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    objectFit: 'cover'
-                                }}
-                            />
 
-                        </div>
-                    </div>
+                        <AnimatePresence mode="wait">
+                            {!selectedRoute ? (
+                                <motion.div
+                                    key="mobile-nav"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -20 }}
+                                >
+                                    <div className="mobile-image-card" style={{ marginTop: '20px', borderRadius: '20px', overflow: 'hidden', height: '200px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', position: 'relative' }}>
+                                        <img src={transportImages[currentImage]} alt="Transport Mobile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    </div>
 
-                    {/* 2. Two Columns for Routes */}
-                    <div className="mobile-routes-container" style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        padding: '10px',
-                        // height: 'calc(100vh - 350px)', // Removed fixed height to allow scroll
-                        gap: '10px'
-                    }}>
-                        {/* Left Column: Top -> Bottom Bus */}
-                        <div className="mobile-col-left" style={{ flex: 1, position: 'relative', borderRight: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden' }}>
-                            {/* Animated Bus: Top -> Bottom */}
-                            <motion.img
-                                src="/bus.png"
-                                style={{
-                                    position: 'absolute',
-                                    left: '50%',
-                                    x: '-50%',
-                                    zIndex: 0,
-                                    width: '40px',
-                                    opacity: 0.6,
-                                    transform: 'rotate(180deg)',
-                                    filter: 'drop-shadow(0 0 5px rgba(59, 130, 246, 0.5))'
-                                }}
-                                animate={{ top: ['-10%', '110%'] }}
-                                transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-                            />
+                                    <div className="mobile-routes-container" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '10px', gap: '10px', marginTop: '20px' }}>
+                                        <div className="mobile-col-left" style={{ flex: 1, position: 'relative', borderRight: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden' }}>
+                                            <motion.img
+                                                src="/bus.png"
+                                                style={{ position: 'absolute', left: '50%', x: '-50%', zIndex: 0, width: '30px', opacity: 0.6, transform: 'rotate(180deg)', filter: 'drop-shadow(0 0 5px rgba(59, 130, 246, 0.5))' }}
+                                                animate={{ top: ['-10%', '110%'] }}
+                                                transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+                                            />
+                                            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '15px', padding: '10px 0', alignItems: 'center' }}>
+                                                <h3 style={{ fontSize: '1rem', color: '#93c5fd', marginBottom: '5px' }}>Zone A</h3>
+                                                {[...routesLeft, ...routesCenter.slice(0, Math.ceil(routesCenter.length / 2))].map((r, i, arr) => {
+                                                    const mobileLoop = (progress * ANIMATION_DURATION) % 8 / 8;
+                                                    const threshold = (i + 1) / (arr.length + 2);
+                                                    const isVisible = progress >= 1 || (mobileLoop > threshold - 0.1);
+                                                    return (
+                                                        <motion.div
+                                                            key={i}
+                                                            animate={{ opacity: isVisible ? 1 : 0.2, scale: isVisible ? 1 : 0.95 }}
+                                                            transition={{ duration: 0.3 }}
+                                                            style={{ background: 'rgba(255,255,255,0.1)', padding: '8px 12px', borderRadius: '8px', fontSize: '0.85rem', width: '90%', textAlign: 'center', cursor: progress >= 1 ? 'pointer' : 'default', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)' }}
+                                                            onClick={() => progress >= 1 && setSelectedRoute(r)}
+                                                        >
+                                                            {r}
+                                                        </motion.div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
 
-                            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '15px', padding: '10px 0', alignItems: 'center' }}>
-                                <h3 style={{ fontSize: '1rem', color: '#93c5fd', marginBottom: '5px' }}>Zone A</h3>
-                                {[...routesLeft, ...routesCenter.slice(0, Math.ceil(routesCenter.length / 2))].map((r, i, arr) => {
-                                    // Calculate visibility based on global progress loop (approximate)
-                                    // Since we can't easily sync framer-motion animate value with React render without state,
-                                    // we will use the existing 'progress' state but mapped to a faster cycle for mobile if needed,
-                                    // or just reuse the global progress for simplicity but scaled.
-                                    // Actually, let's use a simpler CSS animation approach for the bus and a time-based reveal?
-                                    // Better: Deriving from 'progress' state.
-                                    // Global progress is 20s. Let's map it: 0-0.5 is one pass, 0.5-1 is another? 
-                                    // Or just use 'progress' directly. 
-                                    // Bus is at Top (0%) at progress X, Bottom (100%) at progress Y.
+                                        <div className="mobile-col-right" style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+                                            <motion.img
+                                                src="/bus.png"
+                                                style={{ position: 'absolute', left: '50%', x: '-50%', zIndex: 0, width: '30px', opacity: 0.6, filter: 'drop-shadow(0 0 5px rgba(239, 68, 68, 0.5))' }}
+                                                animate={{ top: ['110%', '-10%'] }}
+                                                transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+                                            />
+                                            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '15px', padding: '10px 0', alignItems: 'center' }}>
+                                                <h3 style={{ fontSize: '1rem', color: '#fca5a5', marginBottom: '5px' }}>Zone B</h3>
+                                                {[...routesRight, ...routesCenter.slice(Math.ceil(routesCenter.length / 2))].map((r, i, arr) => {
+                                                    const mobileLoop = (progress * ANIMATION_DURATION) % 8 / 8;
+                                                    const busY = 1 - mobileLoop;
+                                                    const itemY = (i + 1) / (arr.length + 2);
+                                                    const isVisible = progress >= 1 || (busY < itemY + 0.05);
+                                                    return (
+                                                        <motion.div
+                                                            key={i}
+                                                            animate={{ opacity: isVisible ? 1 : 0.2, scale: isVisible ? 1 : 0.95 }}
+                                                            transition={{ duration: 0.3 }}
+                                                            style={{ background: 'rgba(255,255,255,0.1)', padding: '8px 12px', borderRadius: '8px', fontSize: '0.85rem', width: '90%', textAlign: 'center', cursor: progress >= 1 ? 'pointer' : 'default', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)' }}
+                                                            onClick={() => progress >= 1 && setSelectedRoute(r)}
+                                                        >
+                                                            {r}
+                                                        </motion.div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                    // Let's rely on the bus passing visual.
-                                    // Since the user asked for "if and only if the bus crossed then only", we need strict sync.
-                                    // We'll use the 'progress' state.
+                                    <div className="mobile-footer-info" style={{ marginTop: '30px', padding: '20px', background: 'rgba(255,255,255,0.05)', borderRadius: '15px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem', textAlign: 'left' }}>
+                                        <p style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                                            <MapPin size={16} /> Transport Incharge: Mr. Govindaraj
+                                        </p>
+                                        <p style={{ marginLeft: '26px' }}>📞 9442855079</p>
+                                    </div>
+                                </motion.div>
+                            ) : (
+                                <motion.div
+                                    key="mobile-details"
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    style={{ marginTop: '20px' }}
+                                >
+                                    <div className="details-glass-card" style={{ width: '100%', height: 'auto', minHeight: '400px', padding: '20px' }}>
+                                        {details?.image ? (
+                                            <div
+                                                className="full-route-image-container"
+                                                onClick={() => setSelectedRoute(null)}
+                                                style={{ cursor: 'pointer', height: 'auto', minHeight: '300px' }}
+                                            >
+                                                <img src={details.image} alt={selectedRoute} className="full-route-image" style={{ objectFit: 'contain' }} />
+                                                <div className="image-exit-hint" style={{ opacity: 1 }}>Tap to go back</div>
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <div className="details-header" style={{ flexDirection: 'column', gap: '15px', paddingBottom: '15px' }}>
+                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                                        <Bus size={28} color="#3b82f6" />
+                                                        <h2 style={{ fontSize: '1.5rem' }}>{selectedRoute}</h2>
+                                                    </div>
+                                                    <button className="back-to-images" onClick={() => setSelectedRoute(null)} style={{ width: '100%' }}>Back to Routes</button>
+                                                </div>
 
-                                    // Left Bus: 0 -> 1 over 10s (half of global 20s for tighter loop? or just use global).
-                                    // Let's make mobile progress loop faster: 8s.
-                                    const mobileLoop = (progress * ANIMATION_DURATION) % 8 / 8; // 0 to 1 over 8s
+                                                <div className="details-grid" style={{ gridTemplateColumns: '1fr', gap: '12px', marginTop: '15px' }}>
+                                                    <div className="detail-box">
+                                                        <span className="detail-label">Departure</span>
+                                                        <span className="detail-value">{details?.time}</span>
+                                                    </div>
+                                                    <div className="detail-box">
+                                                        <span className="detail-label">Driver</span>
+                                                        <span className="detail-value">{details?.driver}</span>
+                                                    </div>
+                                                    <div className="detail-box">
+                                                        <span className="detail-label">Contact</span>
+                                                        <span className="detail-value">{details?.phone}</span>
+                                                    </div>
+                                                </div>
 
-                                    // Threshold: Item is at (i + 1) / (total + 1) roughly.
-                                    const threshold = (i + 1) / (arr.length + 2);
-                                    const isVisible = progress >= 1 || (mobileLoop > threshold - 0.1); // Reveal slightly before/as it passes
-
-                                    return (
-                                        <motion.div
-                                            key={i}
-                                            animate={{ opacity: isVisible ? 1 : 0.2, scale: isVisible ? 1 : 0.95 }}
-                                            transition={{ duration: 0.3 }}
-                                            style={{ background: 'rgba(255,255,255,0.1)', padding: '8px 12px', borderRadius: '8px', fontSize: '0.85rem', width: '90%', textAlign: 'center' }}
-                                        >
-                                            {r}
-                                        </motion.div>
-                                    );
-                                })}
-                            </div>
-                        </div>
-
-                        {/* Right Column: Bottom -> Top Bus */}
-                        <div className="mobile-col-right" style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
-                            {/* Animated Bus: Bottom -> Top */}
-                            <motion.img
-                                src="/bus.png"
-                                style={{
-                                    position: 'absolute',
-                                    left: '50%',
-                                    x: '-50%',
-                                    zIndex: 0,
-                                    width: '40px',
-                                    opacity: 0.6,
-                                    // Upright for going up
-                                    filter: 'drop-shadow(0 0 5px rgba(239, 68, 68, 0.5))'
-                                }}
-                                animate={{ top: ['110%', '-10%'] }}
-                                transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-                            />
-
-                            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '15px', padding: '10px 0', alignItems: 'center' }}>
-                                <h3 style={{ fontSize: '1rem', color: '#fca5a5', marginBottom: '5px' }}>Zone B</h3>
-                                {[...routesRight, ...routesCenter.slice(Math.ceil(routesCenter.length / 2))].map((r, i, arr) => {
-                                    // Right Bus: Goes Bottom (100%) to Top (0%).
-                                    // Progress 0 -> 1. Bus Y: 1 -> 0.
-                                    const mobileLoop = (progress * ANIMATION_DURATION) % 8 / 8; // 0 to 1 over 8s
-                                    const busY = 1 - mobileLoop; // 1.0 (bottom) to 0.0 (top)
-
-                                    // Items are laid out Top to Bottom (0 to N).
-                                    // Item Y is approx (i + 1) / (arr.length + 2).
-                                    // Reveal if Bus Y < Item Y (Bus has passed it moving up).
-                                    const itemY = (i + 1) / (arr.length + 2);
-
-                                    const isVisible = progress >= 1 || (busY < itemY + 0.05); // Reveal as it passes up
-
-                                    return (
-                                        <motion.div
-                                            key={i}
-                                            animate={{ opacity: isVisible ? 1 : 0.2, scale: isVisible ? 1 : 0.95 }}
-                                            transition={{ duration: 0.3 }}
-                                            style={{ background: 'rgba(255,255,255,0.1)', padding: '8px 12px', borderRadius: '8px', fontSize: '0.85rem', width: '90%', textAlign: 'center' }}
-                                        >
-                                            {r}
-                                        </motion.div>
-                                    );
-                                })}
-                            </div>
-                        </div>
+                                                <div style={{ marginTop: '20px' }}>
+                                                    <span className="detail-label">Route Map</span>
+                                                    <div className="mobile-stops-list" style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                                        {details?.stops.map((stop, idx) => (
+                                                            <div key={idx} className="timeline-item">
+                                                                <div className="timeline-dot"></div>
+                                                                <span className="timeline-text">{stop}</span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </div>
             )}
 
-            {/* Navigation Dock */}
-            <NavigationDock
-                onBack={() => navigate(-1)}
-                onHome={() => navigate('/thank-you')}
-                onForward={() => navigate(1)}
-            />
+            <NavigationDock onBack={() => navigate(-1)} onHome={() => navigate('/thank-you')} onForward={() => navigate(1)} />
 
-            {/* Style Tag for Animations */}
             <style dangerouslySetInnerHTML={{
                 __html: `
-            @keyframes spin { 
-                from { transform: rotate(0deg); } 
-                to { transform: rotate(360deg); } 
-            }
-            @keyframes spin-reverse { 
-                from { transform: rotate(360deg); } 
-                to { transform: rotate(0deg); } 
-            }
-        `}} />
+                    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+                    @keyframes spin-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+                `
+            }} />
         </div>
     );
 };

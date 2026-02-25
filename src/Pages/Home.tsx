@@ -36,43 +36,53 @@ const Home = () => {
         <div style={{
           position: 'absolute',
           top: '30px',
-          left: 0,
-          right: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
           textAlign: 'center',
           zIndex: 20,
-          padding: '0 20px'
+          padding: '1.5rem 3rem',
+          background: 'rgba(0, 0, 0, 0.3)',
+          backdropFilter: 'blur(8px)',
+          borderRadius: '20px',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+          width: 'max-content',
+          maxWidth: '90vw'
         }}>
           <h1 style={{
             fontFamily: "'Orbitron', sans-serif",
-            fontSize: '2.5rem',
+            fontSize: 'clamp(1.2rem, 5vw, 2.2rem)',
             fontWeight: 900,
-            letterSpacing: '6px',
-            margin: '0 0 5px 0',
-            background: 'linear-gradient(90deg, #fff 0%, #3b82f6 20%, #fbbf24 40%, #3b82f6 60%, #fff 80%, #3b82f6 100%)',
+            letterSpacing: 'clamp(1px, 1.5vw, 4px)',
+            margin: '0',
+            background: 'linear-gradient(90deg, #fff 0%, #3b82f6 25%, #fbbf24 50%, #3b82f6 75%, #fff 100%)',
             backgroundSize: '200% auto',
             WebkitBackgroundClip: 'text',
             backgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             animation: 'holographic-flow 4s linear infinite',
-            textShadow: '0 0 40px rgba(59, 130, 246, 0.5)',
-            textTransform: 'uppercase'
+            textShadow: '0 2px 15px rgba(0, 0, 0, 0.8)',
+            textTransform: 'uppercase',
+            lineHeight: '1.2'
           }}>
             ADHIYAMAAN COLLEGE OF ENGINEERING
           </h1>
           <h2 style={{
             fontFamily: "'Orbitron', sans-serif",
-            fontSize: '2.5rem',
+            fontSize: 'clamp(1.2rem, 5vw, 2.2rem)',
             fontWeight: 900,
-            letterSpacing: '6px',
+            letterSpacing: 'clamp(1px, 1.5vw, 4px)',
             margin: 0,
-            background: 'linear-gradient(90deg, #fff 0%, #3b82f6 20%, #fbbf24 40%, #3b82f6 60%, #fff 80%, #3b82f6 100%)',
+            background: 'linear-gradient(90deg, #fff 0%, #3b82f6 25%, #fbbf24 50%, #3b82f6 75%, #fff 100%)',
             backgroundSize: '200% auto',
             WebkitBackgroundClip: 'text',
             backgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             animation: 'holographic-flow 4s linear infinite',
-            textShadow: '0 0 40px rgba(59, 130, 246, 0.5)',
-            textTransform: 'uppercase'
+            textShadow: '0 2px 15px rgba(0, 0, 0, 0.8)',
+            textTransform: 'uppercase',
+            lineHeight: '1.2',
+            marginTop: '8px'
           }}>
             WELCOMES YOU
           </h2>

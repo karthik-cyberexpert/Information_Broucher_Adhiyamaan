@@ -4,7 +4,7 @@ const meEnggDesign: DepartmentContent = {
     about: (
         <>
             <p>
-                The Post Graduate Programme (M.E.) in Engineering Design was started in the academic year 2005–2006. M.E. Engineering Design focuses on the design, analysis, development, and optimization of mechanical systems and products.
+                The Post Graduate Programme M.E. - Engineering Design was started in the academic year 2005–2006. M.E. - Engineering Design focuses on the design, analysis, development, and optimization of mechanical systems and products.
                 The programme is committed to developing highly skilled design professionals equipped to meet the evolving demands of the mechanical engineering industry.
                 The Department maintains a high standard of teaching and learning through well-qualified and experienced faculty members with proven academic excellence and strong research expertise.
             </p>
@@ -39,7 +39,7 @@ const meEnggDesign: DepartmentContent = {
     contact: {
         hod: "Dr. J. ARIVUDAINAMBI",
         designation: "Professor and Head",
-        location: "Department of Mechanical Engineering,Adhiyamaan College of Engineering,Dr. M. G. R Nagar,Hosur – 635 130",
+        location: "M.E. - Engineering Design, Adhiyamaan College of Engineering, Dr. M.G.R Nagar, Hosur – 635130, Krishnagiri District, Tamil Nadu, India",
         email: "hod_mech@adhiyamaan.ac.in",
         phone: "9894445988"
     }

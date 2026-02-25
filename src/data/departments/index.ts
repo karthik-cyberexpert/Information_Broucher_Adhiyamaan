@@ -31,7 +31,7 @@ import defaultContent from './default';
 import type { DepartmentContent } from './types';
 
 export const departmentData: Record<string, DepartmentContent> = {
-    'ME -Communication System': meCommSystem,
+    'M.E. - Communication Systems': meCommSystem,
     'Aeronautical Engineering': aeronautical,
     'Biomedical Engineering': biomedical,
     'Civil Engineering': civil,
@@ -46,10 +46,10 @@ export const departmentData: Record<string, DepartmentContent> = {
     'Chemical Engineering': btechChemical,
     'Computer Science and Business Systems': btechCSBS,
     'Information Technology': btechIT,
-    'ME -Computer Science': meCSE,
-    'ME -Engineering Design': meEnggDesign,
-    'ME -Power System': mePower,
-    'ME -Structural': meStructural,
+    'M.E. - Computer Science and Engineering': meCSE,
+    'M.E. - Engineering Design': meEnggDesign,
+    'M.E. - Power Systems': mePower,
+    'M.E. - Structural Engineering': meStructural,
     'Bachelor of Architecture': bArch,
     'Master of Business Administration': mbaRegular,
     'MBA Full Time': mbaRegular,

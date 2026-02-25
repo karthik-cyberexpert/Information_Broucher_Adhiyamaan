@@ -3,7 +3,7 @@ import type { DepartmentContent } from './types';
 const meCSE: DepartmentContent = {
     about: (
         <>
-            <p>An elite, AICTE-approved M.E. in Computer Science & Engineering crafted for advanced engineering excellence and research leadership, with strong focus on high-quality research publications. A future-driven curriculum blending hands-on innovation, deep specialization, and project-powered learning to shape next-gen tech leaders</p>
+            <p>An elite, AICTE-approved M.E. - Computer Science and Engineering crafted for advanced engineering excellence and research leadership, with strong focus on high-quality research publications. A future-driven curriculum blending hands-on innovation, deep specialization, and project-powered learning to shape next-gen tech leaders</p>
         </>
     ),
     career: {
@@ -39,7 +39,7 @@ const meCSE: DepartmentContent = {
     contact: {
         hod: "Dr.G.Fathima ",
         designation: "Professor and Head",
-        location: "Department of computer science and Engineering , Adhiyamman College Of Engineering, Dr.M.G.R Nagar,Hosur – 635109,Krishnagiri District,Tamil Nadu,India",
+        location: "M.E. - Computer Science and Engineering, Adhiyamaan College of Engineering, Dr. M.G.R Nagar, Hosur – 635130, Krishnagiri District, Tamil Nadu, India",
         email: "hod_cse@adhiyamaan.ac.in",
         phone: "+91 9487819132"
     }

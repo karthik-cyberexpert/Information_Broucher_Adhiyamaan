@@ -9,30 +9,37 @@ import './Scholarships.css';
 const schemes = [
   {
     name: 'SC/ST Scholarship',
-    benefit: 'Full Tuition Fee Waiver',
     type: 'UG/PG',
     details: [
-      'Applicable for SC/ST/SCA category students.',
-      'Income limit criteria as per government norms.',
-      'Covers tuition fees and other academic expenses.',
+      'Applicable for SC/ST/SCA category students where annual income must 2.5 lakh',
+      'If income is above 2.5 lakh then applicate for FG Scholarship',
+      'Covers tuition fees and other Maintenance charges.',
       'Requires community certificate and income certificate.'
     ]
   },
   {
     name: 'BC/MBC Scholarship',
-    benefit: 'Tuition Fee Support',
     type: 'UG/PG',
     details: [
-      'Applicable for BC/MBC/DNC category students.',
-      'Annual parental income should be within the prescribed limit.',
-      'Provides scholarship for tuition fees and maintenance allowance.',
+      'Applicable for BC/MBC/DNC category students, under government quota.',
+      'Annual parental income should be within 2.5 lakh below.',
+      'must needed of Government Allotment copy.',
       'Submission of community and income certificates is mandatory.'
     ]
   },
-  { name: 'ARMS Scholarship', benefit: 'Government Financial Assistance', type: 'UG' },
+  {
+    name: 'ARMS Scholarship',
+    type: 'UG',
+    details: [
+      'Implemented by the All India Council for Technical Education (AICTE).',
+      'Provides financial assistance to students who have lost either or both parents, especially due to unforeseen circumstances.',
+      'Applicable for students studying in AICTE-approved technical institutions (Degree/Diploma courses).',
+      'Scholarship amount is provided annually to support tuition fees and other educational expenses.',
+      'Aims to support vulnerable students and ensure continuation of technical education.'
+    ]
+  },
   {
     name: 'Prime Minister Scholarship',
-    benefit: 'Central Govt Aid for Students',
     type: 'UG/PG',
     details: [
       'Implemented by the Government of India for dependents and widows of Ex-Servicemen and serving defence personnel.',
@@ -44,19 +51,17 @@ const schemes = [
   },
   {
     name: 'Pragathi Scholarship Scheme',
-    benefit: 'Support for Girl Students',
     type: 'UG',
     details: [
       'Implemented by the All India Council for Technical Education (AICTE) to support girl students pursuing technical education.',
-      'Available for girls admitted to diploma or degree courses in AICTE-approved institutions.',
+      'Available for family income must be 8 lakh below.',
       'Provides financial assistance per year to cover tuition fees and other educational expenses.',
-      'Selection is based on family income criteria and merit.',
+      'Selection is based on 2 girl child in a family.',
       'Aims to promote higher education and empower girl students in technical fields.'
     ]
   },
   {
     name: 'First Graduation Scholar',
-    benefit: 'Aid for First-Gen Graduates',
     type: 'UG',
     details: [
       'Introduced by the Government of Tamil Nadu to support students who are the first in their family to pursue higher education.',
@@ -66,12 +71,72 @@ const schemes = [
       'Promotes educational equality and encourages students from non-graduate families to improve their social and economic status.'
     ]
   },
-  { name: '7.5% Scholarship', benefit: 'Govt School Quota Support', type: 'Special' },
-  { name: 'Pudumai Pen', benefit: 'TN Govt Aid for Women', type: 'UG' },
-  { name: 'Tamil Pudalvan', benefit: 'TN Govt Aid for Men', type: 'UG' },
-  { name: 'CM Merit Scholarship', benefit: 'Academic Excellence Reward', type: 'Special' },
-  { name: 'Muslim Women Aid', benefit: 'Minority Welfare Support', type: 'Minority' },
-  { name: 'Post-Matric Minor', benefit: 'Community Specific Grants', type: 'Minority' },
+  {
+    name: '7.5% Scholarship',
+    type: 'Special',
+    details: [
+      'Provides 7.5% special reservation for students who studied from Class 6 to 12 in government schools.',
+      'Applicable to professional courses like Engineering, Medicine, Agriculture, Law, etc.',
+      'The Government of Tamil Nadu covers tuition fees and other educational expenses for selected students.',
+      'Works as a horizontal reservation across all communities.',
+      'Aims to improve higher education opportunities for government school students.'
+    ]
+  },
+  {
+    name: 'Pudumai Pen',
+    type: 'UG',
+    details: [
+      'It is a government initiative launched as the Moovalur Ramamirtham Ammaiyar Higher Education Assurance Scheme to encourage girls’ education.',
+      'Eligible girl students who studied from Class 6 to Class 12 in government (and extended to government–aided) schools can benefit.',
+      'Financial assistance of ₹1,000 per month is provided until the completion of higher education such as undergraduate, diploma, ITI, or other recognised courses.',
+      'The amount is directly credited to the student’s bank account as support for continuing studies.',
+      'The scheme aims to increase girls’ enrolment in higher education and reduce early school dropout or early marriage.'
+    ]
+  },
+  {
+    name: 'Tamil Pudalvan',
+    type: 'UG',
+    details: [
+      'It is a monthly financial assistance scheme launched by the Government of Tamil Nadu to support students pursuing higher education.',
+      'Eligible boys who studied from Class 6 to Class 12 in Tamil Nadu government or government-aided schools receive the benefit.',
+      'Beneficiaries receive ₹1,000 per month directly into their bank account.',
+      'The assistance continues until the student completes their first higher education course (like undergraduate, diploma, ITI, polytechnic).',
+      'It aims to encourage government school students to continue higher studies and reduce dropouts.'
+    ]
+  },
+  {
+    name: 'Management Quota(Sports)',
+    type: 'College',
+    details: [
+      'Sports management quotes emphasize the importance of teamwork and leadership in athletic success.',
+      'Quotes inspire discipline, dedication, and commitment among student athletes and managers.',
+      'They highlight strategic planning as key to organizing successful sports events.',
+      'Quotes reinforce the value of resilience and overcoming challenges in sports.',
+      'They encourage a positive competitive spirit and holistic development through sports'
+    ]
+  },
+  {
+    name: 'Muslim Women Aid',
+    type: 'Minority',
+    details: [
+      'Provided under Minority Welfare schemes by the Government of Tamil Nadu.',
+      'Available for Muslim girl students studying from school level to higher education.',
+      'Financial assistance is given to support tuition fees and other educational expenses.',
+      'Selection is mainly based on family income and eligibility criteria.',
+      'The aim is to promote education and empower Muslim women through higher studies.'
+    ]
+  },
+  {
+    name: 'Post-Matric Minor',
+    type: 'Minority',
+    details: [
+      'It is a Government of India scholarship for students belonging to notified minority communities (e.g., Muslim, Christian, Sikh, Buddhist, Jain, Parsi).',
+      'The scholarship supports students studying from Class 11 and 12 up to undergraduate, postgraduate, technical, or professional courses.',
+      'Applicants must have at least 50% marks in the previous qualifying examination.',
+      'Family’s annual income must be below a specified limit (around ₹2 lakh) to be eligible.',
+      'Financial assistance includes maintenance allowance and tuition fee support for the academic year, credited directly to the student’s account.'
+    ]
+  },
 ];
 
 const Scholarships = () => {
@@ -131,15 +196,11 @@ const Scholarships = () => {
             </div>
           </div>
 
-          {/* CONTACT INFO AT BOTTOM */}
+          {/* SIMPLIFIED CONTACT INFO */}
           <div className="scholarship-footer-contact">
             <div className="magnetic-card-mini">
-              <h4>Questions? Reach out to our Scholarship Liaison</h4>
-              <div className="contact-grid-mini">
-                <p>Officer: Prabhu</p>
-                <p>scholarships@adhiyamaan.ac.in</p>
-                <p>9943704553</p>
-              </div>
+              <p style={{ fontSize: '1.1rem', fontWeight: '600', color: '#93c5fd' }}>Scholarship Officer: Prabhu</p>
+              <p style={{ fontSize: '1.2rem', fontWeight: '700', letterSpacing: '1px' }}>9943704553</p>
             </div>
           </div>
 
@@ -164,11 +225,10 @@ const Scholarships = () => {
               <div className="modal-header">
                 <div className="modal-type-badge">{selectedScheme.type}</div>
                 <h3>{selectedScheme.name}</h3>
-                <p className="modal-benefit-text">{selectedScheme.benefit}</p>
               </div>
 
               <div className="modal-body">
-                {selectedScheme.details ? (
+                {selectedScheme.details && (
                   <div className="details-list">
                     {selectedScheme.details.map((point: string, idx: number) => (
                       <motion.div
@@ -182,10 +242,6 @@ const Scholarships = () => {
                         <p>{point}</p>
                       </motion.div>
                     ))}
-                  </div>
-                ) : (
-                  <div className="no-details-msg">
-                    <p>Contact our Scholarship Officer for more information about this program.</p>
                   </div>
                 )}
               </div>

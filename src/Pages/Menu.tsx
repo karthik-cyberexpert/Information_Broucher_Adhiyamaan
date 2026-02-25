@@ -49,11 +49,11 @@ const bTechCourses = [
 ];
 
 const meCourses = [
-  { name: 'ME -Communication System', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
-  { name: 'ME -Computer Science', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
-  { name: 'ME -Engineering Design', icon: '📐', bg: '/images/me.jpg', video: '/media/mech.mp4' },
-  { name: 'ME -Power System', icon: '⚡', bg: '/images/me_power.jpg', video: '/media/elect.mp4' },
-  { name: 'ME -Structural', icon: '🏗️', bg: '/images/civilback.jpg', video: '/media/civil.mp4' },
+  { name: 'M.E. - Communication Systems', icon: '📡', bg: '/images/be/ECE-bg.jpg.jpeg', video: '/media/commun.mp4' },
+  { name: 'M.E. - Computer Science and Engineering', icon: '💻', bg: '/images/computerback.jpg', video: '/media/comp.mp4' },
+  { name: 'M.E. - Engineering Design', icon: '📐', bg: '/images/me.jpg', video: '/media/mech.mp4' },
+  { name: 'M.E. - Power Systems', icon: '⚡', bg: '/images/me_power.jpg', video: '/media/elect.mp4' },
+  { name: 'M.E. - Structural Engineering', icon: '🏗️', bg: '/images/civilback.jpg', video: '/media/civil.mp4' },
 ];
 
 const phdCourses = [
@@ -343,6 +343,56 @@ const Menu = () => {
                 </div>
               ))}
             </div>
+            <div className="menu-contact-info" style={{
+              position: 'fixed',
+              bottom: '30px',
+              left: '30px',
+              zIndex: 1000,
+              textAlign: 'left'
+            }}>
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                whileHover={{ scale: 1.05, background: 'rgba(255, 255, 255, 0.12)' }}
+                style={{
+                  padding: '1.2rem 2.5rem',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: '25px',
+                  color: 'white',
+                  backdropFilter: 'blur(20px)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  gap: '8px',
+                  boxShadow: '0 20px 50px rgba(0,0,0,0.4)',
+                  transition: 'all 0.4s ease',
+                  cursor: 'default'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ fontSize: '1.4rem' }}>📞</span>
+                  <span style={{
+                    fontSize: '0.9rem',
+                    fontWeight: 800,
+                    letterSpacing: '1.5px',
+                    color: '#ffd700',
+                    textTransform: 'uppercase'
+                  }}>
+                    For Details Contact
+                  </span>
+                </div>
+                <div style={{
+                  fontSize: '1.5rem',
+                  fontWeight: 700,
+                  color: 'white',
+                  letterSpacing: '1px'
+                }}>
+                  8883562627, 9150147751
+                </div>
+              </motion.div>
+            </div>
+
             <div style={{
               textAlign: 'center',
               width: '100%',
@@ -355,25 +405,27 @@ const Menu = () => {
                 <motion.button
                   className="home-btn"
                   onClick={() => handleDelayedAction(() => navigate('/thank-you'))}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.03, background: 'rgba(255, 255, 255, 0.12)' }}
                   whileTap={{ scale: 0.95 }}
                   style={{
-                    padding: '1.5rem 4rem',
-                    background: 'rgba(255, 255, 255, 0.15)',
-                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                    padding: '1.5rem 3.5rem',
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
                     borderRadius: '50px',
                     color: 'white',
                     cursor: 'pointer',
-                    backdropFilter: 'blur(12px)',
+                    backdropFilter: 'blur(20px)',
                     fontSize: '1.6rem',
                     fontWeight: 'bold',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '12px',
-                    boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+                    boxShadow: '0 25px 60px rgba(0,0,0,0.5)',
                     textTransform: 'uppercase',
-                    letterSpacing: '1px'
+                    letterSpacing: '1px',
+                    transition: 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                    minWidth: '500px'
                   }}
                 >
                   🏠 Return Home

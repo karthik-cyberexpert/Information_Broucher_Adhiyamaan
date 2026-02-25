@@ -37,6 +37,11 @@ const developers = [
     name: "POOJA SREE",
     details: "II CSE-Cyber Security (2024 batch)",
     image: "/images/thak you page/pooja sree .jpg.jpeg"
+  },
+  {
+    name: "MANI KANDHAN",
+    details: "I MCA (2025 batch)",
+    image: "/images/thak you page/manikandhan.jpeg"
   }
 ];
 

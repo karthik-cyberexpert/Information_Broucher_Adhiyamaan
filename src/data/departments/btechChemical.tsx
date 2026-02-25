@@ -31,10 +31,34 @@ const btechChemical: DepartmentContent = {
     infrastructure: {
         items: [
             {
-                title: 'Chemical Process lab',
-                description: 'Equipment for studying reaction engineering and heat transfer.',
+                title: 'Chemical Reaction Engineering Laboratory',
+                description: 'A well-equipped laboratory with pilot-scale experimental setups for studying reaction kinetics and reactor performance.',
                 icon: '🧪',
-                image: '/images/btech/CE_bg.jpg'
+                image: '/images/btech/chemical/chemical.jpg'
+            },
+            {
+                title: 'Mass Transfer Laboratory',
+                description: 'Advanced experimental units for analyzing diffusion, absorption, distillation, and other mass transfer operations.',
+                icon: '🧪',
+                image: '/images/btech/chemical/chemical2.jpg'
+            },
+            {
+                title: 'Experimental Section',
+                description: 'Spacious lab area with structured benches and mass transfer equipment for hands-on practical training',
+                icon: '🧪',
+                image: '/images/btech/chemical/chemical3.jpg'
+            },
+            {
+                title: 'Mechanical Operations Laboratory',
+                description: 'Laboratory equipped with crushers, grinders, sieves, and screening units for studying particle size reduction and separation processes.',
+                icon: '🧪',
+                image: '/images/btech/chemical/chemical4.jpg'
+            },
+            {
+                title: 'Computer Laboratory',
+                description: 'Modern computing facility with individual systems for simulation, modeling, and computational analysis in chemical engineering.',
+                icon: '🧪',
+                image: '/images/btech/chemical/chemical5.jpg'
             }
         ]
     },

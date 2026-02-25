@@ -63,7 +63,7 @@ const RightSideNav = () => {
     };
 
     return (
-        <div style={{
+        <div className="right-side-nav" style={{
             position: 'fixed',
             right: '25px',
             top: '50%',

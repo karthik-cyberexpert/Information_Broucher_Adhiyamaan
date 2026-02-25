@@ -3,7 +3,7 @@ import type { DepartmentContent } from './types';
 const meStructural: DepartmentContent = {
     about: (
         <>
-            <p>The Master of Engineering in Structural Engineering is a specialized postgraduate program designed to develop advanced knowledge and technical expertise in the analysis, design, and construction of safe, sustainable, and resilient structures. The program prepares graduates to address complex engineering challenges in modern infrastructure development.
+            <p>The M.E. - Structural Engineering is a specialized postgraduate program designed to develop advanced knowledge and technical expertise in the analysis, design, and construction of safe, sustainable, and resilient structures. The program prepares graduates to address complex engineering challenges in modern infrastructure development.
 
                 Structural Engineering focuses on the planning, analysis, design, and maintenance of structures such as buildings, bridges, dams, towers, and industrial facilities. This program combines strong theoretical foundations with practical applications using modern engineering tools and software.
                 Students gain expertise in structural analysis, advanced concrete and steel design, earthquake engineering, foundation engineering, and construction management.</p>
@@ -48,7 +48,7 @@ const meStructural: DepartmentContent = {
     contact: {
         hod: "Dr.K.Srinivasan",
         designation: "Professor and Head",
-        location: "Department of Civil Engineering, Civil Block, Adhiyamaan College of Engineering, Dr.M.G.R Nagar, Hosur-635130, Krishnagiri District, Tamil Nadu, India.",
+        location: "M.E. - Structural Engineering, Adhiyamaan College of Engineering, Dr. M.G.R Nagar, Hosur – 635130, Krishnagiri District, Tamil Nadu, India.",
         email: "hod_civil@adhiyamaan.ac.in",
         phone: "+91 8072125325"
     }
