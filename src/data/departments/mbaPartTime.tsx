@@ -4,12 +4,12 @@ const mbaPartTime: DepartmentContent = {
     about: (
         <>
             <p>Management Studies was incepted in the year 1992 with the state-of-the-art infrastructure as per the norms and beyond. Ours is the first MBA Program affiliated to the University of Madras after the Department of Management Studies of the University. It is dedicated to impart need based and result oriented management education to develop talented managers to face the Global challenges and align them to today's societal needs.
-                The department offers three-year MBA (Part time) under Permanent Affiliation to Anna University, Chennai. Both the programs are approved by AICTE. The department has been listed as one of the top 100 B-Schools in the country by Business India and Dalal Street. The department is headed by a full-time director supported by eminent faculty members are MBA degree holders while senior faculty members are Ph.D. and M. Phil. degree holders. The department has all teaching-learning facilities for providing quality management education.
+                The department offers three-year MBA Working Professional (Part Time) under Permanent Affiliation to Anna University, Chennai. The program is  approved by AICTE. The department has been listed as one of the top 100 B-Schools in the country by Business India and Dalal Street. The department is headed by a full-time director supported by eminent faculty members are MBA degree holders while senior faculty members are Ph.D. and M. Phil. degree holders. The department has all teaching-learning facilities for providing quality management education.
             </p>
         </>
     ),
     career: {
-        description: "The Part-Time MBA enables professionals to accelerate their career growth into leadership roles within their respective industries.",
+        description: "The MBA Working Professional (Part Time) enables professionals to accelerate their career growth into leadership roles within their respective industries.",
         roles: ["Corporate Finance Manager.(2.4 – 12 LPA)",
             "Marketing Manager: .(2.4 – 12 LPA)",
             "Digital Marketing Head, and : .(2.4 – 12 LPA)",

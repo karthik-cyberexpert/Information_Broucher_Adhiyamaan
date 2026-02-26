@@ -4,7 +4,7 @@ const mbaRegular: DepartmentContent = {
     about: (
         <>
             <p>Management Studies was incepted in the year 1992 with the state-of-the-art infrastructure as per the norms and beyond. Ours is the first MBA Program affiliated to the University of Madras after the Department of Management Studies of the University. It is dedicated to impart need based and result oriented management education to develop talented managers to face the Global challenges and align them to today's societal needs.</p>
-            <p>The department offers two-year MBA (Regular) under Permanent Affiliation to Anna University, Chennai. Both the programs are approved by AICTE. The department has been listed as one of the top 100 B-Schools in the country by Business India and Dalal Street. The department is headed by a full-time director supported by eminent faculty members are MBA degree holders while senior faculty members are Ph.D. and M. Phil. degree holders. The department has all teaching-learning facilities for providing quality management education.</p>
+            <p>The department offers two-year MBA (Regular) under Permanent Affiliation to Anna University, Chennai. The program is approved by AICTE. The department has been listed as one of the top 100 B-Schools in the country by Business India and Dalal Street. The department is headed by a full-time director supported by eminent faculty members are MBA degree holders while senior faculty members are Ph.D. and M. Phil. degree holders. The department has all teaching-learning facilities for providing quality management education.</p>
         </>
     ),
     career: {

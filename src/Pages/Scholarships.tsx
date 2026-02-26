@@ -155,8 +155,8 @@ const Scholarships = () => {
 
       {/* Header */}
       <header className="ace-header-pill">
-        <GraduationCap className="brand-icon" size={24} />
-        <h1>ACE SCHOLARSHIPS</h1>
+        <GraduationCap className="brand-icon" size={20} />
+        <h1>SCHOLARSHIP</h1>
       </header>
 
       {/* Simplified Main Content */}
@@ -164,8 +164,7 @@ const Scholarships = () => {
         <div className="content-pane-centered">
 
           <div className="schemes-header-centered">
-            <h2 className="main-title-alt">Financial Aid Schemes</h2>
-            <p className="section-subtitle">Empowering excellence through our comprehensive scholarship systems.</p>
+            <h2 className="main-title-alt">Scholarship</h2>
           </div>
 
           <div className="schemes-grid-container">
@@ -199,8 +198,8 @@ const Scholarships = () => {
           {/* SIMPLIFIED CONTACT INFO */}
           <div className="scholarship-footer-contact">
             <div className="magnetic-card-mini">
-              <p style={{ fontSize: '1.1rem', fontWeight: '600', color: '#93c5fd' }}>Scholarship Officer: Prabhu</p>
-              <p style={{ fontSize: '1.2rem', fontWeight: '700', letterSpacing: '1px' }}>9943704553</p>
+              <h4>Scholarship Officer: Prabhu</h4>
+              <p>9943704553</p>
             </div>
           </div>
 

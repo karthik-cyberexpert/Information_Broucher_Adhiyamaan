@@ -3,8 +3,15 @@ import type { DepartmentContent } from './types';
 const mbaLSCM: DepartmentContent = {
     about: (
         <>
-            <p>Management Studies was incepted in the year 1992 with the state-of-the-art infrastructure as per the norms and beyond. Ours is the first MBA Program affiliated to the University of Madras after the Department of Management Studies of the University. It is dedicated to impart need based and result oriented management education to develop talented managers to face the Global challenges and align them to today's societal needs.</p>
-            <p>The department offers two-year MBA (Logistics and Supply chain management) under Permanent Affiliation to Anna University, Chennai. Both the programs are approved by AICTE. The department has been listed as one of the top 100 B-Schools in the country by Business India and Dalal Street. The department is headed by a full-time director supported by eminent faculty members are MBA degree holders while senior faculty members are Ph.D. and M. Phil. degree holders. The department has all teaching-learning facilities for providing quality management education.</p>
+            <p>The Logistics and Supply Chain Management (LSCM) programme under the Department of Management Studies, 
+                Adhiyamaan College of Engineering, Hosur,
+                 was introduced in the academic year 2025 with an approved intake of 60 students to meet the increasing industry demand for skilled supply chain professionals.
+                  The programme provides comprehensive knowledge in procurement, transportation, warehousing, inventory control, 
+                  distribution management, and supply chain analytics, combining managerial concepts with practical industry exposure through case studies, projects, and internships. 
+                  It equips students with analytical, technological, and strategic decision-making skills required to manage modern global supply chains efficiently.
+                   The programme’s key strengths include its industry-aligned curriculum, focus on practical learning, integration of digital and analytical tools, and strong employability prospects. 
+                   Graduates find wide applications across manufacturing, retail, e-commerce, logistics service providers, transportation, export-import operations, procurement, and supply chain consulting, contributing to operational efficiency, cost optimization, and enhanced customer satisfaction across industries
+            </p>
         </>
     ),
     career: {

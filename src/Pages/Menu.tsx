@@ -65,7 +65,7 @@ const phdCourses = [
 ];
 
 const mbaCourses = [
-  { name: 'MBA Part Time', icon: '⌛', bg: '/images/mba%20parttime.jpg', video: '/media/mba.mp4' },
+  { name: 'MBA Working Professional (Part Time)', icon: '⌛', bg: '/images/mba%20parttime.jpg', video: '/media/mba.mp4' },
   { name: 'MBA Regular', icon: '🎓', bg: '/images/mbaregular.jpg', video: '/media/mba.mp4' },
   { name: 'MBA Logistics and Supply Chain Management', icon: '📦', bg: '/images/mbalscm.jpg', video: '/media/mba.mp4' },
 ];
@@ -345,8 +345,8 @@ const Menu = () => {
             </div>
             <div className="menu-contact-info" style={{
               position: 'fixed',
-              bottom: '30px',
-              left: '30px',
+              bottom: '20px',
+              left: '20px',
               zIndex: 1000,
               textAlign: 'left'
             }}>
@@ -355,27 +355,27 @@ const Menu = () => {
                 animate={{ opacity: 1, x: 0 }}
                 whileHover={{ scale: 1.05, background: 'rgba(255, 255, 255, 0.12)' }}
                 style={{
-                  padding: '1.2rem 2.5rem',
+                  padding: '0.8rem 1.5rem',
                   background: 'rgba(255, 255, 255, 0.08)',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
-                  borderRadius: '25px',
+                  borderRadius: '15px',
                   color: 'white',
                   backdropFilter: 'blur(20px)',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'flex-start',
-                  gap: '8px',
-                  boxShadow: '0 20px 50px rgba(0,0,0,0.4)',
+                  gap: '4px',
+                  boxShadow: '0 15px 35px rgba(0,0,0,0.4)',
                   transition: 'all 0.4s ease',
                   cursor: 'default'
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ fontSize: '1.4rem' }}>📞</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontSize: '1.1rem' }}>📞</span>
                   <span style={{
-                    fontSize: '0.9rem',
+                    fontSize: '0.75rem',
                     fontWeight: 800,
-                    letterSpacing: '1.5px',
+                    letterSpacing: '1.2px',
                     color: '#ffd700',
                     textTransform: 'uppercase'
                   }}>
@@ -383,12 +383,62 @@ const Menu = () => {
                   </span>
                 </div>
                 <div style={{
-                  fontSize: '1.5rem',
+                  fontSize: '1.1rem',
                   fontWeight: 700,
                   color: 'white',
-                  letterSpacing: '1px'
+                  letterSpacing: '0.5px'
                 }}>
                   8883562627, 9150147751
+                </div>
+              </motion.div>
+            </div>
+
+            <div className="menu-enquiry-info" style={{
+              position: 'fixed',
+              bottom: '20px',
+              right: '20px',
+              zIndex: 1000,
+              textAlign: 'right'
+            }}>
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                whileHover={{ scale: 1.05, background: 'rgba(255, 255, 255, 0.12)' }}
+                style={{
+                  padding: '0.8rem 1.5rem',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: '15px',
+                  color: 'white',
+                  backdropFilter: 'blur(20px)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-end',
+                  gap: '4px',
+                  boxShadow: '0 15px 35px rgba(0,0,0,0.4)',
+                  transition: 'all 0.4s ease',
+                  cursor: 'default'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{
+                    fontSize: '0.75rem',
+                    fontWeight: 800,
+                    letterSpacing: '1.2px',
+                    color: '#ffd700',
+                    textTransform: 'uppercase'
+                  }}>
+                    For Enquiry
+                  </span>
+                  <span style={{ fontSize: '1.1rem' }}>💬</span>
+                </div>
+                <div style={{
+                  fontSize: '1.1rem',
+                  fontWeight: 700,
+                  color: 'white',
+                  letterSpacing: '0.5px'
+                }}>
+                  9688793518
                 </div>
               </motion.div>
             </div>
@@ -467,16 +517,6 @@ const Menu = () => {
                 </div>
               ))}
             </div>
-            <ClickSpark sparkColor="#ffffff" sparkCount={8}>
-              <motion.button
-                className="menu-back-btn"
-                onClick={() => handleDelayedAction(handleBackToNav)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                MENU
-              </motion.button>
-            </ClickSpark>
           </div>
         )}
 
@@ -512,16 +552,6 @@ const Menu = () => {
                 </div>
               ))}
             </div>
-            <ClickSpark sparkColor="#ffffff" sparkCount={8}>
-              <motion.button
-                className="menu-back-btn"
-                onClick={() => handleDelayedAction(handleBackToNav)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                MENU
-              </motion.button>
-            </ClickSpark>
           </div>
         )}
 
@@ -558,16 +588,6 @@ const Menu = () => {
                 </div>
               ))}
             </div>
-            <ClickSpark sparkColor="#ffffff" sparkCount={8}>
-              <motion.button
-                className="menu-back-btn"
-                onClick={() => handleDelayedAction(handleBackToNav)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                MENU
-              </motion.button>
-            </ClickSpark>
           </div>
         )}
 
@@ -652,16 +672,6 @@ const Menu = () => {
                 </div>
               ))}
             </div>
-            <ClickSpark sparkColor="#ffffff" sparkCount={8}>
-              <motion.button
-                className="menu-back-btn"
-                onClick={() => handleDelayedAction(handleBackToNav)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                MENU
-              </motion.button>
-            </ClickSpark>
           </div>
         )}
 

@@ -1,16 +1,9 @@
-/* =====================
-   PAGE
-   ===================== */
 .placement-page {
     height: 100vh;
     width: 100%;
     padding: 20px;
     background: rgba(0, 0, 0, 0.4);
-    /* Dark overlay */
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    overflow: hidden;
 }
 
 .placement-bg-video {
@@ -35,7 +28,7 @@
     font-weight: 700;
     text-align: center;
     color: #eff1f4;
-    margin: 50px auto 20px;
+    margin: 30px auto 10px;
     opacity: 0;
     transform: translateY(20px);
     animation: textReveal 0.8s ease-out forwards;
@@ -259,6 +252,7 @@
         height: auto !important;
         min-height: 100vh;
         overflow-y: auto !important;
+        overflow-x: hidden !important;
         padding: 40px 15px 100px;
     }
 

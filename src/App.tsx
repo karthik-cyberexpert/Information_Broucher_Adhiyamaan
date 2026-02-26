@@ -15,11 +15,12 @@ import ScrollToTop from './components/ScrollToTop';
 import ClickSpark from './components/ClickSpark';
 import InactivityHandler from './components/InactivityHandler';
 import RightSideNav from './components/RightSideNav';
+import KioskGuard from './components/KioskGuard';
 import './App.css';
 
 function App() {
   return (
-    <>
+    <KioskGuard>
       <InactivityHandler timeout={90000} warningDuration={10000} />
       <ClickSpark
         sparkColor='#fff'
@@ -41,14 +42,14 @@ function App() {
           <Route path="/hostel" element={<Hostel />} />
           <Route path="/bike-animation" element={<BikePage />} />
           <Route path="/thank-you" element={<ThankYou />} />
-          
+
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>
       </ClickSpark>
-    </>
+    </KioskGuard>
   );
 }
 

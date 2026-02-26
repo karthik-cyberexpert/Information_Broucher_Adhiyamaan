@@ -5,22 +5,15 @@
 body {
     margin: 0;
     padding: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
     font-family: "Segoe UI", sans-serif;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-body::-webkit-scrollbar {
-    display: none;
 }
 
 /* PAGE + BACKGROUND */
 .sports-page {
     height: 100vh;
     padding: 0px;
-    margin-bottom: 20px;
+    overflow: hidden;
 }
 
 .sports-bg-video {
@@ -173,9 +166,10 @@ body::-webkit-scrollbar {
 /* ==================== MOBILE RESPONSIVE ==================== */
 @media (max-width: 900px) {
     .sports-page {
-        height: auto;
+        height: auto !important;
         min-height: 100vh;
-        overflow-y: auto;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
         padding: 80px 20px 40px;
     }
 

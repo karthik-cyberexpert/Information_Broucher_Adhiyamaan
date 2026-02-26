@@ -7,17 +7,17 @@
   font-family: 'Outfit', sans-serif;
   color: #fff;
   background: #000;
-  min-height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .ace-page-layout {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .ace-bg-layer {
@@ -165,17 +165,17 @@
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
-  padding: 30px 20px;
+  padding: 15px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 8px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   color: #fff;
-  min-height: 165px;
-  width: 280px;
+  min-height: 120px;
+  width: 220px;
   /* Fixed width for horizontal scroll consistency */
   flex-shrink: 0;
   position: relative;
@@ -196,6 +196,8 @@
 .btn-icon-main {
   color: #60a5fa;
   filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+  width: 32px;
+  height: 32px;
 }
 
 .btn-content {
@@ -204,10 +206,10 @@
 
 .btn-name-large {
   display: block;
-  font-size: 1.15rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  line-height: 1.3;
-  margin-bottom: 6px;
+  line-height: 1.2;
+  margin-bottom: 4px;
   color: #fff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   white-space: normal;
@@ -501,9 +503,11 @@
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 20px;
+  border-radius: 12px;
+  padding: 12px 20px;
   text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .magnetic-card-mini h4 {
@@ -685,6 +689,23 @@
   margin-bottom: 15px;
 }
 
+.magnetic-card-mini h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #93c5fd;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.magnetic-card-mini p {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
 .modal-header h3 {
   font-size: 2rem;
   font-weight: 800;
@@ -734,13 +755,26 @@
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 900px) {
+  .ace-page-layout {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    display: block;
+  }
+
+  .scholarship-3d-theme {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow: visible !important;
+  }
+
   .ace-full-content {
-    height: auto;
-    min-height: 100vh;
-    padding-top: 100px;
-    overflow-y: visible;
-    /* Let the body/layout handle scroll */
+    height: auto !important;
+    min-height: 100vh !important;
+    padding-top: 100px !important;
+    overflow-y: visible !important;
   }
 
   .main-title-alt {

@@ -1,11 +1,20 @@
-/* Department Page Container */
+/* Global Scrollbar Hide */
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
 .dept-page-container {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
+  overflow: hidden;
   color: #fff;
   font-family: 'Inter', sans-serif;
 }
@@ -222,12 +231,10 @@
   opacity: 0.8;
 }
 
-/* Main Content Area */
 .dept-main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  /* animation: fadeIn 0.8s ease-out; Removed in favor of card animation */
   /* Ensure it fits within the viewport on desktop */
   height: calc(100vh - 120px);
   overflow: hidden;
@@ -411,6 +418,16 @@
   }
 }
 
+@keyframes scroll-vertical {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
 .infra-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -437,10 +454,9 @@
 }
 
 .infra-card p {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   margin: 0;
-  color: #94a3b8;
-  /* Light gray */
+  color: #cbd5e1;
 }
 
 /* Career List */
@@ -572,12 +588,16 @@
 @media (max-width: 900px) {
   .dept-page-container {
     height: auto !important;
-    /* Allow natural height */
     min-height: 100vh;
-    overflow: visible !important;
-    /* Use document scroll */
-    -webkit-overflow-scrolling: touch;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
     display: block;
+  }
+
+  .content-glass-card {
+    height: auto !important;
+    overflow: visible !important;
+    padding: 25px;
   }
 
   .dept-header {
