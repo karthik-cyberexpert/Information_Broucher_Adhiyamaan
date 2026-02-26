@@ -59,7 +59,7 @@ const civil: DepartmentContent = {
         ]
     },
     contact: {
-        hod: "Dr.K.Srinivasa",
+        hod: "Dr.K.Srinivasan",
         designation: "Professor and Head",
         location: "Department of Civil Engineering, Civil Block, Adhiyamaan College of Engineering, Dr.M.G.R Nagar, Hosur-635130, Krishnagiri District, Tamil Nadu, India.",
         email: "hod_civil@adhiyamaan.ac.in",
