@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ShieldAlert } from 'lucide-react';
-import { App } from '@capacitor/app';
+// Capacitor app import removed to use dynamic import below
 import './KioskGuard.css';
 
 interface KioskGuardProps {
@@ -51,6 +51,7 @@ const KioskGuard: React.FC<KioskGuardProps> = ({ children }) => {
 
         const setupListener = async () => {
             try {
+                const { App } = await import('@capacitor/app');
                 handler = await App.addListener('backButton', () => {
                     // Instead of exiting, show the admin modal
                     setShowModal(true);
@@ -98,7 +99,11 @@ const KioskGuard: React.FC<KioskGuardProps> = ({ children }) => {
             } else {
                 // If not in fullscreen, maybe the user wants to close the app (Capacitor)
                 try {
-                    App.exitApp();
+                    import('@capacitor/app').then(({ App }) => {
+                        App.exitApp();
+                    }).catch(() => {
+                        console.warn('Capacitor App.exitApp not available');
+                    });
                 } catch (e) {
                     console.warn('Capacitor App.exitApp not available');
                 }
