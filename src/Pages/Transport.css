@@ -120,7 +120,7 @@
 }
 
 .glass-disc {
-    width: min(90vw, 1400px);
+    width: 100%;
     height: min(52vh, 500px);
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.05);
@@ -145,7 +145,7 @@
 
 /* Details Card */
 .details-glass-card.image-only {
-    width: min(90vw, 1400px);
+    width: 100%;
     height: min(52vh, 500px);
     background: #fff;
     backdrop-filter: blur(10px);
