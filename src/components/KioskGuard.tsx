@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ShieldAlert } from 'lucide-react';
-import { App as CapacitorApp } from '@capacitor/app';
+import { App } from '@capacitor/app';
 import './KioskGuard.css';
 
 interface KioskGuardProps {
@@ -47,13 +47,25 @@ const KioskGuard: React.FC<KioskGuardProps> = ({ children }) => {
 
     // Capacitor Back Button Hijacking
     useEffect(() => {
-        const backButtonListener = CapacitorApp.addListener('backButton', () => {
-            // Instead of exiting, show the admin modal
-            setShowModal(true);
-        });
+        let handler: any;
+
+        const setupListener = async () => {
+            try {
+                handler = await App.addListener('backButton', () => {
+                    // Instead of exiting, show the admin modal
+                    setShowModal(true);
+                });
+            } catch (e) {
+                console.warn('Capacitor App plugin not available:', e);
+            }
+        };
+
+        setupListener();
 
         return () => {
-            backButtonListener.then(handler => handler.remove());
+            if (handler) {
+                handler.remove();
+            }
         };
     }, []);
 
@@ -85,7 +97,11 @@ const KioskGuard: React.FC<KioskGuardProps> = ({ children }) => {
                 document.exitFullscreen();
             } else {
                 // If not in fullscreen, maybe the user wants to close the app (Capacitor)
-                CapacitorApp.exitApp();
+                try {
+                    App.exitApp();
+                } catch (e) {
+                    console.warn('Capacitor App.exitApp not available');
+                }
             }
         } else {
             setError('Incorrect Admin Password');

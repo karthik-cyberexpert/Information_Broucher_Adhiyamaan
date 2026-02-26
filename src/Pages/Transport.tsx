@@ -7,7 +7,7 @@ import './Transport.css';
 
 // Routes Data
 const routesLeft = ["Ayyur", "Haleseebam", "Kagadasam", "Local Staff Bus", "Kaknoor", "Jawalagiri", "Mathur", "Seekanapalli"];
-const routesCenter = ["Alsanatham", "Mathigiri", "Athipalli", "Kariyamangalam", "Bargur", "Tirupathur", "Anchetty", "Hosur", "Thally"];
+const routesCenter = ["Alsanatham", "Mathigiri", "Athipalli", "Kariyamangalam", "Bargur", "Thirupathur", "Anchetty", "Hosur", "Thally"];
 const routesRight = ["Poonapalli", "Rayakottai", "Mudampatti", "Kelamangalam & Gowthalam", "Berigai", "Krishnagiri", "Basthi", "Ashok Leyland"];
 
 const transportImages = [
