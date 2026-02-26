@@ -15,13 +15,13 @@ const NavigationDock: React.FC<NavigationDockProps> = ({ onBack, onHome, onForwa
       left: '50%',
       transform: 'translateX(-50%)',
       display: 'flex',
-      gap: '20px',
-      padding: '10px 20px',
-      background: 'rgba(255, 255, 255, 0.1)',
-      backdropFilter: 'blur(10px)',
-      borderRadius: '20px',
-      border: '1px solid rgba(255, 255, 255, 0.2)',
-      boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
+      gap: '30px',
+      padding: '15px 30px',
+      background: 'rgba(255, 255, 255, 0.15)',
+      backdropFilter: 'blur(15px)',
+      borderRadius: '30px',
+      border: '1px solid rgba(255, 255, 255, 0.25)',
+      boxShadow: '0 8px 30px rgba(0, 0, 0, 0.4)',
       zIndex: 1000
     }}>
       <button
@@ -31,15 +31,16 @@ const NavigationDock: React.FC<NavigationDockProps> = ({ onBack, onHome, onForwa
           border: 'none',
           color: 'white',
           cursor: 'pointer',
-          padding: '5px',
+          padding: '10px',
           display: 'flex',
           alignItems: 'center',
-          transition: 'transform 0.2s'
+          transition: 'transform 0.2s',
+          borderRadius: '50%'
         }}
-        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.1)'}
+        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.2)'}
         onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
       >
-        <ArrowLeft size={24} />
+        <ArrowLeft size={32} />
       </button>
 
       <button
@@ -49,15 +50,16 @@ const NavigationDock: React.FC<NavigationDockProps> = ({ onBack, onHome, onForwa
           border: 'none',
           color: 'white',
           cursor: 'pointer',
-          padding: '5px',
+          padding: '10px',
           display: 'flex',
           alignItems: 'center',
-          transition: 'transform 0.2s'
+          transition: 'transform 0.2s',
+          borderRadius: '50%'
         }}
-        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.1)'}
+        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.2)'}
         onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
       >
-        <Home size={24} />
+        <Home size={32} />
       </button>
 
       <button
@@ -67,15 +69,16 @@ const NavigationDock: React.FC<NavigationDockProps> = ({ onBack, onHome, onForwa
           border: 'none',
           color: 'white',
           cursor: 'pointer',
-          padding: '5px',
+          padding: '10px',
           display: 'flex',
           alignItems: 'center',
-          transition: 'transform 0.2s'
+          transition: 'transform 0.2s',
+          borderRadius: '50%'
         }}
-        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.1)'}
+        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.2)'}
         onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
       >
-        <ArrowRight size={24} />
+        <ArrowRight size={32} />
       </button>
     </div>
   );

@@ -24,11 +24,11 @@
    HEADING
    ===================== */
 .heading {
-    font-size: clamp(2rem, 10vw, 3.5rem);
+    font-size: clamp(1.5rem, 4vh, 3rem);
     font-weight: 700;
     text-align: center;
     color: #eff1f4;
-    margin: 30px auto 10px;
+    margin: 15px auto 8px;
     opacity: 0;
     transform: translateY(20px);
     animation: textReveal 0.8s ease-out forwards;
@@ -62,7 +62,6 @@
     flex: 1;
     padding: 20px;
     background: rgba(16, 24, 40, 0.7);
-    /* Dark semi-transparent */
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -74,7 +73,7 @@
     text-align: center;
     color: #fff;
     overflow: hidden;
-    min-height: 350px;
+    min-height: min(350px, 40vh);
     display: flex;
     flex-direction: column;
 }

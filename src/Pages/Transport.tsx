@@ -243,22 +243,6 @@ const Transport = () => {
                                                     </div>
                                                 )}
 
-                                                <div className="route-info-overlay">
-                                                    <div className="info-item">
-                                                        <span className="info-label">Pickup Time</span>
-                                                        <span className="info-value">{details?.time}</span>
-                                                    </div>
-                                                    <div className="info-divider" />
-                                                    <div className="info-item">
-                                                        <span className="info-label">Driver Name</span>
-                                                        <span className="info-value">{details?.driver}</span>
-                                                    </div>
-                                                    <div className="info-divider" />
-                                                    <div className="info-item">
-                                                        <span className="info-label">Contact</span>
-                                                        <span className="info-value">{details?.phone}</span>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </motion.div>

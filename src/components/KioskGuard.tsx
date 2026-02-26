@@ -83,6 +83,16 @@ const KioskGuard: React.FC<KioskGuardProps> = ({ children }) => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
+    // Block right-click context menu in kiosk/fullscreen mode
+    useEffect(() => {
+        const blockContextMenu = (e: MouseEvent) => {
+            e.preventDefault();
+            return false;
+        };
+        document.addEventListener('contextmenu', blockContextMenu);
+        return () => document.removeEventListener('contextmenu', blockContextMenu);
+    }, []);
+
     const handleVerify = (e: React.FormEvent) => {
         e.preventDefault();
         if (password === ADMIN_PASSWORD) {

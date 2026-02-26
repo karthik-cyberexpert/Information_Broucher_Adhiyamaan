@@ -40,7 +40,7 @@ body {
 .sports-layout {
     display: grid;
     grid-template-columns: 1fr 2.6fr 1fr;
-    gap: 30px;
+    gap: clamp(15px, 2vw, 40px);
     height: calc(100vh - 100px);
 }
 
@@ -83,8 +83,7 @@ body {
 
 /* SCROLL WINDOW Container */
 .scroll-window {
-    height: 400px;
-    /* Adjust based on preferred visible height */
+    height: calc(100vh - 240px);
     overflow: hidden;
     position: relative;
     mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);

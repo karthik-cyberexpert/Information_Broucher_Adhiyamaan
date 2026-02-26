@@ -1,5 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 
+/* ===== KIOSK MODE: DISABLE SELECTION & RIGHT-CLICK VISUALS ===== */
+*,
+*::before,
+*::after {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Allow text selection only inside input fields */
+input,
+textarea {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+}
+
+/* Prevent image dragging */
+img {
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
 @keyframes holographic-flow {
   to {
     background-position: 200% center;

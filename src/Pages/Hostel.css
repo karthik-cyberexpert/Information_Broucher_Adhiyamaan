@@ -97,7 +97,7 @@
 
 .hostel-header-centered {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .main-title-alt {
@@ -129,8 +129,8 @@
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 30px;
-  padding: 40px;
+  border-radius: 24px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -149,22 +149,22 @@
 }
 
 .card-icon-wrapper {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   background: rgba(59, 130, 246, 0.1);
-  border-radius: 24px;
+  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   color: #60a5fa;
   filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.3));
 }
 
 .card-title-large {
-  font-size: 1.8rem;
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
   font-weight: 700;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .card-desc-muted {
