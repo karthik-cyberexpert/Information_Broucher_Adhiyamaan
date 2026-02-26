@@ -30,7 +30,7 @@ const routeDetails: Record<string, { time: string, driver: string, phone: string
     "Athipalli": { time: "6:50 AM", driver: "TBD", phone: "9442855079", stops: ["Athipalli", "Intermediate Point", "ACE"], image: "/images/transport/athipalli.jpg" },
     "Kariyamangalam": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Kariyamangalam", "Intermediate Point", "ACE"], image: "/images/transport/kariyamangalam.jpg" },
     "Bargur": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Bargur", "Intermediate Point", "ACE"], image: "/images/transport/Bargur.jpg" },
-    "Tirupathur": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Tirupathur", "Intermediate Point", "ACE"], image: "/images/transport/thirupathur.jpg" },
+    "Thirupathur": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Thirupathur", "Intermediate Point", "ACE"], image: "/images/transport/thirupathur.jpg" },
     "Anchetty": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Anchetty", "Intermediate Point", "ACE"], image: "/images/transport/anchetty.jpg" },
     "Hosur": { time: "8:00 AM", driver: "TBD", phone: "9442855079", stops: ["Bus Stand", "Raman Nagar", "ACE"], image: "/images/transport/15.jpg" },
     "Thally": { time: "7:15 AM", driver: "TBD", phone: "9442855079", stops: ["Thally", "Intermediate Point", "ACE"], image: "/images/transport/17.jpg" },
@@ -222,7 +222,16 @@ const Transport = () => {
                                         exit={{ opacity: 0, scale: 0.95 }}
                                         transition={{ duration: 0.4 }}
                                     >
-                                        <div className="details-glass-card image-only" onClick={() => setSelectedRoute(null)} style={{ cursor: 'pointer' }}>
+                                        <div className="details-glass-card image-only">
+                                            <div className="details-header floating">
+                                                <div className="title-row">
+                                                    <Bus size={24} color="#60a5fa" />
+                                                    <h2>{selectedRoute}</h2>
+                                                </div>
+                                                <button className="back-btn blur" onClick={() => setSelectedRoute(null)}>
+                                                    ✕ Close
+                                                </button>
+                                            </div>
 
                                             <div className="full-route-image-container">
                                                 {details?.image ? (
@@ -233,6 +242,23 @@ const Transport = () => {
                                                         <span>No preview available for {selectedRoute}</span>
                                                     </div>
                                                 )}
+
+                                                <div className="route-info-overlay">
+                                                    <div className="info-item">
+                                                        <span className="info-label">Pickup Time</span>
+                                                        <span className="info-value">{details?.time}</span>
+                                                    </div>
+                                                    <div className="info-divider" />
+                                                    <div className="info-item">
+                                                        <span className="info-label">Driver Name</span>
+                                                        <span className="info-value">{details?.driver}</span>
+                                                    </div>
+                                                    <div className="info-divider" />
+                                                    <div className="info-item">
+                                                        <span className="info-label">Contact</span>
+                                                        <span className="info-value">{details?.phone}</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </motion.div>
