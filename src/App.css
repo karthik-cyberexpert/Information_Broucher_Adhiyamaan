@@ -255,6 +255,14 @@ img {
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  /* Desktop default */
+}
+
+@media (max-width: 768px) {
+  .landing-page {
+    overflow-y: auto;
+    height: auto;
+  }
 }
 
 /* Video Background */
@@ -337,6 +345,15 @@ img {
   padding: 80px 20px;
   /* padding-top: 0px; */
   z-index: 10;
+  min-height: auto;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 100px;
+    height: auto;
+    min-height: 100vh;
+  }
 }
 
 /* Footer Styles */
@@ -629,8 +646,6 @@ img {
   font-size: 3rem;
   /* Larger text */
   /* Removed background: transparent to allow inline background image */
-  border: none;
-  box-shadow: none;
   z-index: 10;
   color: #1e3a8a;
 }

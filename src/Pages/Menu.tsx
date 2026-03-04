@@ -14,7 +14,7 @@ import droneAnimation from '../assets/drone_fly.json';
 
 const navItems = [
   { title: 'B.E.', id: 'be', bg: '/images/becourse.jpg' },
-  { title: 'B.Tech.', id: 'btech', bg: '/images/btech.jpg' },
+  { title: 'B.Tech.', id: 'btech', bg: '/images/btech/btechbg.jpeg' },
   { title: 'B.Arch.', id: 'barch', bg: '/images/civilback.jpg' },
   { title: 'M.E.', id: 'me', bg: '/images/me.jpg' },
   { title: 'M.B.A.', id: 'mba', bg: '/images/mba.jpg' },
@@ -379,7 +379,7 @@ const Menu = () => {
                     color: '#ffd700',
                     textTransform: 'uppercase'
                   }}>
-                    For Details Contact
+                    For Admission
                   </span>
                 </div>
                 <div style={{

@@ -35,17 +35,11 @@ const Home = () => {
       <div className="main-content">
         <div style={{
           position: 'absolute',
-          top: '30px',
+          top: '50%',
           left: '50%',
-          transform: 'translateX(-50%)',
+          transform: 'translate(-50%, -50%)',
           textAlign: 'center',
           zIndex: 20,
-          padding: '1.5rem 3rem',
-          background: 'rgba(0, 0, 0, 0.3)',
-          backdropFilter: 'blur(8px)',
-          borderRadius: '20px',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-          boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
           width: 'max-content',
           maxWidth: '90vw'
         }}>

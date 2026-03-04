@@ -39,7 +39,8 @@
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 100px 1fr 80px;
+    /* 4 rows: Title, Main area, Center buttons row, Footer */
+    grid-template-rows: 100px 1fr auto 80px;
     grid-template-columns: 12% 76% 12%;
     z-index: 10;
 }
@@ -75,18 +76,31 @@
     border-radius: 14px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     width: 175px;
+    min-width: 175px;
+    max-width: 175px;
     height: 44px;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .route-card.center {
-    width: auto;
-    min-width: 100px;
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+    height: 40px;
+    padding: 8px 10px;
+}
+
+.route-card.center .route-text {
+    font-size: 0.7rem;
 }
 
 .route-text {
     font-size: 0.8rem;
     font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Edges */
@@ -115,8 +129,10 @@
     grid-column: 2;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    /* Adjusted from space-between */
     align-items: center;
+    padding: 0 40px;
 }
 
 .glass-disc {
@@ -137,10 +153,14 @@
 }
 
 .edge-center-bottom {
+    grid-row: 3;
+    grid-column: 2;
     width: 100%;
     display: flex;
     justify-content: center;
-    padding-bottom: 20px;
+    padding-bottom: 25px;
+    /* Added spacing from footer */
+    z-index: 15;
 }
 
 /* Details Card */
@@ -223,7 +243,7 @@
 }
 
 .edge-bottom {
-    grid-row: 3;
+    grid-row: 4;
     grid-column: 1 / span 2;
     display: flex;
     align-items: center;
@@ -242,6 +262,113 @@
     .transport-page {
         overflow-y: auto;
         height: auto;
+        min-height: 100vh;
+        background: #0f172a;
+        /* Fallback */
+    }
+
+    .mobile-route-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .route-card-mobile {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .card-info {
+        width: 100%;
+    }
+
+    .route-name {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: white;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Mobile Details Modal */
+    .mobile-details-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        padding: env(safe-area-inset-top) 0 0;
+    }
+
+    .mobile-details-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .title-section {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .title-section h3 {
+        margin: 0;
+        font-size: 1.1rem;
+        color: white;
+    }
+
+    .mobile-close-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: white;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-details-content {
+        flex: 1;
+        overflow-y: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .mobile-route-detail-img {
+        width: 100%;
+        height: auto;
+        max-height: 90vh;
+        object-fit: contain;
+    }
+
+    .no-image-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        color: rgba(255, 255, 255, 0.4);
     }
 }
 

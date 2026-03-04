@@ -1,76 +1,159 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ShieldAlert } from 'lucide-react';
-// Capacitor app import removed to use dynamic import below
+import { useLocation } from 'react-router-dom';
 import './KioskGuard.css';
 
 interface KioskGuardProps {
     children: React.ReactNode;
 }
 
-const ADMIN_PASSWORD = '123'; // Default password as requested
+const ADMIN_PASSWORD = '123';
 
 const KioskGuard: React.FC<KioskGuardProps> = ({ children }) => {
+    const location = useLocation();
     const [showModal, setShowModal] = useState(false);
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [isFullscreen, setIsFullscreen] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
 
-    // Function to enter fullscreen
+    // ─── Fullscreen ──────────────────────────────────────────────────────────
+
     const enterFullscreen = useCallback(() => {
-        const docElm = document.documentElement;
-        if (docElm.requestFullscreen) {
-            docElm.requestFullscreen().catch(err => {
-                console.warn(`Error attempting to enable full-screen mode: ${err.message}`);
-            });
+        const el = document.documentElement as any;
+        try {
+            if (el.requestFullscreen) el.requestFullscreen();
+            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen(); // iOS Safari / older Chrome
+            else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+        } catch (err) {
+            console.warn('Fullscreen request failed:', err);
         }
     }, []);
 
+    const exitFullscreen = useCallback(() => {
+        try {
+            const doc = document as any;
+            if (doc.exitFullscreen) doc.exitFullscreen();
+            else if (doc.webkitExitFullscreen) doc.webkitExitFullscreen();
+            else if (doc.mozCancelFullScreen) doc.mozCancelFullScreen();
+        } catch (err) {
+            console.warn('Exit fullscreen failed:', err);
+        }
+    }, []);
 
-    // Handle first interaction to trigger fullscreen
+    // Track fullscreen state
     useEffect(() => {
-        const initialInteraction = () => {
-            if (!document.fullscreenElement) {
-                enterFullscreen();
+        const handleFsChange = () => {
+            const doc = document as any;
+            const inFs = !!(
+                doc.fullscreenElement ||
+                doc.webkitFullscreenElement ||
+                doc.mozFullScreenElement
+            );
+            setIsFullscreen(inFs);
+
+            // If fullscreen was exited unexpectedly (user swiped down on Android, etc.)
+            // and the modal is not open, show the modal first, then try to re-enter FS
+            if (!inFs && !showModal) {
+                setShowModal(true);
             }
-            // Remove listener after first interaction
-            window.removeEventListener('click', initialInteraction);
-            window.removeEventListener('touchstart', initialInteraction);
         };
 
-        window.addEventListener('click', initialInteraction);
-        window.addEventListener('touchstart', initialInteraction);
+        document.addEventListener('fullscreenchange', handleFsChange);
+        document.addEventListener('webkitfullscreenchange', handleFsChange);
+        document.addEventListener('mozfullscreenchange', handleFsChange);
 
         return () => {
-            window.removeEventListener('click', initialInteraction);
-            window.removeEventListener('touchstart', initialInteraction);
+            document.removeEventListener('fullscreenchange', handleFsChange);
+            document.removeEventListener('webkitfullscreenchange', handleFsChange);
+            document.removeEventListener('mozfullscreenchange', handleFsChange);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [showModal]);
+
+    // Enter fullscreen on first user interaction (required by browsers)
+    useEffect(() => {
+        const onFirstInteraction = () => {
+            enterFullscreen();
+            window.removeEventListener('click', onFirstInteraction);
+            window.removeEventListener('touchstart', onFirstInteraction);
+            window.removeEventListener('keydown', onFirstInteraction);
+        };
+
+        window.addEventListener('click', onFirstInteraction);
+        window.addEventListener('touchstart', onFirstInteraction, { passive: true });
+        window.addEventListener('keydown', onFirstInteraction);
+
+        return () => {
+            window.removeEventListener('click', onFirstInteraction);
+            window.removeEventListener('touchstart', onFirstInteraction);
+            window.removeEventListener('keydown', onFirstInteraction);
         };
     }, [enterFullscreen]);
 
-    // Capacitor Back Button Hijacking
-    useEffect(() => {
-        let handler: any;
+    // ─── Android Back Button (History API trap) ──────────────────────────────
+    // Push a dummy state so the back button fires `popstate` instead of navigating away
+    // Only apply this logic on the home page '/'
 
-        const setupListener = async () => {
-            try {
-                const { App } = await import('@capacitor/app');
-                handler = await App.addListener('backButton', () => {
-                    // Instead of exiting, show the admin modal
-                    setShowModal(true);
-                });
-            } catch (e) {
-                console.warn('Capacitor App plugin not available:', e);
+    useEffect(() => {
+        if (location.pathname === '/') {
+            // Push initial dummy state
+            history.pushState({ kioskLocked: true }, '');
+
+            const handlePopState = () => {
+                // User pressed Back – intercept it, re-push dummy state, show modal
+                history.pushState({ kioskLocked: true }, '');
+                setShowModal(true);
+            };
+
+            window.addEventListener('popstate', handlePopState);
+
+            return () => {
+                window.removeEventListener('popstate', handlePopState);
+            };
+        }
+    }, [location.pathname]);
+
+    // ─── Home / Recents / Tab switch (visibilitychange + blur) ───────────────
+
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.hidden) {
+                // User pressed Home, Recents, or switched to another app/tab
+                setShowModal(true);
             }
         };
 
-        setupListener();
+        const handleBlur = () => {
+            // Window lost focus – another app or task switcher is in front
+            setShowModal(true);
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        window.addEventListener('blur', handleBlur);
 
         return () => {
-            if (handler) {
-                handler.remove();
-            }
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+            window.removeEventListener('blur', handleBlur);
         };
     }, []);
 
-    // Prevent typical exit keys if on desktop (Esc)
+    // ─── Before Unload (Close Tab / Browser) ─────────────────────────────────
+
+    useEffect(() => {
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            e.preventDefault();
+            // Modern Chrome requires returnValue to be set
+            e.returnValue = 'Admin authentication required to leave this page.';
+            return e.returnValue;
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, []);
+
+    // ─── Escape Key ──────────────────────────────────────────────────────────
+
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape') {
@@ -83,86 +166,89 @@ const KioskGuard: React.FC<KioskGuardProps> = ({ children }) => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
-    // Block right-click context menu in kiosk/fullscreen mode
+    // ─── Block Right-Click ───────────────────────────────────────────────────
+
     useEffect(() => {
-        const blockContextMenu = (e: MouseEvent) => {
-            e.preventDefault();
-            return false;
-        };
-        document.addEventListener('contextmenu', blockContextMenu);
-        return () => document.removeEventListener('contextmenu', blockContextMenu);
+        const block = (e: MouseEvent) => e.preventDefault();
+        document.addEventListener('contextmenu', block);
+        return () => document.removeEventListener('contextmenu', block);
     }, []);
+
+    // ─── Auto-focus input when modal opens ───────────────────────────────────
+
+    useEffect(() => {
+        if (showModal) {
+            setTimeout(() => inputRef.current?.focus(), 100);
+        }
+    }, [showModal]);
+
+    // ─── Handlers ────────────────────────────────────────────────────────────
 
     const handleVerify = (e: React.FormEvent) => {
         e.preventDefault();
         if (password === ADMIN_PASSWORD) {
-            // Correct password
             setError('');
             setShowModal(false);
             setPassword('');
-
-            // If we are in fullscreen, we might want to exit it as an "Admin Action"
-            // or actually allow app exit if on mobile.
-            // For now, let's exit fullscreen as the "Unlock" action.
-            if (document.fullscreenElement) {
-                document.exitFullscreen();
-            } else {
-                // If not in fullscreen, maybe the user wants to close the app (Capacitor)
-                try {
-                    import('@capacitor/app').then(({ App }) => {
-                        App.exitApp();
-                    }).catch(() => {
-                        console.warn('Capacitor App.exitApp not available');
-                    });
-                } catch (e) {
-                    console.warn('Capacitor App.exitApp not available');
-                }
-            }
+            // Admin authenticated — exit fullscreen so they can control the device
+            exitFullscreen();
         } else {
             setError('Incorrect Admin Password');
             setPassword('');
+            inputRef.current?.focus();
         }
     };
 
-    const closeOverlay = () => {
+    const handleCancel = () => {
         setShowModal(false);
         setPassword('');
         setError('');
-        // Re-ensure fullscreen if it was dismissed
-        if (!document.fullscreenElement) {
+        // Re-enter fullscreen if we exited
+        if (!isFullscreen) {
             enterFullscreen();
         }
+        // Re-push history dummy state so back button is trapped again
+        history.pushState({ kioskLocked: true }, '');
     };
+
+    // ─── Render ──────────────────────────────────────────────────────────────
 
     return (
         <>
             {children}
 
             {showModal && (
-                <div className="kiosk-overlay">
+                <div className="kiosk-overlay" role="dialog" aria-modal="true">
                     <div className="kiosk-modal">
                         <div className="kiosk-icon">
-                            <ShieldAlert size={32} />
+                            <ShieldAlert size={36} />
                         </div>
                         <h2 className="kiosk-title">ADMIN ACCESS</h2>
-                        <p className="kiosk-subtitle">Enter password to exit kiosk mode</p>
+                        <p className="kiosk-subtitle">
+                            Enter admin password to exit kiosk mode
+                        </p>
 
                         <form onSubmit={handleVerify} className="kiosk-form">
                             <div className="kiosk-input-wrapper">
                                 <input
+                                    ref={inputRef}
                                     type="password"
                                     className="kiosk-input"
                                     placeholder="Enter Admin Password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    autoFocus
+                                    autoComplete="off"
                                 />
                             </div>
 
                             {error && <div className="kiosk-error">{error}</div>}
 
                             <div className="kiosk-actions">
-                                <button type="button" className="kiosk-btn btn-cancel" onClick={closeOverlay}>
+                                <button
+                                    type="button"
+                                    className="kiosk-btn btn-cancel"
+                                    onClick={handleCancel}
+                                >
                                     CANCEL
                                 </button>
                                 <button type="submit" className="kiosk-btn btn-confirm">

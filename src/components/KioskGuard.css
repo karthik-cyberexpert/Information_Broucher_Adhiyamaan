@@ -5,15 +5,17 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(15, 23, 42, 0.7);
+    background: rgba(15, 23, 42, 0.75);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10000;
-    /* Extremely high z-index to cover everything */
+    /* Must sit above everything — including Android in-browser overlays */
+    z-index: 2147483647;
     animation: kioskFadeIn 0.3s ease-out;
+    /* Prevent the overlay itself from being dismissed by touch outside */
+    touch-action: none;
 }
 
 @keyframes kioskFadeIn {
@@ -29,15 +31,17 @@
 }
 
 .kiosk-modal {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 24px;
-    padding: 40px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 28px;
+    padding: 48px 40px;
     width: 90%;
-    max-width: 400px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    max-width: 460px;
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(59, 130, 246, 0.15);
     text-align: center;
     color: white;
     animation: kioskSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -45,46 +49,52 @@
 
 @keyframes kioskSlideUp {
     from {
-        transform: translateY(30px);
+        transform: translateY(40px) scale(0.96);
         opacity: 0;
     }
 
     to {
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
         opacity: 1;
     }
 }
 
 .kiosk-icon {
-    width: 64px;
-    height: 64px;
+    width: 72px;
+    height: 72px;
     margin: 0 auto 20px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.25);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #3b82f6;
+    color: #60a5fa;
 }
 
 .kiosk-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.5rem;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
     font-weight: 700;
-    margin-bottom: 8px;
-    letter-spacing: 1px;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #ffffff, #93c5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .kiosk-subtitle {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.6);
-    margin-bottom: 30px;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 32px;
+    line-height: 1.5;
 }
 
 .kiosk-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 16px;
 }
 
 .kiosk-input-wrapper {
@@ -95,68 +105,119 @@
 
 .kiosk-input {
     width: 100%;
-    padding: 14px 18px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    /* Large touch targets for Android touchscreen */
+    padding: 18px 22px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
     color: white;
-    font-size: 1rem;
+    font-size: clamp(1rem, 2.5vw, 1.1rem);
     outline: none;
     transition: all 0.2s ease;
+    /* Prevent Android keyboard from covering the input awkwardly */
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.kiosk-input::placeholder {
+    color: rgba(255, 255, 255, 0.35);
 }
 
 .kiosk-input:focus {
     background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(59, 130, 246, 0.5);
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.6);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
 }
 
 .kiosk-error {
-    color: #ef4444;
-    font-size: 0.85rem;
-    margin-top: -10px;
-    margin-bottom: 10px;
+    color: #f87171;
+    font-size: clamp(0.82rem, 2vw, 0.9rem);
     text-align: left;
+    padding: 0 4px;
+    animation: errorShake 0.3s ease;
+}
+
+@keyframes errorShake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-6px);
+    }
+
+    75% {
+        transform: translateX(6px);
+    }
 }
 
 .kiosk-actions {
     display: flex;
-    gap: 12px;
-    margin-top: 10px;
+    gap: 14px;
+    margin-top: 6px;
 }
 
 .kiosk-btn {
     flex: 1;
-    padding: 14px;
-    border-radius: 12px;
-    font-weight: 600;
+    /* Generous touch target — minimum 56px height */
+    padding: 18px 14px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    letter-spacing: 0.5px;
     cursor: pointer;
     transition: all 0.2s ease;
     font-family: 'Inter', sans-serif;
+    /* Prevent text selection on touch */
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
 .btn-cancel {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: white;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.8);
 }
 
-.btn-cancel:hover {
-    background: rgba(255, 255, 255, 0.1);
+.btn-cancel:active {
+    background: rgba(255, 255, 255, 0.12);
+    transform: scale(0.97);
 }
 
 .btn-confirm {
     background: linear-gradient(135deg, #2563eb, #1e40af);
     border: none;
     color: white;
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-}
-
-.btn-confirm:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
 }
 
 .btn-confirm:active {
-    transform: translateY(0);
+    transform: scale(0.97);
+    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.3);
+}
+
+/* ── TV / Large touchscreen adjustments ─────────────────────── */
+@media (min-width: 1200px) {
+    .kiosk-modal {
+        max-width: 520px;
+        padding: 56px 48px;
+    }
+
+    .kiosk-icon {
+        width: 88px;
+        height: 88px;
+    }
+
+    .kiosk-input {
+        padding: 20px 24px;
+        font-size: 1.15rem;
+    }
+
+    .kiosk-btn {
+        padding: 20px 16px;
+        font-size: 1.05rem;
+    }
 }

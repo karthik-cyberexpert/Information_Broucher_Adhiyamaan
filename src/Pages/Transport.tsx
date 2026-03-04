@@ -87,7 +87,7 @@ const RouteList = ({ routes, section, globalProgress, onRouteClick }: any) => {
             display: 'flex',
             flexDirection: section === 'center' ? 'row' : 'column',
             flexWrap: 'nowrap',
-            gap: '20px',
+            gap: section === 'center' ? '12px' : '20px',
             width: '100%',
             height: '100%',
             alignItems: 'center',
@@ -249,10 +249,10 @@ const Transport = () => {
                                 )}
                             </AnimatePresence>
                         </div>
+                    </div>
 
-                        <div className="edge-center-bottom">
-                            <RouteList routes={routesCenter} section="center" globalProgress={progress} onRouteClick={setSelectedRoute} />
-                        </div>
+                    <div className="edge-center-bottom">
+                        <RouteList routes={routesCenter} section="center" globalProgress={progress} onRouteClick={setSelectedRoute} />
                     </div>
 
                     <div className="edge-right">
@@ -267,15 +267,78 @@ const Transport = () => {
             )}
 
             {isMobile && (
-                <div className="transport-mobile-layout" style={{ padding: '100px 20px 20px', zIndex: 10 }}>
-                    {[...routesLeft, ...routesCenter, ...routesRight].map((r, i) => (
-                        <div key={i} className="route-card mobile" onClick={() => setSelectedRoute(r)}>
-                            <Bus size={18} />
-                            <span>{r}</span>
-                        </div>
-                    ))}
+                <div className="transport-mobile-header" style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 100, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(10px)', padding: '20px', display: 'flex', alignItems: 'center', gap: '15px' }}>
+                    <Bus size={24} color="#3b82f6" />
+                    <h1 style={{ fontSize: '1.2rem', margin: 0, color: 'white' }}>ACE Transport Routes</h1>
                 </div>
             )}
+
+            {isMobile && (
+                <div className="transport-mobile-layout" style={{ padding: '80px 15px 120px', zIndex: 10 }}>
+                    <div className="mobile-route-grid">
+                        {[...routesLeft, ...routesCenter, ...routesRight].map((r, i) => {
+                            const routeImg = routeDetails[r]?.image;
+                            return (
+                                <motion.div
+                                    key={i}
+                                    className="route-card-mobile"
+                                    onClick={() => setSelectedRoute(r)}
+                                    whileTap={{ scale: 0.95 }}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: i * 0.05 }}
+                                >
+                                    <div className="card-image-bg" style={{
+                                        backgroundImage: routeImg ? `url(${routeImg})` : 'none',
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center',
+                                        height: '100px',
+                                        width: '100%',
+                                        borderRadius: '10px',
+                                        marginBottom: '10px',
+                                        background: routeImg ? '' : 'rgba(255,255,255,0.1)'
+                                    }}>
+                                        {!routeImg && <Bus size={32} color="rgba(255,255,255,0.2)" />}
+                                    </div>
+                                    <div className="card-info">
+                                        <span className="route-name">{r}</span>
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
+
+            {/* Mobile Details Modal */}
+            <AnimatePresence>
+                {isMobile && selectedRoute && (
+                    <motion.div
+                        className="mobile-details-overlay"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                    >
+                        <div className="mobile-details-header">
+                            <div className="title-section">
+                                <Bus size={20} color="#60a5fa" />
+                                <h3>{selectedRoute}</h3>
+                            </div>
+                            <button className="mobile-close-btn" onClick={() => setSelectedRoute(null)}>✕</button>
+                        </div>
+                        <div className="mobile-details-content">
+                            {details?.image ? (
+                                <img src={details.image} alt={selectedRoute} className="mobile-route-detail-img" />
+                            ) : (
+                                <div className="no-image-mobile">
+                                    <MapPin size={48} color="rgba(255,255,255,0.2)" />
+                                    <span>No preview available</span>
+                                </div>
+                            )}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             <NavigationDock onBack={() => navigate(-1)} onHome={() => navigate('/thank-you')} onForward={() => navigate(1)} />
         </div>
