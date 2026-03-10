@@ -35,9 +35,9 @@ const Home = () => {
       <div className="main-content">
         <div style={{
           position: 'absolute',
-          top: '50%',
+          top: '20px',
           left: '50%',
-          transform: 'translate(-50%, -50%)',
+          transform: 'translateX(-50%)',
           textAlign: 'center',
           zIndex: 20,
           width: 'max-content',
