@@ -43,9 +43,9 @@ export default function About() {
     { text: "Approved By AICTE, New Delhi", img: "aicte.png" },
     { text: "Affiliated To Anna University, Chennai", img: "annauniversity.png" },
     { text: "Approved By Council Of Architecture, New Delhi", img: "ca.png" },
-    { text: "Autonomous Status, UGC, New Delhi", img: "a4.png" },
+    { text: "Autonomous Status, UGC, New Delhi", img: "autonomous new delhi.png" },
     { text: "Recognized By Government of Tamil Nadu", img: "tamilnadu.png" },
-    { text: "Accredited NAAC, New Delhi", img: "a6.png" },
+    { text: "Accredited NAAC, New Delhi", img: "nacc new delhi.png" },
     { text: "Accredited By NBA, New Delhi", img: "nba.png" },
     { text: "Recognition of Scientific and Industrial Research Organisation (SIRO) by DSIR", img: "dsir.png" }
   ];
